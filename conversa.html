@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nodian — Conversa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet" />
+  <style>
+/* [DECISÃO] Tokens derivados 100% do brandbook Nodian — nenhuma cor inventada */
+:root {
+  --color-bg:        #f5f5f5;
+  --color-black:     #161616;
+  --color-pure-black:#000000;
+  --color-gray:      #676767;
+  --color-white:     #ffffff;
+  --color-sand:      #c6b198;
+  --color-amber:     #f6b359;
+  --color-coral:     #e07b5a;
+  --color-red:       #e3404a;
+  --color-pink:      #e23f4a;
+  --color-lilac:     #ab87bd;
+  --color-blue:      #7295cd;
+  --color-green:     #55b583;
+  --color-bg-end:    #ebebeb;
+  --radius-card:     30px;
+  --radius-btn:      30px;
+  --radius-inner:    12px;
+  --radius-avatar:   50%;
+  --shadow-card:     0 2px 8px rgba(0,0,0,0.07);
+  --shadow-raised:   0 4px 16px rgba(0,0,0,0.10);
+  --shadow-modal:    0 8px 48px rgba(0,0,0,0.18);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--color-bg);
+  color: var(--color-black);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+html, body {
+  margin: 0; padding: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+}
+
+/* ===================== PAGE SHELL ===================== */
+#page-conversa {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  padding: 0;
+}
+
+.conversa-wrapper {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+/* ===================== SEARCH CHAT LAYOUT ===================== */
+.search-chat-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ===================== CHAT HISTORY SIDEBAR ===================== */
+.chat-history-sidebar {
+  width: 0; min-width: 0; height: 100%;
+  background: #ffffff;
+  border-right: 0px solid rgba(0,0,0,0.07);
+  display: flex; flex-direction: column; flex-shrink: 0;
+  overflow: hidden;
+  transition: width 0.3s cubic-bezier(0.4,0,0.2,1),
+              min-width 0.3s cubic-bezier(0.4,0,0.2,1),
+              border-right-width 0.3s ease;
+}
+.chat-history-sidebar.open {
+  width: 260px; min-width: 260px; border-right-width: 1px;
+}
+.chat-history-sidebar__header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding: 20px 16px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  flex-shrink: 0; min-height: 80px; box-sizing: border-box; min-width: 260px;
+}
+.chat-history-sidebar__title {
+  font-size: 12px; font-weight: 600; color: var(--color-gray);
+  text-transform: uppercase; letter-spacing: 0.06em; flex: 1; white-space: nowrap;
+}
+.chat-history-sidebar__close-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border: none; background: transparent;
+  cursor: pointer; border-radius: var(--radius-inner);
+  color: var(--color-gray); flex-shrink: 0; transition: background 0.15s, color 0.15s;
+}
+.chat-history-sidebar__close-btn:hover { background: var(--color-bg); color: var(--color-black); }
+.chat-history-sidebar__close-btn svg {
+  width: 15px; height: 15px; stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.chat-history-sidebar__new-area {
+  padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.06);
+  flex-shrink: 0; min-width: 260px;
+}
+.chat-history-sidebar__new-btn {
+  display: flex; align-items: center; gap: 7px; width: 100%;
+  padding: 9px 14px; border: none; border-radius: var(--radius-btn);
+  background: var(--color-black); cursor: pointer;
+  font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600;
+  color: #ffffff; transition: background 0.15s; white-space: nowrap;
+}
+.chat-history-sidebar__new-btn:hover { opacity: 0.82; }
+.chat-history-sidebar__new-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+.chat-history-sidebar__list {
+  flex: 1; overflow-y: auto; padding: 8px 0; min-width: 260px;
+}
+.explorar-history__item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; cursor: pointer; transition: background 0.12s; min-width: 260px;
+}
+.explorar-history__item:hover { background: var(--color-bg); }
+.explorar-history__item-icon {
+  width: 28px; height: 28px; border-radius: var(--radius-inner);
+  background: var(--color-bg); display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0; color: var(--color-gray);
+}
+.explorar-history__item-icon svg {
+  width: 13px; height: 13px; stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.explorar-history__item-text { flex: 1; min-width: 0; }
+.explorar-history__item-query {
+  font-size: 12px; font-weight: 500; color: var(--color-black);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.explorar-history__item-date {
+  font-size: 11px; font-weight: 400; color: var(--color-gray); margin-top: 1px;
+}
+
+/* ===================== CHAT PANEL ===================== */
+.chat-panel {
+  display: flex; flex-direction: column; height: 100%;
+  flex: 1; min-width: 0; overflow: hidden;
+  background: var(--color-white); position: relative;
+  transition: flex-basis 0.6s cubic-bezier(0.4,0,0.2,1),
+              width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.chat-panel__header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; position: relative; min-height: 80px; box-sizing: border-box;
+}
+.chat-panel__history-toggle {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border: none; background: transparent;
+  cursor: pointer; border-radius: var(--radius-inner);
+  color: var(--color-gray); flex-shrink: 0; transition: background 0.15s, color 0.15s;
+}
+.chat-panel__history-toggle:hover { background: var(--color-bg); color: var(--color-black); }
+.chat-panel__history-toggle svg {
+  width: 16px; height: 16px; stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+/* ===================== CHAT PANEL TITLE ===================== */
+.chat-panel__title-group {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 4px; pointer-events: none;
+  max-width: calc(100% - 200px);
+}
+.chat-panel__title {
+  font-size: 13px; font-weight: 600; color: var(--color-black); line-height: 1.4;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ===================== CHAT MESSAGES ===================== */
+.chat-messages {
+  flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 40px;
+  padding: 48px 24px 32px;
+  width: 100%; max-width: 720px; margin: 0 auto; box-sizing: border-box;
+}
+.chat-message--user,
+.chat-message--assistant {
+  width: 100%; box-sizing: border-box;
+}
+.chat-message--user { display: flex; justify-content: flex-end; }
+.chat-message--user__bubble {
+  padding: 10px 16px; border-radius: 18px;
+  background: rgba(0,0,0,0.07); color: var(--color-black);
+  font-size: 14px; font-weight: 400; line-height: 1.5;
+  word-break: break-word; max-width: 80%;
+}
+.chat-message--assistant { display: flex; flex-direction: column; gap: 16px; }
+
+.chat-topic {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.chat-topic + .chat-topic {
+  padding-top: 40px;
+  margin-top: 36px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+.chat-message--assistant__bubble {
+  padding: 0; border-radius: 0; background: transparent;
+  font-size: 14px; font-weight: 400; color: var(--color-black);
+  line-height: 1.75; word-break: break-word; max-width: none;
+}
+.chat-message--assistant__bubble h3 {
+  font-size: 18px; font-weight: 700; margin: 0 0 4px; line-height: 1.3;
+}
+.chat-message--assistant__bubble .bubble-subtitle {
+  font-size: 14px; font-weight: 600; margin: 0 0 8px; line-height: 1.5;
+  font-style: italic;
+}
+.chat-message--assistant__bubble ul {
+  margin: 12px 0 0; padding-left: 22px; list-style: disc;
+}
+.chat-message--assistant__bubble li {
+  margin-bottom: 8px; line-height: 1.7; font-size: 14px;
+}
+
+/* Summary table */
+.chat-summary { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.08); }
+
+/* Inline data app mini-card */
+.inline-dataapp {
+  display: flex; align-items: flex-start; gap: 8px; margin-top: 6px;
+  padding: 8px 12px; border-radius: 10px;
+  background: var(--color-white); border: 1px solid rgba(0,0,0,0.08);
+  font-size: 12px; font-weight: 600; color: var(--color-black);
+  text-decoration: none; cursor: pointer;
+  max-width: 100%; vertical-align: middle;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+.inline-dataapp:hover {
+  border-color: rgba(0,0,0,0.15); box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.inline-dataapp__icon {
+  width: 22px; height: 22px; border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; font-weight: 800; flex-shrink: 0; margin-top: 1px;
+}
+.inline-dataapp__icon--superset { background: rgba(44,62,80,0.12); color: var(--color-black); }
+.inline-dataapp__body {
+  display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1;
+}
+.inline-dataapp__name {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; font-weight: 600;
+}
+.inline-dataapp__meta {
+  font-size: 10px; font-weight: 400; color: rgba(0,0,0,0.45); font-style: italic; line-height: 1.4;
+}
+.inline-dataapp__meta mark {
+  background: none; color: rgba(0,0,0,0.65); font-weight: 600; font-style: italic;
+}
+.inline-dataapp__cids {
+  font-size: 10px; font-weight: 400; color: rgba(0,0,0,0.45); line-height: 1.4;
+}
+.inline-dataapp__badge {
+  padding: 2px 5px; border-radius: 4px;
+  background: rgba(245,158,11,0.12); color: var(--color-amber);
+  font-size: 9px; font-weight: 600; white-space: nowrap; flex-shrink: 0;
+  align-self: flex-start; margin-top: 2px;
+}
+.complementary-list { margin: 0; padding-left: 22px; list-style: disc; }
+.complementary-list li { margin-bottom: 12px; line-height: 1.7; font-size: 14px; }
+
+/* Inline data app with cohort attached */
+.inline-dataapp--with-cohort {
+  flex-direction: column; padding: 0; gap: 0; cursor: default;
+}
+.inline-dataapp--with-cohort .inline-dataapp__header {
+  display: flex; align-items: flex-start; gap: 8px; padding: 8px 12px; width: 100%; box-sizing: border-box;
+}
+.inline-dataapp--with-cohort .inline-cohort {
+  margin: 0; border-radius: 0 0 8px 8px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  border: none; border-top: 1px solid rgba(0,0,0,0.05);
+  background: rgba(245,158,11,0.03);
+}
+.inline-cohort {
+  margin-top: 8px; padding: 8px 12px; border-radius: 8px;
+  background: rgba(245,158,11,0.04); border: 1px solid rgba(245,158,11,0.15);
+  font-size: 12px;
+}
+.inline-cohort__row {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+}
+.inline-cohort__label {
+  font-weight: 600; color: rgba(0,0,0,0.5); font-size: 11px;
+}
+.inline-cohort__name {
+  font-weight: 600; color: var(--color-black); font-size: 12px;
+  padding: 2px 8px; border-radius: 6px;
+  border: 1px solid rgba(245,158,11,0.25); background: rgba(245,158,11,0.06);
+}
+.inline-cohort__count {
+  font-weight: 400; color: rgba(0,0,0,0.45); font-size: 10px;
+}
+.inline-cohort__actions {
+  display: flex; gap: 8px; margin-top: 8px;
+}
+.inline-cohort__confirm, .inline-cohort__review {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: 6px;
+  font-size: 11px; font-weight: 600; cursor: pointer;
+  border: 1px solid; transition: background 0.15s;
+}
+.inline-cohort__confirm {
+  background: var(--color-green); color: white; border-color: var(--color-green);
+}
+.inline-cohort__confirm:hover { opacity: 0.9; }
+.inline-cohort__review {
+  background: transparent; color: rgba(0,0,0,0.55); border-color: rgba(0,0,0,0.1);
+}
+.inline-cohort__review:hover { background: rgba(0,0,0,0.03); }
+.inline-cohort--confirmed {
+  background: rgba(85,181,131,0.04); border-color: rgba(85,181,131,0.2);
+}
+
+/* Relevância semântica */
+.card-relevance {
+  font-size: 12px; color: rgba(0,0,0,0.5); font-style: italic;
+  line-height: 1.5; margin-top: 4px;
+}
+.card-relevance mark {
+  background: none; color: var(--color-black); font-weight: 600; font-style: italic;
+}
+
+/* Cobertura de CIDs */
+.card-cids {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin-top: 6px; font-size: 11px; color: rgba(0,0,0,0.5);
+}
+.card-cids__label { font-weight: 600; white-space: nowrap; }
+.card-cids__tag {
+  padding: 1px 6px; border-radius: 4px;
+  background: rgba(0,0,0,0.04); font-family: 'SF Mono', 'Consolas', monospace;
+  font-size: 10px; color: rgba(0,0,0,0.6);
+}
+.card-cids__more {
+  font-size: 10px; color: var(--color-blue); cursor: pointer;
+  text-decoration: underline; background: none; border: none; padding: 0; font-weight: 500;
+}
+.card-cids--suggestion .card-cids__label { color: var(--color-amber); }
+
+/* Relevância inline nos complementares */
+.complementary-relevance {
+  display: block; font-size: 11px; color: rgba(0,0,0,0.45); font-style: italic;
+  margin-top: 2px;
+}
+.complementary-relevance mark {
+  background: none; color: rgba(0,0,0,0.65); font-weight: 600; font-style: italic;
+}
+.summary-table {
+  width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px;
+}
+.summary-table th {
+  text-align: left; font-weight: 700; padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.summary-table th + th { padding-left: 24px; }
+.summary-table td {
+  padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.05);
+  vertical-align: top; line-height: 1.5;
+}
+.summary-table td + td { padding-left: 24px; }
+.summary-table tr:last-child td { border-bottom: 1px solid rgba(0,0,0,0.05); }
+.summary-table td:first-child { font-weight: 400; white-space: nowrap; }
+.summary-cids { font-size: 11px; color: rgba(0,0,0,0.5); }
+
+/* ===================== ASSET CARD ===================== */
+.asset-cards-row { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+.asset-card {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: var(--radius-inner);
+  background: var(--color-white); border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-card); cursor: pointer;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  text-decoration: none; min-height: 44px; position: relative;
+}
+.asset-card:hover { box-shadow: var(--shadow-raised); border-color: rgba(0,0,0,0.12); }
+.asset-card__icon {
+  width: 32px; height: 32px; border-radius: var(--radius-inner);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 700; flex-shrink: 0; letter-spacing: 0.04em;
+}
+.asset-card__icon--powerbi  { background: rgba(246,179,89,0.18);  color: var(--color-black); }
+.asset-card__icon--superset { background: rgba(85,181,131,0.15);  color: var(--color-green); }
+.asset-card__icon--metabase { background: rgba(114,149,205,0.18); color: var(--color-blue); }
+.asset-card__icon--pdf      { background: rgba(227,64,74,0.12);   color: var(--color-red); }
+.asset-card__body { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.asset-card__name {
+  font-size: 13px; font-weight: 600; color: var(--color-black);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3;
+}
+.asset-card__subtitle {
+  font-size: 11px; font-weight: 500; color: var(--color-gray);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3;
+}
+.asset-card__arrow {
+  width: 16px; height: 16px; flex-shrink: 0;
+  stroke: var(--color-gray); fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  transition: stroke 0.15s;
+}
+.asset-card:hover .asset-card__arrow { stroke: var(--color-blue); }
+
+/* ===================== TIPO BADGE (Pronto / Requer filtros) ===================== */
+/* [DECISÃO] Badge no canto superior direito do AssetCard — Von Restorff: diferencia visualmente os dois tipos */
+.asset-card__badge {
+  position: absolute;
+  top: -8px; right: 12px;
+  padding: 3px 10px;
+  border-radius: 30px;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  white-space: nowrap;
+  z-index: 2;
+}
+/* [DECISÃO] Tipo 1 "Pronto" — --color-green; comunica que está pronto para uso */
+.asset-card__badge--pronto {
+  background: rgba(85,181,131,0.15);
+  color: var(--color-green);
+  border: 1px solid rgba(85,181,131,0.3);
+}
+/* [DECISÃO] Tipo 2 "Requer filtros" — --color-amber border; comunica que precisa de ação */
+.asset-card__badge--filtros {
+  background: rgba(246,179,89,0.15);
+  color: #8a5a00;
+  border: 1px solid var(--color-amber);
+}
+/* [DECISÃO] Tipo 2 card com borda amber sutil — affordance visual de que precisa interação */
+.asset-card--tipo2 {
+  border-color: rgba(246,179,89,0.4);
+}
+.asset-card--tipo2:hover {
+  border-color: var(--color-amber);
+}
+/* [DECISÃO] Tipo 2 transformado para Pronto — borda verde, badge verde */
+.asset-card--tipo2.filtros-aplicados {
+  border-color: rgba(85,181,131,0.4);
+}
+.asset-card--tipo2.filtros-aplicados:hover {
+  border-color: var(--color-green);
+}
+
+/* [DECISÃO] Filtros aplicados exibidos como sub-info no card */
+.asset-card__filtros-aplicados {
+  font-size: 10px; font-weight: 400; color: var(--color-green);
+  margin-top: 2px; display: flex; align-items: center; gap: 4px;
+}
+.asset-card__filtros-aplicados svg {
+  width: 11px; height: 11px; stroke: var(--color-green); fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0;
+}
+
+/* ===================== CARD FILTER DROPDOWN ===================== */
+/* [DECISÃO] Dropdown embutido no asset-card — coorte sugerida como pacote, 1 clique para confirmar */
+.asset-card--tipo2 {
+  flex-direction: column;
+  align-items: stretch;
+  cursor: default;
+}
+.asset-card--tipo2 .asset-card__main {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+}
+.card-filter-dropdown {
+  display: none;
+  padding: 12px 0 4px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  margin-top: 10px;
+}
+.card-filter-dropdown.open { display: block; }
+
+/* [DECISÃO] Coorte sugerida — pacote fechado com nome legível, contagem e ações */
+.card-filter__cohort {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.card-filter__cohort-label {
+  font-size: 11px; font-weight: 500; color: var(--color-gray);
+  white-space: nowrap;
+}
+.card-filter__cohort-name {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: var(--radius-btn);
+  background: rgba(85,181,131,0.06);
+  border: 1px solid rgba(85,181,131,0.25);
+  font-size: 12px; font-weight: 600; color: var(--color-black);
+  line-height: 1.3;
+}
+.card-filter__cohort-count {
+  font-size: 10px; font-weight: 600; color: var(--color-green);
+  background: rgba(85,181,131,0.12); border-radius: 30px;
+  padding: 1px 7px; line-height: 1.5;
+}
+
+/* [DECISÃO] Botão confirmar — verde, ação principal, Fitts's Law */
+.card-filter__confirm-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 14px; border-radius: var(--radius-btn);
+  border: none; background: var(--color-green); color: var(--color-white);
+  font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 600;
+  cursor: pointer; transition: opacity 0.15s, box-shadow 0.15s;
+  line-height: 1.3;
+}
+.card-filter__confirm-btn:hover {
+  opacity: 0.9; box-shadow: 0 2px 8px rgba(85,181,131,0.3);
+}
+.card-filter__confirm-btn svg {
+  width: 12px; height: 12px; stroke: currentColor; fill: none;
+  stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0;
+}
+
+/* [DECISÃO] "Revisar" — link discreto para abrir modal de revisão granular */
+.card-filter__review-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 5px 10px; border: none; background: transparent;
+  font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 500;
+  color: var(--color-gray); cursor: pointer;
+  border-radius: var(--radius-btn);
+  transition: color 0.15s, background 0.15s;
+}
+.card-filter__review-btn:hover {
+  color: var(--color-black); background: rgba(0,0,0,0.04);
+}
+.card-filter__review-btn svg {
+  width: 11px; height: 11px; stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ===================== COHORT REVIEW MODAL ===================== */
+/* [DECISÃO] Layout 2 colunas: esquerda = checkboxes agrupados, direita = selecionados com remoção */
+.cid-modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.4); z-index: 9000;
+  align-items: center; justify-content: center;
+}
+.cid-modal-overlay.open { display: flex; }
+.cid-modal {
+  background: var(--color-white); border-radius: var(--radius-card);
+  box-shadow: var(--shadow-modal); width: 94%; max-width: 960px;
+  max-height: 85vh; display: flex; flex-direction: column;
+  position: relative; animation: modalIn 0.25s ease;
+  overflow: hidden;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Header */
+.cid-modal__header {
+  padding: 28px 32px 0; flex-shrink: 0;
+}
+.cid-modal__close {
+  position: absolute; top: 20px; right: 20px;
+  width: 32px; height: 32px; border: none; background: transparent;
+  cursor: pointer; border-radius: var(--radius-inner);
+  color: var(--color-gray); display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+.cid-modal__close:hover { background: var(--color-bg); color: var(--color-black); }
+.cid-modal__close svg {
+  width: 16px; height: 16px; stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.cid-modal__title {
+  font-size: 18px; font-weight: 700; color: var(--color-black);
+  margin-bottom: 4px;
+}
+.cid-modal__subtitle {
+  font-size: 13px; font-weight: 400; color: var(--color-gray);
+  line-height: 1.5; margin-bottom: 16px;
+}
+
+/* Search bar */
+.cid-modal__search {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--color-bg); border-radius: var(--radius-btn);
+  padding: 10px 16px; border: 1.5px solid rgba(0,0,0,0.08);
+  margin: 0 32px 16px; transition: border-color 0.15s;
+}
+.cid-modal__search:focus-within { border-color: var(--color-black); }
+.cid-modal__search svg {
+  width: 16px; height: 16px; stroke: var(--color-gray); fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0;
+}
+.cid-modal__search-input {
+  flex: 1; border: none; background: transparent; outline: none;
+  font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 400;
+  color: var(--color-black); min-width: 0;
+}
+.cid-modal__search-input::placeholder { color: var(--color-gray); }
+
+/* [DECISÃO] 2-column body: left = browse/check, right = selected summary */
+.cid-modal__columns {
+  flex: 1; display: flex; overflow: hidden; min-height: 0;
+}
+
+/* Left column — checkboxes */
+.cid-modal__left {
+  flex: 1; overflow-y: auto; padding: 0 32px 16px;
+  border-right: 1px solid rgba(0,0,0,0.06);
+  min-width: 0;
+}
+.cid-modal__section-title {
+  font-size: 11px; font-weight: 700; color: var(--color-gray);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin: 20px 0 6px; padding-bottom: 0;
+}
+.cid-modal__group-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 0 6px; cursor: pointer; user-select: none;
+}
+.cid-modal__group-arrow {
+  width: 14px; height: 14px; stroke: var(--color-gray); fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  transition: transform 0.15s; flex-shrink: 0;
+}
+.cid-modal__group-header.collapsed .cid-modal__group-arrow {
+  transform: rotate(-90deg);
+}
+.cid-modal__group-check {
+  width: 20px; height: 20px; border-radius: 4px;
+  border: 1.5px solid rgba(0,0,0,0.2); background: var(--color-white);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.cid-modal__group-check.checked {
+  background: var(--color-blue); border-color: var(--color-blue);
+}
+.cid-modal__group-check svg {
+  width: 12px; height: 12px; stroke: var(--color-white); fill: none;
+  stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+  display: none;
+}
+.cid-modal__group-check.checked svg { display: block; }
+.cid-modal__group-label {
+  font-size: 13px; font-weight: 400; color: var(--color-black);
+}
+.cid-modal__group-label strong { font-weight: 700; }
+.cid-modal__group-count {
+  font-size: 12px; font-weight: 400; color: var(--color-gray);
+  margin-left: 2px;
+}
+
+/* Item rows */
+.cid-modal__items { padding-left: 28px; }
+.cid-modal__items.collapsed { display: none; }
+.cid-modal__item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 0; font-size: 13px; color: var(--color-black); line-height: 1.4;
+}
+.cid-modal__checkbox {
+  width: 20px; height: 20px; border-radius: 4px;
+  border: 1.5px solid rgba(0,0,0,0.2); background: var(--color-white);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.cid-modal__checkbox.checked {
+  background: var(--color-blue); border-color: var(--color-blue);
+}
+.cid-modal__checkbox svg {
+  width: 12px; height: 12px; stroke: var(--color-white); fill: none;
+  stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+  display: none;
+}
+.cid-modal__checkbox.checked svg { display: block; }
+.cid-modal__item-code {
+  font-weight: 700; font-size: 12px; color: var(--color-black);
+  flex-shrink: 0;
+}
+.cid-modal__item-name {
+  flex: 1; min-width: 0; color: var(--color-black);
+}
+
+/* Right column — selected summary */
+.cid-modal__right {
+  width: 380px; flex-shrink: 0; display: flex; flex-direction: column;
+  background: var(--color-bg); overflow: hidden;
+}
+.cid-modal__right-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px 12px; flex-shrink: 0;
+}
+.cid-modal__right-title {
+  font-size: 14px; font-weight: 700; color: var(--color-black);
+}
+.cid-modal__right-clear {
+  font-size: 12px; font-weight: 500; color: var(--color-red, #e74c3c);
+  cursor: pointer; border: none; background: none;
+  font-family: 'Poppins', sans-serif;
+  transition: opacity 0.15s;
+}
+.cid-modal__right-clear:hover { opacity: 0.7; }
+.cid-modal__right-body {
+  flex: 1; overflow-y: auto; padding: 0 24px 16px;
+}
+.cid-modal__right-section {
+  font-size: 11px; font-weight: 700; color: var(--color-gray);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin: 12px 0 6px;
+}
+.cid-modal__right-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.04);
+  font-size: 13px; color: var(--color-black); line-height: 1.4;
+}
+.cid-modal__right-item:last-child { border-bottom: none; }
+.cid-modal__right-item-text {
+  flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.cid-modal__right-remove {
+  width: 22px; height: 22px; border: none; background: transparent;
+  cursor: pointer; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-gray); transition: background 0.15s, color 0.15s;
+}
+.cid-modal__right-remove:hover { background: rgba(0,0,0,0.06); color: var(--color-black); }
+.cid-modal__right-remove svg {
+  width: 12px; height: 12px; stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* Footer */
+.cid-modal__footer {
+  padding: 16px 32px 24px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: flex-end; gap: 12px;
+  background: var(--color-white);
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.cid-modal__footer-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 28px; border-radius: var(--radius-btn);
+  border: none; background: var(--color-black); color: var(--color-white);
+  font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: opacity 0.15s;
+}
+.cid-modal__footer-btn:hover { opacity: 0.85; }
+
+/* Responsive: stack columns on narrow screens */
+@media (max-width: 700px) {
+  .cid-modal { max-width: 98%; }
+  .cid-modal__columns { flex-direction: column; }
+  .cid-modal__left { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.06); max-height: 45vh; }
+  .cid-modal__right { width: 100%; max-height: 35vh; }
+}
+
+/* ===================== CHAT INPUT ===================== */
+.chat-input-area {
+  border-top: 1px solid rgba(0,0,0,0.06); background: var(--color-white);
+  padding: 16px 24px 24px;
+  max-width: 720px; margin: 0 auto; width: 100%; box-sizing: border-box;
+}
+.chat-input-row {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--color-bg); border-radius: var(--radius-btn);
+  padding: 8px 8px 8px 20px; border: 1.5px solid transparent; transition: border-color 0.15s;
+}
+.chat-input-row:focus-within { border-color: var(--color-black); }
+.chat-input {
+  flex: 1; border: none; background: transparent;
+  font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 300;
+  font-style: italic; color: var(--color-black); outline: none; min-width: 0;
+}
+.chat-input::placeholder { color: var(--color-gray); }
+.chat-input:not(:placeholder-shown) { font-style: normal; font-weight: 400; }
+.chat-send-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--color-black); color: var(--color-white);
+  border: none; cursor: pointer; display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.chat-send-btn:hover { opacity: 0.8; }
+.chat-send-btn svg {
+  width: 16px; height: 16px; fill: none; stroke: currentColor;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ===================== RESULTS AREA (hidden) ===================== */
+.results-area { display: none; }
+
+/* ===================== TOAST ===================== */
+.toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+
+/* ===================== TYPING INDICATOR ===================== */
+/* [DECISÃO] 3 dots pulsando — simula processamento da IA, Peak-End Rule */
+.chat-typing {
+  display: flex; flex-direction: column; gap: 0;
+  padding: 0; width: fit-content;
+}
+.chat-typing__step {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: rgba(0,0,0,0.4); font-weight: 400;
+  padding: 4px 0; opacity: 0; transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+.chat-typing__step.active {
+  opacity: 1; transform: translateY(0); color: rgba(0,0,0,0.6);
+}
+.chat-typing__step.done {
+  opacity: 1; transform: translateY(0); color: rgba(0,0,0,0.35);
+}
+.chat-typing__spinner {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.08);
+  border-top-color: var(--color-amber);
+  animation: typingSpin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+.chat-typing__check {
+  width: 14px; height: 14px; flex-shrink: 0;
+  color: rgba(85,181,131,0.7);
+}
+@keyframes typingSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===================== MESSAGE REVEAL ANIMATION ===================== */
+@keyframes messageReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.chat-message--reveal {
+  animation: messageReveal 0.35s ease-out;
+}
+.toast {
+  padding: 12px 20px; border-radius: var(--radius-inner);
+  background: var(--color-black); color: var(--color-white);
+  font-size: 13px; font-weight: 500;
+  box-shadow: var(--shadow-modal); animation: toastIn 0.3s ease;
+}
+@keyframes toastIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===================== P8: OVERFLOW SEGURO PARA BADGE ===================== */
+/* [DECISÃO] overflow:visible nos containers de cards — badge top:-8px não é cortada */
+.asset-cards-row {
+  overflow: visible;
+}
+.asset-card {
+  overflow: visible;
+}
+
+/* ===================== ANIMATION: CARD TRANSITION ===================== */
+@keyframes cardTransform {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); box-shadow: 0 4px 20px rgba(85,181,131,0.25); }
+  100% { transform: scale(1); }
+}
+.asset-card--transforming {
+  animation: cardTransform 0.5s ease;
+}
+
+/* ===================== PRIMARY CARD — destaque visual ===================== */
+/* [DECISÃO] Von Restorff: apenas 1 card é visualmente especial.
+   Mais padding, nome maior, borda azul sutil, shadow mais presente. */
+.asset-card--primary {
+  padding: 16px 18px;
+  border: 1.5px solid rgba(114,149,205,0.35);
+  box-shadow: 0 2px 12px rgba(114,149,205,0.12);
+}
+.asset-card--primary:hover {
+  border-color: var(--color-blue);
+  box-shadow: 0 4px 20px rgba(114,149,205,0.2);
+}
+.asset-card--primary .asset-card__icon {
+  width: 38px; height: 38px; font-size: 10px;
+}
+.asset-card--primary .asset-card__name {
+  font-size: 14px; font-weight: 700;
+  white-space: normal; line-height: 1.4;
+}
+.asset-card--primary .asset-card__subtitle {
+  font-size: 11px;
+}
+.asset-card--primary .asset-card__arrow {
+  width: 18px; height: 18px;
+}
+.asset-card--primary:hover .asset-card__arrow { stroke: var(--color-blue); }
+
+/* ===================== COMPLEMENTARY SECTION ===================== */
+/* [DECISÃO] Grupo "Também relevantes" — visual rebaixado para não competir com o principal.
+   Cards menores, opacidade reduzida, texto mais curto. */
+.chat-complementary {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+.chat-complementary__label {
+  font-size: 12px; font-weight: 600; color: var(--color-gray);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 10px; padding-bottom: 0;
+}
+
+/* Cards dentro de complementary: mais compactos e discretos */
+.chat-complementary .asset-card {
+  padding: 8px 12px;
+  border-color: rgba(0,0,0,0.05);
+  box-shadow: none;
+  opacity: 1;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.chat-complementary .asset-card:hover {
+  opacity: 1;
+  box-shadow: var(--shadow-card);
+  border-color: rgba(0,0,0,0.1);
+}
+.chat-complementary .asset-card__icon {
+  width: 28px; height: 28px; font-size: 8px;
+}
+.chat-complementary .asset-card__name {
+  font-size: 12px; font-weight: 600;
+}
+.chat-complementary .asset-card__subtitle {
+  font-size: 10px;
+}
+.chat-complementary .asset-card__arrow {
+  width: 14px; height: 14px;
+}
+
+/* Texto de guia nos complementares: mais curto e discreto */
+.chat-complementary .chat-message--assistant__bubble {
+  font-size: 13px; color: var(--color-gray); line-height: 1.6;
+}
+.chat-complementary .chat-message--assistant__bubble strong {
+  color: var(--color-black);
+}
+
+/* Tipo 2 dentro de complementary mantém borda amber mas com opacidade */
+.chat-complementary .asset-card--tipo2 {
+  border-color: rgba(246,179,89,0.25);
+}
+.chat-complementary .asset-card--tipo2:hover {
+  border-color: rgba(246,179,89,0.5);
+}
+.chat-complementary .asset-card--tipo2.filtros-aplicados {
+  border-color: rgba(85,181,131,0.25);
+}
+.chat-complementary .asset-card--tipo2.filtros-aplicados:hover {
+  border-color: rgba(85,181,131,0.5);
+}
+
+/* Topic separators inside complementary: less spacing */
+.chat-complementary .chat-topic + .chat-topic {
+  padding-top: 36px;
+  margin-top: 32px;
+}
+  </style>
+</head>
+<body>
+  <div id="page-conversa">
+    <div class="conversa-wrapper">
+      <div class="search-chat-layout" id="search-chat-layout">
+
+        <!-- ── HISTORY SIDEBAR ── -->
+        <aside class="chat-history-sidebar" id="chat-history-sidebar">
+          <div class="chat-history-sidebar__header">
+            <span class="chat-history-sidebar__title">Histórico</span>
+            <button class="chat-history-sidebar__close-btn" onclick="toggleChatHistorySidebar()" aria-label="Fechar histórico">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+          </div>
+          <div class="chat-history-sidebar__new-area">
+            <button class="chat-history-sidebar__new-btn" aria-label="Iniciar nova análise">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Nova análise
+            </button>
+          </div>
+          <div class="chat-history-sidebar__list" id="chat-history-sidebar-list">
+            <!-- Mock history items -->
+            <div class="explorar-history__item">
+              <div class="explorar-history__item-icon">
+                <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div class="explorar-history__item-text">
+                <div class="explorar-history__item-query">Perfil pacientes câncer de mama</div>
+                <div class="explorar-history__item-date">Hoje, 14:32</div>
+              </div>
+            </div>
+            <div class="explorar-history__item">
+              <div class="explorar-history__item-icon">
+                <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div class="explorar-history__item-text">
+                <div class="explorar-history__item-query">Mortalidade cardiovascular por região</div>
+                <div class="explorar-history__item-date">Ontem, 09:15</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- ── CHAT PANEL ── -->
+        <div class="chat-panel" id="chat-panel">
+
+          <div class="chat-panel__header">
+            <button class="chat-panel__history-toggle" onclick="toggleChatHistorySidebar()" aria-label="Abrir histórico">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </button>
+            <div class="chat-panel__title-group">
+              <span class="chat-panel__title">Perfil de pacientes com câncer de mama</span>
+            </div>
+            <button class="chat-panel__dash-toggle" id="dash-toggle-btn" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+            </button>
+          </div>
+
+          <!-- ── MENSAGENS PRÉ-RENDERIZADAS ── -->
+          <div class="chat-messages" id="chat-messages">
+
+            <!-- === TURNO 1: Pergunta do usuário === -->
+            <div class="chat-message--user" id="turno-1" style="display:none">
+              <div class="chat-message--user__bubble">Qual o perfil dos pacientes com câncer de mama atendidos no SUS?</div>
+            </div>
+
+            <!-- Typing indicator with process steps -->
+            <div class="chat-typing" id="typing-indicator" style="display:none">
+              <div class="chat-typing__step" data-step="0">
+                <span class="chat-typing__spinner"></span>
+                <span>Interpretando "câncer de mama"…</span>
+              </div>
+              <div class="chat-typing__step" data-step="1">
+                <span class="chat-typing__spinner"></span>
+                <span>Buscando CIDs relacionados (C50.1, C50.2, C50.4…)</span>
+              </div>
+              <div class="chat-typing__step" data-step="2">
+                <span class="chat-typing__spinner"></span>
+                <span>Identificando procedimentos SIGTAP associados…</span>
+              </div>
+              <div class="chat-typing__step" data-step="3">
+                <span class="chat-typing__spinner"></span>
+                <span>Encontrando os dashboards mais relevantes…</span>
+              </div>
+              <div class="chat-typing__step" data-step="4">
+                <span class="chat-typing__spinner"></span>
+                <span>Classificando por relevância para sua pergunta…</span>
+              </div>
+            </div>
+
+            <!-- === TURNO 2: Resposta da IA com dashboards inline === -->
+            <div class="chat-message--assistant" id="turno-2" style="display:none">
+              <div class="chat-message--assistant__bubble">
+                Encontrei <strong>3 dashboards</strong> que ajudam a entender o perfil de pacientes com câncer de mama no SUS. Cada um responde uma pergunta diferente:
+              </div>
+
+              <!-- Bloco 1: Atlas Pacientes Tratados — PRINCIPAL -->
+              <div class="chat-topic">
+              <div class="chat-message--assistant__bubble">
+                <h3>Atlas Câncer de Mama: Pacientes Tratados Ambulatorial</h3>
+                <div class="bubble-subtitle">Responde: quem é essa paciente?</div>
+                Parte dos atendimentos filtrados pelos CIDs de neoplasia maligna da mama. Combina perfil demográfico em um único painel.
+                <ul>
+                  <li><strong>Perfil demográfico:</strong> faixa etária, sexo e raça/cor em um painel integrado</li>
+                  <li><strong>Filtro por CID:</strong> parte dos atendimentos com neoplasia maligna da mama</li>
+                  <li><strong>Histórico:</strong> cobre quase duas décadas de dados, garantindo solidez temporal</li>
+                </ul>
+              </div>
+              <div class="asset-cards-row">
+                <div class="asset-card asset-card--primary" role="button" tabindex="0"
+                     aria-label="Abrir Atlas Câncer de Mama — Pacientes Tratados"
+                     onclick="openDashboard('https://superset.nodian.com.br/superset/dashboard/171/?dash=cancer_mama&standalone=2&expand_filters=0', 'Atlas Câncer de Mama — Pacientes Tratados')">
+                  <div class="asset-card__icon asset-card__icon--superset">SS</div>
+                  <div class="asset-card__body">
+                    <span class="asset-card__name">Atlas Câncer de Mama — Pacientes Tratados Ambulatorial</span>
+                    <span class="asset-card__subtitle">Superset · SIA/SUS · 34 visualizações · 14 abas</span>
+                    <div class="card-cids">
+                      <span class="card-cids__label">Contém:</span>
+                      <span class="card-cids__tag">C50.1</span>
+                      <span class="card-cids__tag">C50.2</span>
+                      <span class="card-cids__tag">C50.4</span>
+                      <span class="card-cids__tag">C50.6</span>
+                      <button class="card-cids__more" onclick="event.stopPropagation();">+6 CIDs</button>
+                    </div>
+                  </div>
+                  <svg class="asset-card__arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+              </div>
+              </div>
+
+              <!-- ── COMPLEMENTARES ── -->
+              <div class="chat-complementary">
+              <div class="chat-complementary__label">Também relevantes</div>
+              <div class="chat-message--assistant__bubble">
+                <ul class="complementary-list">
+                  <li>Mostra <strong>onde e com que intensidade</strong> o câncer de mama incide — cruza dados do SIA/SUS com projeções populacionais do IBGE para calcular taxas por região e faixa etária.
+                    <a class="inline-dataapp" href="#" onclick="event.preventDefault(); openDashboard('https://superset.nodian.com.br/superset/dashboard/178/?dash=cancer_mama&standalone=2&expand_filters=0', 'Atlas Câncer de Mama — Incidência')">
+                      <span class="inline-dataapp__icon inline-dataapp__icon--superset">SS</span>
+                      <span class="inline-dataapp__body">
+                        <span class="inline-dataapp__name">Atlas Câncer de Mama — Incidência Ambulatorial</span>
+                        <span class="inline-dataapp__cids">Contém: C50.1, C50.2, C50.4, C50.6 +2 CIDs</span>
+                      </span>
+                    </a>
+                  </li>
+                  <li>Cobre <strong>toda a base de pacientes do SUS</strong>, não só oncologia — útil para saber se um padrão observado no câncer de mama é específico ou sistêmico.
+                    <div class="inline-dataapp inline-dataapp--with-cohort">
+                      <div class="inline-dataapp__header" role="button" style="cursor:pointer" onclick="openReviewModal('a')">
+                        <span class="inline-dataapp__icon inline-dataapp__icon--superset">SS</span>
+                        <span class="inline-dataapp__body">
+                          <span class="inline-dataapp__name">Pacientes — Perfil Demográfico por CID</span>
+                          <span class="inline-dataapp__cids">Sugestão: 10 CIDs de câncer de mama</span>
+                        </span>
+                        <span class="inline-dataapp__badge" id="badge-inline-a">Requer filtros</span>
+                      </div>
+                      <div class="inline-cohort" id="inline-cohort-a">
+                        <div class="inline-cohort__row">
+                          <span class="inline-cohort__label">Coorte sugerida:</span>
+                          <span class="inline-cohort__name">Câncer de Mama <span class="inline-cohort__count">10 CIDs · 8 proc.</span></span>
+                        </div>
+                        <div class="inline-cohort__actions">
+                          <button class="inline-cohort__confirm" onclick="confirmInlineCohort('a')">
+                            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Confirmar
+                          </button>
+                          <button class="inline-cohort__review" onclick="openReviewModal('a')">
+                            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            Revisar
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              </div><!-- /.chat-complementary -->
+
+              <!-- Resumo final -->
+              <div class="chat-topic chat-summary">
+                <div class="chat-message--assistant__bubble">
+                  <h3>Resumo</h3>
+                  <table class="summary-table">
+                    <thead>
+                      <tr><th>Dashboard</th><th>Relevância</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Atlas Câncer de Mama: Pacientes Tratados Ambulatorial<br><span class="summary-cids">Contém C50.1, C50.2, C50.4, C50.6 +6</span></td>
+                        <td>⭐⭐⭐ Principal — perfil demográfico completo</td>
+                      </tr>
+                      <tr>
+                        <td>Atlas Câncer de Mama: Incidência Ambulatorial<br><span class="summary-cids">Contém C50.1, C50.2, C50.4, C50.6 +2</span></td>
+                        <td>⭐⭐ Complementar — epidemiologia e taxa por território</td>
+                      </tr>
+                      <tr>
+                        <td>Pacientes: Perfil Demográfico por CID<br><span class="summary-cids">Sugestão: 10 CIDs de câncer de mama</span></td>
+                        <td>⭐ Comparativo — precisa de filtro</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- === TURNO 3: Follow-up do usuário === -->
+            <div class="chat-message--user" id="turno-3" style="display:none">
+              <div class="chat-message--user__bubble">Tem algo sobre as internações hospitalares desses pacientes?</div>
+            </div>
+
+            <!-- === TURNO 4: Resposta com Metabase SIH já filtrado === -->
+            <div class="chat-message--assistant" id="turno-4" style="display:none">
+              <div class="chat-message--assistant__bubble">
+                Sim — o dashboard de <strong>Características das Internações</strong> que aparece acima cobre exatamente isso. Ele usa dados do SIH/SUS e mostra KPIs de internações, distribuição por faixa etária, caráter de atendimento, natureza jurídica do hospital e evolução temporal. Basta selecionar o CID C50 no filtro acima para ver os dados de câncer de mama.
+                <br><br>
+                Se já selecionou o CID, o dashboard está pronto — clique no card para abrir.
+              </div>
+            </div>
+
+          </div><!-- /.chat-messages -->
+
+          <!-- ── INPUT ── -->
+          <div class="chat-input-area">
+            <div class="chat-input-row">
+              <input class="chat-input" type="text" placeholder="Faça uma pergunta…" aria-label="Busca conversacional" />
+              <button class="chat-send-btn" aria-label="Enviar pergunta">
+                <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </div>
+
+        </div><!-- /.chat-panel -->
+
+        <!-- ── RESULTS AREA (hidden) ── -->
+        <div class="results-area" id="results-area" aria-hidden="true"></div>
+
+      </div><!-- /.search-chat-layout -->
+    </div><!-- /.conversa-wrapper -->
+  </div><!-- /#page-conversa -->
+
+  <!-- COHORT REVIEW MODAL -->
+  <div class="cid-modal-overlay" id="cid-modal-overlay" onclick="closeReviewModal(event)">
+    <div class="cid-modal" onclick="event.stopPropagation()">
+      <button class="cid-modal__close" onclick="closeReviewModal()" aria-label="Fechar">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div class="cid-modal__header">
+        <div class="cid-modal__title" id="cid-modal-title">Coorte</div>
+        <div class="cid-modal__subtitle">Busque e selecione os códigos para definir sua coorte.</div>
+      </div>
+
+      <div class="cid-modal__search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input class="cid-modal__search-input" type="text" placeholder="Buscar por doença ou procedimento…" aria-label="Buscar" />
+      </div>
+
+      <div class="cid-modal__columns">
+        <!-- LEFT: checkboxes -->
+        <div class="cid-modal__left" id="cid-modal-left">
+
+          <div class="cid-modal__section-title">CID-10</div>
+
+          <div class="cid-modal__group-header" onclick="toggleGroup(this)">
+            <svg class="cid-modal__group-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            <div class="cid-modal__group-check checked" onclick="event.stopPropagation(); toggleGroupCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span class="cid-modal__group-label">Sugestões <strong>Códigos sugeridos pela busca</strong></span>
+            <span class="cid-modal__group-count">(10)</span>
+          </div>
+          <div class="cid-modal__items" data-group="cid">
+            <div class="cid-modal__item" data-code="C501" data-section="cid">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">C501</span>
+              <span class="cid-modal__item-name">Neoplasia maligna da porção central da mama</span>
+            </div>
+            <div class="cid-modal__item" data-code="C502" data-section="cid">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">C502</span>
+              <span class="cid-modal__item-name">Neoplasia maligna do quadrante superior interno da mama</span>
+            </div>
+            <div class="cid-modal__item" data-code="C504" data-section="cid">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">C504</span>
+              <span class="cid-modal__item-name">Neoplasia maligna do quadrante superior externo da mama</span>
+            </div>
+            <div class="cid-modal__item" data-code="C506" data-section="cid">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">C506</span>
+              <span class="cid-modal__item-name">Neoplasia maligna da porção axilar da mama</span>
+            </div>
+            <div class="cid-modal__item" data-code="D486" data-section="cid">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">D486</span>
+              <span class="cid-modal__item-name">Neoplasia de comportamento incerto ou desconhecido da mama</span>
+            </div>
+            <div class="cid-modal__item" data-code="N61" data-section="cid">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">N61</span>
+              <span class="cid-modal__item-name">Transtornos inflamatórios da mama</span>
+            </div>
+            <div class="cid-modal__item" data-code="N645" data-section="cid">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">N645</span>
+              <span class="cid-modal__item-name">Outros sintomas e sinais da mama</span>
+            </div>
+            <div class="cid-modal__item" data-code="N648" data-section="cid">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">N648</span>
+              <span class="cid-modal__item-name">Outros transtornos especificados da mama</span>
+            </div>
+            <div class="cid-modal__item" data-code="R92" data-section="cid">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">R92</span>
+              <span class="cid-modal__item-name">Achados anormais, de exames para diagnóstico por imagem, da mama</span>
+            </div>
+            <div class="cid-modal__item" data-code="Z853" data-section="cid">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">Z853</span>
+              <span class="cid-modal__item-name">História pessoal de neoplasia maligna de mama</span>
+            </div>
+          </div>
+
+          <div class="cid-modal__section-title" style="margin-top:28px">PROCEDIMENTO SIGTAP</div>
+
+          <div class="cid-modal__group-header" onclick="toggleGroup(this)">
+            <svg class="cid-modal__group-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            <div class="cid-modal__group-check checked" onclick="event.stopPropagation(); toggleGroupCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span class="cid-modal__group-label">Sugestões <strong>Códigos sugeridos pela busca</strong></span>
+            <span class="cid-modal__group-count">(10)</span>
+          </div>
+          <div class="cid-modal__items" data-group="proc">
+            <div class="cid-modal__item" data-code="0304020133" data-section="proc">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">0304020133</span>
+              <span class="cid-modal__item-name">Quimioterapia Do Carcinoma De Mama Avançado -1ª Linha</span>
+            </div>
+            <div class="cid-modal__item" data-code="0304020141" data-section="proc">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">0304020141</span>
+              <span class="cid-modal__item-name">Quimioterapia Do Carcinoma De Mama Avançado - 2ª Linha</span>
+            </div>
+            <div class="cid-modal__item" data-code="0304040185" data-section="proc">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">0304040185</span>
+              <span class="cid-modal__item-name">Poliquimioterapia Do Carcinoma De Mama Her-2 Positivo Em Estádio III (Prévia)</span>
+            </div>
+            <div class="cid-modal__item" data-code="0304050067" data-section="proc">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">0304050067</span>
+              <span class="cid-modal__item-name">Quimioterapia Do Carcinoma De Mama Em Estádio III</span>
+            </div>
+            <div class="cid-modal__item" data-code="0304050075" data-section="proc">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">0304050075</span>
+              <span class="cid-modal__item-name">Quimioterapia Do Carcinoma De Mama Em Estádio II</span>
+            </div>
+            <div class="cid-modal__item" data-code="0304050121" data-section="proc">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">0304050121</span>
+              <span class="cid-modal__item-name">Hormonioterapia Do Carcinoma De Mama Em Estádio II</span>
+            </div>
+            <div class="cid-modal__item" data-code="0304050130" data-section="proc">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">0304050130</span>
+              <span class="cid-modal__item-name">Quimioterapia Do Carcinoma De Mama Em Estádio I</span>
+            </div>
+            <div class="cid-modal__item" data-code="0304050288" data-section="proc">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">0304050288</span>
+              <span class="cid-modal__item-name">Poliquimioterapia Do Carcinoma De Mama Her-2 Positivo Em Estádio III (Adjuvante)</span>
+            </div>
+            <div class="cid-modal__item" data-code="0901010014" data-section="proc">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">0901010014</span>
+              <span class="cid-modal__item-name">OCI Avaliação Diagnóstica Inicial De Câncer De Mama</span>
+            </div>
+            <div class="cid-modal__item" data-code="0901010022" data-section="proc">
+              <div class="cid-modal__checkbox checked" onclick="toggleCheck(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="cid-modal__item-code">0901010022</span>
+              <span class="cid-modal__item-name">OCI Progressão Da Avaliação Diagnóstica De Câncer De Mama</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT: selected summary -->
+        <div class="cid-modal__right">
+          <div class="cid-modal__right-header">
+            <span class="cid-modal__right-title" id="cid-modal-selected-title">Selecionados (20)</span>
+            <button class="cid-modal__right-clear" onclick="clearAllSelections()">Limpar tudo</button>
+          </div>
+          <div class="cid-modal__right-body" id="cid-modal-selected-body">
+            <!-- populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <div class="cid-modal__footer">
+        <button class="cid-modal__footer-btn" onclick="applyReviewModal()">Usar seleção</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+<script>
+// ===================== STATE =====================
+var activeModalTarget = null; // 'a' or 'b'
+var COHORT_LABEL = 'Câncer de Mama';
+
+// [DECISÃO] URLs reais dos dashboards — Tipo 2 recebe CID via parâmetro
+// Para o mock, confirmCohort usa o CID principal C50
+var dashboardUrls = {
+  a: function(cid) {
+    return 'https://superset.nodian.com.br/superset/dashboard/22/?standalone=2&native_filters=(NATIVE_FILTER-CID:(__cache:(label:' + encodeURIComponent(cid) + ',validateStatus:!f,value:!(' + encodeURIComponent("'" + cid + "'") + ')),extraFormData:(filters:!((col:cid_10,op:IN,val:!(' + encodeURIComponent("'" + cid + "'") + ')))),filterState:(label:' + encodeURIComponent(cid) + ',validateStatus:!f,value:!(' + encodeURIComponent("'" + cid + "'") + ')),id:NATIVE_FILTER-CID,ownState:()))';
+  },
+  b: function(cid) {
+    return 'https://insights.nodian.com.br/public/dashboard/bfdf1722-52a1-418c-86d0-53302827a26d?cid=' + encodeURIComponent(cid);
+  }
+};
+
+var dashboardNames = {
+  a: 'Pacientes — Perfil Demográfico',
+  b: 'Características das Internações'
+};
+
+// ===================== OPEN DASHBOARD =====================
+function openDashboard(url, name) {
+  showToast('Abrindo ' + name + '…');
+  window.open(url, '_blank');
+}
+
+// ===================== SIDEBAR TOGGLE =====================
+function toggleChatHistorySidebar() {
+  var sidebar = document.getElementById('chat-history-sidebar');
+  if (!sidebar) return;
+  sidebar.classList.toggle('open');
+}
+
+// ===================== CARD DROPDOWN TOGGLE =====================
+function toggleCardDropdown(target) {
+  var card = document.getElementById('card-tipo2-' + target);
+  if (card && card.classList.contains('filtros-aplicados')) {
+    var code = card.getAttribute('data-cid') || 'C50';
+    var url = dashboardUrls[target](code);
+    openDashboard(url, dashboardNames[target]);
+    return;
+  }
+  var dropdown = document.getElementById('dropdown-' + target);
+  if (dropdown) dropdown.classList.toggle('open');
+}
+
+// ===================== CONFIRM COHORT (1-click from dropdown) =====================
+function confirmCohort(target) {
+  applyCohort(target);
+}
+
+function confirmInlineCohort(target) {
+  var cohort = document.getElementById('inline-cohort-' + target);
+  var badge = document.getElementById('badge-inline-' + target);
+  var card = cohort ? cohort.closest('.inline-dataapp--with-cohort') : null;
+  // Remove cohort dropdown
+  if (cohort) cohort.remove();
+  // Update badge
+  if (badge) {
+    badge.textContent = 'Pronto';
+    badge.style.background = 'rgba(85,181,131,0.12)';
+    badge.style.color = 'var(--color-green)';
+  }
+  // Make card clickable to open dashboard
+  if (card) {
+    card.style.cursor = 'pointer';
+    // Remove header-level click (was opening review modal)
+    var header = card.querySelector('.inline-dataapp__header');
+    if (header) { header.removeAttribute('onclick'); header.style.cursor = 'pointer'; }
+    card.onclick = function() {
+      openDashboard('https://superset.nodian.com.br/superset/dashboard/22/?standalone=2&expand_filters=0', 'Pacientes — Perfil Demográfico por CID');
+    };
+  }
+}
+
+// ===================== OPEN REVIEW MODAL =====================
+function openReviewModal(target) {
+  activeModalTarget = target;
+  var overlay = document.getElementById('cid-modal-overlay');
+  overlay.classList.add('open');
+  syncSelectedPanel();
+}
+
+function closeReviewModal(event) {
+  if (event && event.target !== document.getElementById('cid-modal-overlay')) return;
+  document.getElementById('cid-modal-overlay').classList.remove('open');
+  activeModalTarget = null;
+}
+
+// ===================== CHECKBOX TOGGLE =====================
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  syncGroupCheck(el);
+  syncSelectedPanel();
+}
+
+// ===================== GROUP HEADER: collapse/expand =====================
+function toggleGroup(headerEl) {
+  headerEl.classList.toggle('collapsed');
+  var items = headerEl.nextElementSibling;
+  if (items) items.classList.toggle('collapsed');
+}
+
+// ===================== GROUP HEADER: check/uncheck all =====================
+function toggleGroupCheck(groupCheckEl) {
+  var header = groupCheckEl.closest('.cid-modal__group-header');
+  var items = header.nextElementSibling;
+  var isChecked = groupCheckEl.classList.contains('checked');
+  // Toggle group check
+  groupCheckEl.classList.toggle('checked');
+  var newState = !isChecked;
+  // Apply to all children
+  var boxes = items.querySelectorAll('.cid-modal__checkbox');
+  for (var i = 0; i < boxes.length; i++) {
+    if (newState) boxes[i].classList.add('checked');
+    else boxes[i].classList.remove('checked');
+  }
+  syncSelectedPanel();
+}
+
+// ===================== SYNC GROUP CHECK STATE =====================
+function syncGroupCheck(checkboxEl) {
+  var itemsContainer = checkboxEl.closest('.cid-modal__items');
+  if (!itemsContainer) return;
+  var header = itemsContainer.previousElementSibling;
+  if (!header) return;
+  var groupCheck = header.querySelector('.cid-modal__group-check');
+  if (!groupCheck) return;
+  var all = itemsContainer.querySelectorAll('.cid-modal__checkbox');
+  var checked = itemsContainer.querySelectorAll('.cid-modal__checkbox.checked');
+  if (checked.length === all.length) groupCheck.classList.add('checked');
+  else groupCheck.classList.remove('checked');
+}
+
+// ===================== SYNC SELECTED PANEL (right column) =====================
+function syncSelectedPanel() {
+  var left = document.getElementById('cid-modal-left');
+  var body = document.getElementById('cid-modal-selected-body');
+  var titleEl = document.getElementById('cid-modal-selected-title');
+  if (!left || !body) return;
+
+  var checked = left.querySelectorAll('.cid-modal__checkbox.checked');
+  var total = checked.length;
+  titleEl.textContent = 'Selecionados (' + total + ')';
+
+  // Group by section
+  var cidItems = [];
+  var procItems = [];
+  for (var i = 0; i < checked.length; i++) {
+    var item = checked[i].closest('.cid-modal__item');
+    var code = item.getAttribute('data-code');
+    var name = item.querySelector('.cid-modal__item-name').textContent;
+    var section = item.getAttribute('data-section');
+    var entry = { code: code, name: name };
+    if (section === 'proc') procItems.push(entry);
+    else cidItems.push(entry);
+  }
+
+  var html = '';
+  if (cidItems.length) {
+    html += '<div class="cid-modal__right-section">CID-10</div>';
+    for (var j = 0; j < cidItems.length; j++) {
+      html += '<div class="cid-modal__right-item">' +
+        '<span class="cid-modal__right-item-text">' + cidItems[j].code + ' — ' + cidItems[j].name + '</span>' +
+        '<button class="cid-modal__right-remove" onclick="removeByCode(\'' + cidItems[j].code + '\')" aria-label="Remover">' +
+        '<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>';
+    }
+  }
+  if (procItems.length) {
+    html += '<div class="cid-modal__right-section">PROCEDIMENTO SIGTAP</div>';
+    for (var k = 0; k < procItems.length; k++) {
+      html += '<div class="cid-modal__right-item">' +
+        '<span class="cid-modal__right-item-text">' + procItems[k].code + ' — ' + procItems[k].name + '</span>' +
+        '<button class="cid-modal__right-remove" onclick="removeByCode(\'' + procItems[k].code + '\')" aria-label="Remover">' +
+        '<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>';
+    }
+  }
+  body.innerHTML = html;
+}
+
+// ===================== REMOVE FROM SELECTED PANEL =====================
+function removeByCode(code) {
+  var item = document.querySelector('.cid-modal__item[data-code="' + code + '"]');
+  if (!item) return;
+  var cb = item.querySelector('.cid-modal__checkbox');
+  if (cb) {
+    cb.classList.remove('checked');
+    syncGroupCheck(cb);
+  }
+  syncSelectedPanel();
+}
+
+// ===================== CLEAR ALL =====================
+function clearAllSelections() {
+  var left = document.getElementById('cid-modal-left');
+  var boxes = left.querySelectorAll('.cid-modal__checkbox');
+  for (var i = 0; i < boxes.length; i++) boxes[i].classList.remove('checked');
+  var groupChecks = left.querySelectorAll('.cid-modal__group-check');
+  for (var j = 0; j < groupChecks.length; j++) groupChecks[j].classList.remove('checked');
+  syncSelectedPanel();
+}
+
+// ===================== APPLY FROM REVIEW MODAL =====================
+function applyReviewModal() {
+  if (!activeModalTarget) return;
+  var target = activeModalTarget;
+  var left = document.getElementById('cid-modal-left');
+  var checked = left.querySelectorAll('.cid-modal__checkbox.checked');
+  var count = checked.length;
+  if (count === 0) {
+    showToast('Selecione ao menos um código');
+    return;
+  }
+  closeReviewModal();
+  // If this target has an inline cohort card, confirm it directly
+  var inlineCohort = document.getElementById('inline-cohort-' + target);
+  if (inlineCohort) {
+    confirmInlineCohort(target);
+  } else {
+    applyCohort(target, count);
+  }
+}
+
+// ===================== APPLY COHORT (shared) =====================
+function applyCohort(target, customCount) {
+  var card = document.getElementById('card-tipo2-' + target);
+  var badge = document.getElementById('badge-' + target);
+  var dropdown = document.getElementById('dropdown-' + target);
+  var filtrosEl = document.getElementById('filtros-' + target);
+  var filtrosText = document.getElementById('filtros-' + target + '-text');
+  var count = customCount || 18;
+
+  if (card) {
+    card.classList.add('filtros-aplicados', 'asset-card--transforming');
+    card.setAttribute('data-cid', 'C50');
+  }
+  if (badge) {
+    badge.className = 'asset-card__badge asset-card__badge--pronto';
+    badge.textContent = 'Pronto';
+  }
+  if (dropdown) {
+    dropdown.innerHTML = '<div class="card-filter__cohort">' +
+      '<span class="card-filter__cohort-label">Coorte aplicada:</span>' +
+      '<span class="card-filter__cohort-name" style="border-color:var(--color-green);background:rgba(85,181,131,0.1)">' +
+      COHORT_LABEL +
+      ' <span class="card-filter__cohort-count">' + count + ' códigos</span></span>' +
+      '<button class="card-filter__review-btn" onclick="resetFilter(\'' + target + '\')" aria-label="Alterar filtro">' +
+      '<svg viewBox="0 0 24 24" style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>' +
+      'Alterar</button></div>';
+  }
+  if (filtrosEl) {
+    filtrosEl.style.display = 'flex';
+    filtrosText.textContent = 'Coorte: ' + COHORT_LABEL + ' (' + count + ' códigos)';
+  }
+
+  setTimeout(function() {
+    if (card) card.classList.remove('asset-card--transforming');
+  }, 600);
+
+  showToast('Dashboard pronto — coorte aplicada');
+}
+
+// ===================== RESET FILTER =====================
+function resetFilter(target) {
+  var card = document.getElementById('card-tipo2-' + target);
+  var badge = document.getElementById('badge-' + target);
+  var dropdown = document.getElementById('dropdown-' + target);
+  var filtrosEl = document.getElementById('filtros-' + target);
+
+  if (card) {
+    card.classList.remove('filtros-aplicados', 'asset-card--transforming');
+    card.removeAttribute('data-cid');
+  }
+  if (badge) {
+    badge.className = 'asset-card__badge asset-card__badge--filtros';
+    badge.textContent = 'Requer filtros';
+  }
+  if (dropdown) {
+    dropdown.innerHTML = '<div class="card-filter__cohort">' +
+      '<span class="card-filter__cohort-label">Coorte sugerida:</span>' +
+      '<span class="card-filter__cohort-name">Câncer de Mama <span class="card-filter__cohort-count">10 CIDs · 8 proc.</span></span>' +
+      '<button class="card-filter__confirm-btn" onclick="confirmCohort(\'' + target + '\')" aria-label="Confirmar coorte">' +
+      '<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round"><polyline points="20 6 9 17 4 12"/></svg> Confirmar</button>' +
+      '<button class="card-filter__review-btn" onclick="openReviewModal(\'' + target + '\')" aria-label="Revisar códigos">' +
+      '<svg viewBox="0 0 24 24" style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Revisar</button></div>';
+    dropdown.classList.add('open');
+  }
+  if (filtrosEl) {
+    filtrosEl.style.display = 'none';
+  }
+
+  // Reset all checkboxes in modal to checked
+  var left = document.getElementById('cid-modal-left');
+  if (left) {
+    var boxes = left.querySelectorAll('.cid-modal__checkbox');
+    for (var i = 0; i < boxes.length; i++) boxes[i].classList.add('checked');
+    var groupChecks = left.querySelectorAll('.cid-modal__group-check');
+    for (var j = 0; j < groupChecks.length; j++) groupChecks[j].classList.add('checked');
+  }
+}
+
+// ===================== TOAST =====================
+function showToast(msg) {
+  var container = document.getElementById('toast-container');
+  if (!container) return;
+  var toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(function() {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s ease';
+    setTimeout(function() { toast.remove(); }, 300);
+  }, 2500);
+}
+
+// ===================== INIT =====================
+var mockStep = 0; // 0 = waiting first send, 1 = waiting second send, 2 = done
+
+var MOCK_QUESTIONS = [
+  'Qual o perfil dos pacientes com câncer de mama atendidos no SUS?',
+  'Tem algo sobre as internações hospitalares desses pacientes?'
+];
+
+document.addEventListener('DOMContentLoaded', function() {
+  var chatMessages = document.getElementById('chat-messages');
+  var input = document.querySelector('.chat-input');
+  var sendBtn = document.querySelector('.chat-send-btn');
+
+  // Pre-fill input with first question
+  if (input) {
+    input.value = MOCK_QUESTIONS[0];
+    input.style.fontStyle = 'normal';
+    input.style.fontWeight = '400';
+  }
+
+  // Send on click or Enter
+  if (sendBtn) sendBtn.addEventListener('click', handleSend);
+  if (input) input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); handleSend(); }
+  });
+});
+
+function handleSend() {
+  var input = document.querySelector('.chat-input');
+  var chatMessages = document.getElementById('chat-messages');
+  if (!input || !chatMessages) return;
+
+  if (mockStep === 0) {
+    // Step 1: show user question, typing, then AI response with dashboards
+    input.value = '';
+    input.disabled = true;
+    showElement('turno-1');
+    scrollChat();
+
+    showTyping(function() {
+      showElement('turno-2');
+      scrollChat();
+      // Pre-fill second question
+      input.value = MOCK_QUESTIONS[1];
+      input.style.fontStyle = 'normal';
+      input.style.fontWeight = '400';
+      input.disabled = false;
+      input.focus();
+      mockStep = 1;
+    });
+
+  } else if (mockStep === 1) {
+    // Step 2: show follow-up question, typing, then AI response
+    input.value = '';
+    input.disabled = true;
+    showElement('turno-3');
+    scrollChat();
+
+    showTyping(function() {
+      showElement('turno-4');
+      scrollChat();
+      input.placeholder = 'Demo concluída';
+      input.disabled = true;
+      mockStep = 2;
+    });
+  }
+}
+
+function showElement(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = '';
+  typewriterReveal(el);
+}
+
+// [DECISÃO] Typewriter sequencial — revela cada bloco filho um a um, texto palavra-por-palavra
+function typewriterReveal(container) {
+  var chatMessages = document.getElementById('chat-messages');
+  // Collect ALL descendant nodes in document order that are either bubbles or non-bubble blocks
+  var allItems = collectRevealItems(container);
+
+  // Hide everything initially
+  allItems.forEach(function(item) {
+    item.el.style.opacity = '0';
+    item.el.style.visibility = 'hidden';
+  });
+
+  var WORD_DELAY = 25;
+  var BLOCK_PAUSE = 150; // pause between blocks
+
+  // [DECISÃO] Scroll acompanha o texto — mantém última linha visível sem pular pro fim
+  var lastScrollTarget = 0;
+  function softScroll() {
+    if (!chatMessages) return;
+    // Scroll just enough to keep new content visible at the bottom
+    var target = chatMessages.scrollHeight - chatMessages.clientHeight;
+    if (target > lastScrollTarget) {
+      lastScrollTarget = target;
+      chatMessages.scrollTo({ top: target, behavior: 'smooth' });
+    }
+  }
+
+  function revealNext(index) {
+    if (index >= allItems.length) return;
+    var item = allItems[index];
+    item.el.style.visibility = 'visible';
+    item.el.style.opacity = '1';
+
+    if (item.type === 'bubble') {
+      // Typewrite the bubble content
+      var originalHTML = item.el.innerHTML;
+      var segments = [];
+      var tmp = document.createElement('div');
+      tmp.innerHTML = originalHTML;
+      extractSegments(tmp, segments);
+      item.el.innerHTML = '';
+      softScroll();
+
+      var wordIndex = 0;
+      var interval = setInterval(function() {
+        if (wordIndex >= segments.length) {
+          clearInterval(interval);
+          item.el.innerHTML = originalHTML;
+          softScroll();
+          setTimeout(function() { revealNext(index + 1); }, BLOCK_PAUSE);
+          return;
+        }
+        wordIndex += 3;
+        item.el.innerHTML = segments.slice(0, wordIndex).join('');
+        softScroll();
+      }, WORD_DELAY);
+    } else {
+      // Non-bubble block: just fade in
+      item.el.style.transition = 'opacity 0.3s ease';
+      softScroll();
+      setTimeout(function() { revealNext(index + 1); }, BLOCK_PAUSE);
+    }
+  }
+
+  revealNext(0);
+}
+
+function collectRevealItems(container) {
+  var items = [];
+  function walk(parent) {
+    var children = parent.children;
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i];
+      if (child.classList.contains('chat-message--assistant__bubble')) {
+        items.push({ el: child, type: 'bubble' });
+      } else if (child.classList.contains('asset-cards-row') || child.classList.contains('asset-card')) {
+        items.push({ el: child, type: 'block' });
+      } else if (child.classList.contains('chat-topic') || child.classList.contains('chat-complementary') || child.classList.contains('chat-complementary__label')) {
+        // Wrapper — make visible and recurse
+        if (child.classList.contains('chat-complementary__label')) {
+          items.push({ el: child, type: 'block' });
+        } else {
+          child.style.opacity = '1';
+          child.style.visibility = 'visible';
+          walk(child);
+        }
+      } else {
+        // Other elements — show as block
+        items.push({ el: child, type: 'block' });
+      }
+    }
+  }
+  walk(container);
+  return items;
+}
+
+function extractSegments(node, arr) {
+  node.childNodes.forEach(function(child) {
+    if (child.nodeType === 3) {
+      var words = child.textContent.split(/(\s+)/);
+      words.forEach(function(w) { if (w) arr.push(escapeHTML(w)); });
+    } else {
+      var tag = child.cloneNode(false);
+      var inner = [];
+      extractSegments(child, inner);
+      if (inner.length === 0) {
+        arr.push(tag.outerHTML);
+      } else {
+        var openTag = tag.outerHTML.replace(/<\/[^>]+>$/, '');
+        var closeTag = '</' + child.tagName.toLowerCase() + '>';
+        arr.push(openTag);
+        inner.forEach(function(s) { arr.push(s); });
+        arr.push(closeTag);
+      }
+    }
+  });
+}
+
+function escapeHTML(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function showTyping(callback) {
+  var typing = document.getElementById('typing-indicator');
+  if (!typing) return;
+
+  var steps = typing.querySelectorAll('.chat-typing__step');
+  var checkSVG = '<svg class="chat-typing__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  // Reset all steps
+  steps.forEach(function(s) {
+    s.classList.remove('active', 'done');
+    var spinner = s.querySelector('.chat-typing__spinner');
+    var oldCheck = s.querySelector('.chat-typing__check');
+    if (oldCheck) { oldCheck.remove(); }
+    if (spinner) spinner.style.display = '';
+  });
+
+  typing.style.display = 'flex';
+  scrollChat();
+
+  var STEP_DELAY = 800;
+  var currentStep = 0;
+
+  function advanceStep() {
+    if (currentStep > 0) {
+      // Mark previous step as done
+      var prev = steps[currentStep - 1];
+      prev.classList.remove('active');
+      prev.classList.add('done');
+      var prevSpinner = prev.querySelector('.chat-typing__spinner');
+      if (prevSpinner) prevSpinner.outerHTML = checkSVG;
+    }
+
+    if (currentStep >= steps.length) {
+      // All done — hide and callback
+      setTimeout(function() {
+        typing.style.display = 'none';
+        if (callback) callback();
+      }, 400);
+      return;
+    }
+
+    steps[currentStep].classList.add('active');
+    scrollChat();
+    currentStep++;
+    setTimeout(advanceStep, STEP_DELAY);
+  }
+
+  advanceStep();
+}
+
+function scrollChat() {
+  var chatMessages = document.getElementById('chat-messages');
+  if (!chatMessages) return;
+  setTimeout(function() {
+    chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+  }, 50);
+}
+</script>
+</body>
+</html>

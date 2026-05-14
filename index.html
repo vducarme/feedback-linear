@@ -369,6 +369,129 @@
     font-family: 'DM Sans', sans-serif !important;
   }
 
+  /* ---- AXIS SECTION ---- */
+  .axis-section {
+    margin-top: 48px;
+  }
+
+  .axis-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--stone-200);
+  }
+
+  .axis-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--amber-600);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .axis-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--stone-900);
+    line-height: 1.2;
+    flex: 1;
+  }
+
+  .axis-meta {
+    font-size: 12px;
+    color: var(--stone-500);
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .axis-outcome {
+    background: var(--amber-50);
+    border-left: 3px solid var(--amber-400);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 28px;
+    font-size: 14px;
+    color: var(--stone-700);
+    line-height: 1.6;
+  }
+
+  .axis-outcome strong {
+    color: var(--stone-900);
+    font-weight: 600;
+  }
+
+  /* ---- TASK LIST ---- */
+  .task-list {
+    list-style: none;
+    counter-reset: task-counter;
+    padding: 0;
+    margin: 0;
+  }
+
+  .task-item {
+    counter-increment: task-counter;
+    background: white;
+    border: 1px solid var(--stone-200);
+    border-radius: 12px;
+    padding: 20px 24px 20px 64px;
+    margin-bottom: 12px;
+    position: relative;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .task-item:hover {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+
+  .task-item::before {
+    content: counter(task-counter);
+    position: absolute;
+    left: 20px;
+    top: 22px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--stone-100);
+    color: var(--stone-600);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .task-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--stone-900);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+
+  .task-desc {
+    font-size: 13px;
+    color: var(--stone-600);
+    line-height: 1.6;
+  }
+
+  .task-deliverable {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--green-500);
+    background: var(--green-100);
+    padding: 3px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.3px;
+  }
+
   /* ---- DIVIDER ---- */
   .section-divider {
     width: 100%;
@@ -473,32 +596,115 @@ flowchart TD
     </div>
   </div>
 
-  <h2 class="section-title" style="margin-top: 48px;">Em aberto</h2>
-  <p class="section-desc">Questoes que precisam ser respondidas antes de implementar.</p>
+  <h2 class="section-title" style="margin-top: 48px;">Roadmap</h2>
+  <p class="section-desc">3 frentes: spec destrava as outras duas, que rodam em paralelo. Cada frente quebrada em tarefas incrementais, cada uma demonstravel sozinha.</p>
 
+  <!-- ===== EIXO 1: SPEC ===== -->
   <div class="issue-card">
     <div class="issue-top">
       <div>
-        <div class="issue-id">EM ABERTO</div>
-        <div class="issue-title">O que e relevancia e como dar transparencia para o usuario?</div>
+        <div class="issue-id">EIXO 1 / SPEC</div>
+        <div class="issue-title">Definir o contrato chatd &harr; front do Explorar</div>
       </div>
-      <span class="priority-tag priority-high">Alta</span>
+      <span class="priority-tag priority-high">Bloqueante</span>
     </div>
-    <p class="issue-summary">Precisamos definir o que significa "relevancia" no contexto da busca conversacional. Como o sistema classifica os data apps? E como comunicar ao usuario de forma transparente por que um resultado foi considerado mais relevante que outro?</p>
+    <p class="issue-summary">Documento curto que fixa o contrato de API entre o servico de chat e o front: endpoints HTTP, header de caller, vocabulario SSE incluindo um sinal novo de progresso de fase, schema do <code>discover_result</code> (card principal + complementares + coortes inline + tabela-resumo), fluxo de confirmacao de coorte, casos de erro e empty state. Premissas simplificadoras explicitas.</p>
+    <p class="issue-summary"><strong>Outcome:</strong> chatd e front podem ser implementados independentemente, contra fixtures que respeitam o contrato. Brief do chatd permanece valido; ajustes que o spec exigir entram em revisao posterior, nao bloqueiam.</p>
+    <div style="display:flex; gap:12px; align-items:center; margin-top:12px;">
+      <button onclick="openPrototypeModal()" style="display:inline-flex; align-items:center; gap:8px; padding:10px 18px; background:var(--stone-900); color:white; border:none; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:opacity 0.15s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Ver prototipo (estado-alvo)
+      </button>
+      <span style="font-size:12px; color:var(--stone-500);">Como a experiencia final deve se comportar.</span>
+    </div>
   </div>
 
-  <h2 class="section-title" style="margin-top: 48px;">Backlog</h2>
-  <p class="section-desc">Tarefas tecnicas necessarias para viabilizar o fluxo.</p>
-
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">BACKLOG</div>
-        <div class="issue-title">Criar servico de chat separado</div>
-      </div>
-      <span class="priority-tag priority-medium">Media</span>
+  <!-- ===== EIXO 2: CHATD ===== -->
+  <div class="axis-section">
+    <div class="axis-header">
+      <div class="axis-number">Eixo 2 / Chatd</div>
+      <h2 class="axis-title">Implementar o motor de descoberta no servico de chat</h2>
+      <span class="axis-meta">Paralelo apos spec &middot; 6 tarefas</span>
     </div>
-    <p class="issue-summary">Criar um servico de chat independente que sirva as conversas tanto da nova plataforma quanto do proto-bomb. Isso evita duplicacao de logica e permite evoluir o chat de forma centralizada.</p>
+    <div class="axis-outcome">
+      <strong>Outcome:</strong> qualquer cliente HTTP que respeite o contrato recebe a resposta rica do Explorar, com transparencia real de relevancia (item Alta da missao Novartis) saindo natural do pipeline.
+    </div>
+    <ol class="task-list">
+      <li class="task-item">
+        <div class="task-title">Caller policy minima</div>
+        <div class="task-desc">Header <code>X-Caller</code> identifica quem chamou (proto-bomb ou nodian-saude). Tabela hardcoded mapeia caller para modos permitidos. Nodian-saude so consegue criar conversa exploratoria; proto-bomb mantem ambos.</div>
+        <span class="task-deliverable">Demonstravel: curl com X-Caller invalido recebe 403</span>
+      </li>
+      <li class="task-item">
+        <div class="task-title">Extracao de eixos da pergunta</div>
+        <div class="task-desc">Etapa 1 do pipeline: dado o turno do usuario, LLM extrai 1-N eixos semanticos ("cancer de mama", "perfil de pacientes"). Output validado por schema. Funciona end-to-end sem chamar o ragd ainda.</div>
+        <span class="task-deliverable">Demonstravel: input "perfil de pacientes com cancer de mama" devolve eixos extraidos como JSON</span>
+      </li>
+      <li class="task-item">
+        <div class="task-title">Integracao com discover do ragd</div>
+        <div class="task-desc">Etapa 2 do pipeline: substituir o rag_search atual (que usa /documents/search) por chamada ao /discover do ragd. Repassa eixos extraidos, recebe hits ranqueados com expanded codes e vocab hits. Resultado cru ja pode ser inspecionado.</div>
+        <span class="task-deliverable">Demonstravel: para cada eixo, lista de hits do ragd persistida no Message</span>
+      </li>
+      <li class="task-item">
+        <div class="task-title">Sintese de principal + complementares + racional</div>
+        <div class="task-desc">Etapa 3 do pipeline: LLM com schema rigido transforma os hits crus em DiscoverResult: escolhe o card principal, classifica complementares, gera o racional textual ("Responde: quem e essa paciente?"). Coortes inline derivadas dos expanded codes do ragd. Fallback gracioso se LLM falhar (devolve hits crus).</div>
+        <span class="task-deliverable">Demonstravel: resposta no formato exato do prototipo, sem front ainda</span>
+      </li>
+      <li class="task-item">
+        <div class="task-title">Eventos de progresso por fase via SSE</div>
+        <div class="task-desc">Cada uma das tres etapas (extrair eixos, discover, sintetizar) emite um sinal SSE de progresso. Sinal e payload-free (mantendo a invariante atual); endpoint dedicado devolve qual fase esta rodando. Front renderiza o nome da fase atual.</div>
+        <span class="task-deliverable">Demonstravel: cliente SSE recebe 3 sinais em ordem, com nome de fase consultavel</span>
+      </li>
+      <li class="task-item">
+        <div class="task-title">Endpoint de resolucao de coorte</div>
+        <div class="task-desc">Quando o usuario confirma uma coorte sugerida (ou edita no modal de revisao), o front chama um endpoint utilitario que repassa os codigos selecionados ao ragd e devolve a URL embed do dashboard ja filtrado. Sincrono, sem criar nova mensagem na conversa.</div>
+        <span class="task-deliverable">Demonstravel: POST com 3 CIDs devolve URL pronta para iframe</span>
+      </li>
+    </ol>
+  </div>
+
+  <!-- ===== EIXO 3: FRONT ===== -->
+  <div class="axis-section">
+    <div class="axis-header">
+      <div class="axis-number">Eixo 3 / Front</div>
+      <h2 class="axis-title">Conectar a aba Explorar ao novo motor</h2>
+      <span class="axis-meta">Paralelo apos spec &middot; 6 tarefas</span>
+    </div>
+    <div class="axis-outcome">
+      <strong>Outcome:</strong> a experiencia descrita no prototipo entra em producao. Sequencia "da casca pro centro": cada tarefa adiciona uma camada visivel sobre a anterior.
+    </div>
+    <ol class="task-list">
+      <li class="task-item">
+        <div class="task-title">Cliente HTTP do chatd no Fastify</div>
+        <div class="task-desc">Thin async client no nodian-saude que chama os endpoints do chatd com HMAC e header X-Caller. Substitui as chamadas diretas ao /discover do ragd. Sem mudanca visual ainda; so prepara a base.</div>
+        <span class="task-deliverable">Demonstravel: nodian consegue criar conversa exploratoria no chatd via teste manual</span>
+      </li>
+      <li class="task-item">
+        <div class="task-title">Renderizar resposta rica (cards estaticos)</div>
+        <div class="task-desc">Refatora a aba Explorar para consumir o DiscoverResult contra fixtures (sem ainda esperar o backend pronto). Componentes novos: PrimaryCard com destaque, ComplementaryList rebaixada, SummaryTable. Click no card abre o dashboard.</div>
+        <span class="task-deliverable">Demonstravel: aba Explorar renderiza visualmente o estado-alvo a partir de mock</span>
+      </li>
+      <li class="task-item">
+        <div class="task-title">Plugar SSE e mensagens reais do chatd</div>
+        <div class="task-desc">Substitui as fixtures pelos dados reais. Front cria conversation no chatd, abre stream SSE, recarrega mensagens quando recebe MESSAGES_INVALIDATED. Loading state generico (spinner) enquanto pipeline roda.</div>
+        <span class="task-deliverable">Demonstravel: usuario digita pergunta de verdade e recebe resposta real do chatd</span>
+      </li>
+      <li class="task-item">
+        <div class="task-title">Typing por etapas reais</div>
+        <div class="task-desc">Substitui o spinner generico pelo componente StageProgress que reage ao sinal STAGE_PROGRESS. Mostra "Interpretando...", "Buscando CIDs...", "Sintetizando..." conforme o pipeline avanca. Feedback honesto, debugavel.</div>
+        <span class="task-deliverable">Demonstravel: usuario ve as 3 etapas reais aparecerem em ordem durante a busca</span>
+      </li>
+      <li class="task-item">
+        <div class="task-title">Coorte inline com confirmacao em 1 clique</div>
+        <div class="task-desc">Cards do tipo "Requer filtros" ganham o componente InlineDataAppWithCohort: nome da coorte, contagem de codigos, botao Confirmar. Click chama o endpoint de resolucao de coorte e abre o dashboard filtrado. Sem modal ainda.</div>
+        <span class="task-deliverable">Demonstravel: usuario confirma coorte sugerida e dashboard abre filtrado</span>
+      </li>
+      <li class="task-item">
+        <div class="task-title">Modal de revisao granular + sidebar de historico</div>
+        <div class="task-desc">Botao "Revisar" abre modal de 2 colunas (browse de codigos / selecionados) reusando vocabularies/search. Sidebar de historico passa a listar conversas exploratorias do chatd. Tabela searchConversation antiga deprecada.</div>
+        <span class="task-deliverable">Demonstravel: usuario edita coorte, abre dashboard customizado, ve a busca aparecer no historico</span>
+      </li>
+    </ol>
   </div>
 
   </div> <!-- close tab-novartis -->
@@ -783,6 +989,22 @@ flowchart TD
 
   </div> <!-- close tab-backlog -->
 
+  <!-- ===== PROTOTYPE MODAL ===== -->
+  <div id="prototype-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; padding:24px;" onclick="closePrototypeModal(event)">
+    <div style="background:white; border-radius:16px; width:100%; max-width:1200px; height:90vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.3);" onclick="event.stopPropagation()">
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--stone-200); flex-shrink:0;">
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:18px; color:var(--stone-900);">Prototipo do Explorar conversacional</div>
+          <div style="font-size:12px; color:var(--stone-500); margin-top:2px;">Estado-alvo da experiencia. Click nos botoes funciona.</div>
+        </div>
+        <button onclick="closePrototypeModal()" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border:none; background:var(--stone-100); border-radius:8px; cursor:pointer; color:var(--stone-700); transition:background 0.15s;" onmouseover="this.style.background='var(--stone-200)'" onmouseout="this.style.background='var(--stone-100)'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <iframe id="prototype-iframe" src="" style="flex:1; width:100%; border:none; background:var(--stone-50);"></iframe>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <div class="page-footer">
     Nodian &middot; Nova Plataforma &middot; Milestone: Salas como Moodle &middot; Maio 2026
@@ -832,6 +1054,32 @@ flowchart TD
   document.addEventListener('DOMContentLoaded', function() {
     var activePanel = document.querySelector('.tab-panel.active');
     if (activePanel) renderMermaids(activePanel);
+  });
+
+  // Prototype modal
+  function openPrototypeModal() {
+    var modal = document.getElementById('prototype-modal');
+    var iframe = document.getElementById('prototype-iframe');
+    iframe.src = 'conversa.html';
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePrototypeModal(event) {
+    if (event && event.target.id !== 'prototype-modal' && event.currentTarget.tagName !== 'BUTTON') return;
+    var modal = document.getElementById('prototype-modal');
+    var iframe = document.getElementById('prototype-iframe');
+    modal.style.display = 'none';
+    iframe.src = '';
+    document.body.style.overflow = '';
+  }
+
+  // ESC fecha o modal
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var modal = document.getElementById('prototype-modal');
+      if (modal && modal.style.display === 'flex') closePrototypeModal();
+    }
   });
 </script>
 
