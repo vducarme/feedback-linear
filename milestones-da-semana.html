@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milestones da Semana — Nodian</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --amber-50: #fffbeb;
+    --amber-100: #fef3c7;
+    --amber-200: #fde68a;
+    --amber-400: #fbbf24;
+    --amber-500: #f59e0b;
+    --amber-600: #d97706;
+    --amber-700: #b45309;
+    --stone-50: #fafaf9;
+    --stone-100: #f5f5f4;
+    --stone-200: #e7e5e4;
+    --stone-300: #d6d3d1;
+    --stone-400: #a8a29e;
+    --stone-500: #78716c;
+    --stone-600: #57534e;
+    --stone-700: #44403c;
+    --stone-800: #292524;
+    --stone-900: #1c1917;
+    --red-500: #ef4444;
+    --red-100: #fee2e2;
+    --green-500: #22c55e;
+    --green-100: #dcfce7;
+    --blue-500: #3b82f6;
+    --blue-100: #dbeafe;
+    --purple-500: #a855f7;
+    --purple-100: #f3e8ff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--stone-50);
+    color: var(--stone-800);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 24px 100px;
+  }
+
+  /* ---- HEADER ---- */
+  .page-header {
+    text-align: center;
+    margin-bottom: 64px;
+    position: relative;
+  }
+
+  .page-header::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--amber-400);
+    margin: 28px auto 0;
+    border-radius: 2px;
+  }
+
+  .page-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--amber-600);
+    margin-bottom: 12px;
+  }
+
+  .page-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    font-weight: 400;
+    color: var(--stone-900);
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+  }
+
+  .page-subtitle {
+    font-size: 16px;
+    color: var(--stone-500);
+    margin-top: 14px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .page-goal {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--amber-700);
+    margin-top: 16px;
+  }
+
+  .page-goal svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+
+  .milestone-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--amber-100);
+    border: 1px solid var(--amber-200);
+    color: var(--amber-700);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-top: 24px;
+  }
+
+  .milestone-badge svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* ---- TABS ---- */
+  .tabs-nav {
+    display: flex;
+    gap: 4px;
+    background: var(--stone-100);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 40px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--stone-500);
+    cursor: pointer;
+    border-radius: 9px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .tab-btn:hover {
+    color: var(--stone-700);
+  }
+
+  .tab-btn.active {
+    background: white;
+    color: var(--stone-900);
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  .tab-count {
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--stone-200);
+    color: var(--stone-600);
+    padding: 2px 8px;
+    border-radius: 100px;
+  }
+
+  .tab-btn.active .tab-count {
+    background: var(--amber-100);
+    color: var(--amber-700);
+  }
+
+  .tab-panel {
+    display: none;
+  }
+
+  .tab-panel.active {
+    display: block;
+  }
+
+  /* ---- STATS ---- */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+
+  .stat-card {
+    background: white;
+    border: 1px solid var(--stone-200);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    color: var(--stone-900);
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--stone-500);
+    margin-top: 2px;
+  }
+
+  /* ---- SECTION TITLES ---- */
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--stone-900);
+    margin-bottom: 8px;
+  }
+
+  .section-desc {
+    font-size: 15px;
+    color: var(--stone-500);
+    margin-bottom: 32px;
+  }
+
+  /* ---- ISSUE CARDS ---- */
+  .issue-card {
+    background: white;
+    border: 1px solid var(--stone-200);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .issue-card:hover {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+
+  .issue-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .issue-id {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--stone-400);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .issue-id a {
+    color: var(--stone-400);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .issue-id a:hover {
+    color: var(--amber-600);
+    text-decoration: underline;
+  }
+
+  .vision-box {
+    background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.03));
+    border: 1px solid var(--amber-600);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+
+  .vision-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #92400e;
+    margin: 0 0 12px 0;
+  }
+
+  .vision-text {
+    font-size: 14px;
+    color: var(--stone-800);
+    line-height: 1.7;
+    margin: 0 0 10px 0;
+  }
+
+  .vision-text:last-child {
+    margin-bottom: 0;
+  }
+
+  .vision-box:focus-within {
+    outline: 2px solid var(--amber-600);
+    outline-offset: 2px;
+  }
+
+  .issue-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--stone-900);
+    line-height: 1.3;
+  }
+
+  .issue-summary {
+    font-size: 15px;
+    color: var(--stone-600);
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+
+  .priority-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .priority-high {
+    background: var(--red-100);
+    color: var(--red-500);
+  }
+
+  .priority-medium {
+    background: var(--amber-100);
+    color: var(--amber-700);
+  }
+
+  .priority-low {
+    background: var(--blue-100);
+    color: var(--blue-500);
+  }
+
+  .flow-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--stone-400);
+    margin-bottom: 16px;
+  }
+
+  .mermaid-wrapper {
+    background: var(--stone-50);
+    border: 1px solid var(--stone-200);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+  }
+
+  .mermaid {
+    font-family: 'DM Sans', sans-serif !important;
+  }
+
+  /* ---- DIVIDER ---- */
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--stone-200);
+    margin: 56px 0;
+  }
+
+  /* ---- BACKLOG ---- */
+  .backlog-section {
+    margin-top: 0;
+  }
+
+  .discussion-card {
+    background: white;
+    border: 1px solid var(--stone-200);
+    border-left: 3px solid var(--purple-500);
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+
+  .discussion-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--stone-900);
+    margin-bottom: 8px;
+  }
+
+  .discussion-body {
+    font-size: 14px;
+    color: var(--stone-600);
+    line-height: 1.7;
+  }
+
+  /* ---- FOOTER ---- */
+  .page-footer {
+    text-align: center;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--stone-200);
+    font-size: 13px;
+    color: var(--stone-400);
+  }
+
+  @media (max-width: 600px) {
+    .page-wrapper { padding: 32px 16px 60px; }
+    .page-title { font-size: 30px; }
+    .stats-row { grid-template-columns: 1fr; }
+    .issue-card { padding: 24px 20px; }
+    .issue-top { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- HEADER -->
+  <header class="page-header">
+    <div class="page-label">Nova Plataforma</div>
+    <h1 class="page-title">Board de Alinhamento</h1>
+
+  </header>
+
+  <!-- TABS -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('novartis')">Missao Aguia Novartis</button>
+    <button class="tab-btn" onclick="switchTab('milestones')">Issues da Plataforma <span class="tab-count">8</span></button>
+    <button class="tab-btn" onclick="switchTab('backlog')">Backlog de Discussoes <span class="tab-count">5</span></button>
+  </div>
+
+  <!-- TAB: NOVARTIS -->
+  <div id="tab-novartis" class="tab-panel active">
+
+  <div class="page-goal" style="margin-bottom: 32px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+    Milestone para Novartis: busca conversacional + data apps
+  </div>
+
+  <h2 class="section-title">Fluxo esperado</h2>
+  <p class="section-desc">Como a experiencia de busca deve funcionar para o usuario final.</p>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FLUXO IDEAL</div>
+        <div class="issue-title">Busca conversacional na aba Explorar</div>
+      </div>
+    </div>
+    <p class="issue-summary">O usuario entra na aba "Explorar", digita uma pergunta como <strong>"Qual o perfil de pacientes com cancer de mama?"</strong> e recebe de volta a melhor (ou N melhores) opcao de data app com uma descricao do motivo da recomendacao. Abaixo, uma secao de outras opcoes relevantes e um sumario de classificacao de relevancia.</p>
+    <div class="flow-label">Como vai funcionar</div>
+    <div class="mermaid-wrapper">
+      <pre class="mermaid">
+flowchart TD
+    A["Usuario acessa aba Explorar"] --> B["Digita pergunta em linguagem natural"]
+    B --> C["Plataforma busca e classifica data apps por relevancia"]
+    C --> D["Exibe melhor resultado com descricao do motivo"]
+    D --> E["Secao: outras opcoes relevantes"]
+    E --> F["Sumario de classificacao de relevancia"]
+      </pre>
+    </div>
+  </div>
+
+  <h2 class="section-title" style="margin-top: 48px;">Em aberto</h2>
+  <p class="section-desc">Questoes que precisam ser respondidas antes de implementar.</p>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">EM ABERTO</div>
+        <div class="issue-title">O que e relevancia e como dar transparencia para o usuario?</div>
+      </div>
+      <span class="priority-tag priority-high">Alta</span>
+    </div>
+    <p class="issue-summary">Precisamos definir o que significa "relevancia" no contexto da busca conversacional. Como o sistema classifica os data apps? E como comunicar ao usuario de forma transparente por que um resultado foi considerado mais relevante que outro?</p>
+  </div>
+
+  <h2 class="section-title" style="margin-top: 48px;">Backlog</h2>
+  <p class="section-desc">Tarefas tecnicas necessarias para viabilizar o fluxo.</p>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">BACKLOG</div>
+        <div class="issue-title">Criar servico de chat separado</div>
+      </div>
+      <span class="priority-tag priority-medium">Media</span>
+    </div>
+    <p class="issue-summary">Criar um servico de chat independente que sirva as conversas tanto da nova plataforma quanto do proto-bomb. Isso evita duplicacao de logica e permite evoluir o chat de forma centralizada.</p>
+  </div>
+
+  </div> <!-- close tab-novartis -->
+
+  <!-- TAB: MILESTONES -->
+  <div id="tab-milestones" class="tab-panel">
+
+  <div class="page-goal" style="margin-bottom: 32px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+    Milestone da semana: limpar e organizar as salas
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-number">8</div>
+      <div class="stat-label">Melhorias planejadas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">2</div>
+      <div class="stat-label">Prioridade alta</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">1</div>
+      <div class="stat-label">Prioridade media</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">O que e esperado ver na plataforma esta semana</h2>
+  <p class="section-desc">Cada melhoria mostra o fluxo ideal que o usuario vai experimentar apos a mudanca.</p>
+
+  <div class="vision-box" role="region" aria-labelledby="vision-heading">
+    <h3 class="vision-title" id="vision-heading">Estado ideal ao final da semana</h3>
+    <p class="vision-text">Ao abrir <strong>bombord.nodian.dev</strong>, o usuario cai direto no conteudo — login se nao estiver autenticado, tela Explorar se ja estiver. Sem tela intermediaria.</p>
+    <p class="vision-text">Dentro das salas, a experiencia e mais limpa: o cabecalho mostra apenas nome e descricao (sem tags duplicadas), o titulo "Dashboards e Arquivos" desaparece, e os blocos voltam a ter o botao de colapsar/expandir. O admin consegue remover participantes e qualquer data app pode ser removido de um bloco sem apagar o bloco inteiro.</p>
+    <p class="vision-text">Na navegacao geral, o menu lateral nao tem mais a pagina "Perfil" duplicada e a listagem de salas aparece sem filtros inuteis.</p>
+    <p class="vision-text"><strong>Resumo:</strong> uma plataforma mais direta, mais limpa e com controle real sobre salas e participantes.</p>
+  </div>
+
+  <h2 class="section-title">Detalhamento por issue</h2>
+  <p class="section-desc">Cada card abaixo descreve o problema, a solucao e o fluxo esperado apos a implementacao.</p>
+
+  <!-- NOD-214 - ALTA -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-214" target="_blank">NOD-214</a></div>
+        <div class="issue-title">Voltar o botao de colapsar/expandir blocos</div>
+      </div>
+      <span class="priority-tag priority-high">Alta</span>
+    </div>
+    <p class="issue-summary">Os blocos dentro das salas tinham um icone no canto superior direito que permitia colapsar (esconder) ou expandir o conteudo. Esse icone sumiu. Em salas com muitos blocos, isso dificulta a navegacao. Vamos restaurar essa funcionalidade.</p>
+    <div class="flow-label">Como vai funcionar</div>
+    <div class="mermaid-wrapper">
+      <pre class="mermaid">
+flowchart TD
+    A["Usuario ve um bloco na sala"] --> B["Clica no icone no canto superior direito"]
+    B --> C{"Bloco esta expandido?"}
+    C -->|Sim| D["Bloco colapsa, conteudo escondido"]
+    C -->|Nao| E["Bloco expande, conteudo visivel"]
+      </pre>
+    </div>
+  </div>
+
+  <!-- NOD-218 - ALTA -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-218" target="_blank">NOD-218</a></div>
+        <div class="issue-title">Admin pode remover participantes da sala</div>
+      </div>
+      <span class="priority-tag priority-high">Alta</span>
+    </div>
+    <p class="issue-summary">Hoje, uma vez que voce adiciona alguem a uma sala, nao ha como remover essa pessoa. O administrador da sala precisa ter controle sobre quem participa -- especialmente por questoes de seguranca e privacidade dos dados.</p>
+    <div class="flow-label">Como vai funcionar</div>
+    <div class="mermaid-wrapper">
+      <pre class="mermaid">
+flowchart TD
+    A["Admin abre lista de participantes"] --> B["Ve botao de remover ao lado de cada nome"]
+    B --> C["Clica remover"]
+    C --> D["Confirmacao: Remover fulano?"]
+    D -->|Confirma| E["Participante removido da sala"]
+    D -->|Cancela| A
+      </pre>
+    </div>
+  </div>
+
+  <!-- NOD-213 - MEDIA -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-213" target="_blank">NOD-213</a></div>
+        <div class="issue-title">Remover data apps de um bloco sem perder o bloco</div>
+      </div>
+      <span class="priority-tag priority-medium">Media</span>
+    </div>
+    <p class="issue-summary">Quando voce adiciona um data app (dashboard, arquivo) a um bloco dentro de uma sala, nao da para remove-lo depois. O unico jeito e apagar o bloco inteiro e recriar do zero -- perdendo texto e outros data apps. Agora sera possivel remover individualmente.</p>
+    <div class="flow-label">Como vai funcionar</div>
+    <div class="mermaid-wrapper">
+      <pre class="mermaid">
+flowchart TD
+    A["Editando uma sala"] --> B["Passa o mouse sobre um data app no bloco"]
+    B --> C["Aparece botao de remover"]
+    C --> D["Clica remover"]
+    D --> E["Data app removido, bloco intacto"]
+      </pre>
+    </div>
+  </div>
+
+  <!-- NOD-212 - BAIXA -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-212" target="_blank">NOD-212</a></div>
+        <div class="issue-title">Acesso direto ao conteudo ao abrir a plataforma</div>
+      </div>
+      <span class="priority-tag priority-low">Baixa</span>
+    </div>
+    <p class="issue-summary">Hoje, ao abrir <strong>bombord.nodian.dev</strong>, voce ve uma tela intermediaria com botoes "Entrar" e "Ver Salas" que nao agrega nada. O objetivo e que a plataforma leve voce direto ao conteudo -- ou para a tela de login (se nao estiver logado) ou para a tela Explorar (se ja estiver).</p>
+    <div class="flow-label">Como vai funcionar</div>
+    <div class="mermaid-wrapper">
+      <pre class="mermaid">
+flowchart TD
+    A["Usuario abre bombord.nodian.dev"] --> B{"Esta logado?"}
+    B -->|Sim| C["Ve a tela Explorar imediatamente"]
+    B -->|Nao| D["Ve a tela de Login"]
+    D -->|Faz login| C
+      </pre>
+    </div>
+  </div>
+
+  <!-- NOD-215 - BAIXA -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-215" target="_blank">NOD-215</a></div>
+        <div class="issue-title">Remover filtros inuteis da listagem de salas</div>
+      </div>
+      <span class="priority-tag priority-low">Baixa</span>
+    </div>
+    <p class="issue-summary">A tela de Salas mostra tres filtros -- "Todos", "Com PDF" e "Equipe Grande" -- que nao tem utilidade pratica e so adicionam ruido visual. Serao removidos para deixar a interface mais limpa.</p>
+    <div class="flow-label">Como vai funcionar</div>
+    <div class="mermaid-wrapper">
+      <pre class="mermaid">
+flowchart TD
+    A["Usuario acessa tela Salas"] --> B["Ve listagem limpa, sem filtros desnecessarios"]
+      </pre>
+    </div>
+  </div>
+
+  <!-- NOD-216 - BAIXA -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-216" target="_blank">NOD-216</a></div>
+        <div class="issue-title">Remover pagina Perfil duplicada</div>
+      </div>
+      <span class="priority-tag priority-low">Baixa</span>
+    </div>
+    <p class="issue-summary">Existem duas paginas com a mesma informacao: "Perfil" e "Configuracoes". As informacoes de perfil ja estao dentro de Configuracoes, entao a pagina Perfil sera removida do menu lateral para evitar confusao.</p>
+    <div class="flow-label">Como vai funcionar</div>
+    <div class="mermaid-wrapper">
+      <pre class="mermaid">
+flowchart TD
+    A["Usuario quer ver/editar seu perfil"] --> B["Acessa Configuracoes no menu lateral"]
+    B --> C["Encontra todas as informacoes de perfil ali"]
+      </pre>
+    </div>
+  </div>
+
+  <!-- NOD-217 - BAIXA -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-217" target="_blank">NOD-217</a></div>
+        <div class="issue-title">Remover titulo redundante dentro das salas</div>
+      </div>
+      <span class="priority-tag priority-low">Baixa</span>
+    </div>
+    <p class="issue-summary">Dentro de cada sala, aparece o titulo fixo "Dashboards e Arquivos" entre o cabecalho da sala e os blocos de conteudo. Como o usuario ja sabe que esta dentro de uma sala, esse titulo e desnecessario e sera removido.</p>
+    <div class="flow-label">Como vai funcionar</div>
+    <div class="mermaid-wrapper">
+      <pre class="mermaid">
+flowchart TD
+    A["Usuario abre uma sala"] --> B["Ve o cabecalho: nome e descricao"]
+    B --> C["Direto abaixo, os blocos de conteudo"]
+      </pre>
+    </div>
+  </div>
+
+  <!-- NOD-219 - BAIXA -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-219" target="_blank">NOD-219</a></div>
+        <div class="issue-title">Limpar tags duplicadas do cabecalho da sala</div>
+      </div>
+      <span class="priority-tag priority-low">Baixa</span>
+    </div>
+    <p class="issue-summary">O cabecalho da sala mostra tags como Empresa, Sponsor, Tema, Tipo e Area. Essas mesmas informacoes ja aparecem organizadas no painel lateral "Detalhes do Projeto". A duplicacao sera removida para deixar o cabecalho mais limpo.</p>
+    <div class="flow-label">Como vai funcionar</div>
+    <div class="mermaid-wrapper">
+      <pre class="mermaid">
+flowchart TD
+    A["Usuario abre uma sala"] --> B["Cabecalho mostra apenas nome e descricao"]
+    A --> C["Painel lateral mostra Empresa, Tema, Tipo, Area"]
+      </pre>
+    </div>
+  </div>
+
+  </div> <!-- close tab-milestones -->
+
+  <!-- TAB: BACKLOG -->
+  <div id="tab-backlog" class="tab-panel">
+
+  <div class="backlog-section">
+    <h2 class="section-title">Discussoes para o futuro</h2>
+    <p class="section-desc">Temas que precisam ser debatidos em equipe antes de virar tarefas. Planejados para pos-segunda.</p>
+
+    <div class="issue-card">
+      <div class="issue-top">
+        <div>
+          <div class="issue-id">DISCUSSAO</div>
+          <div class="issue-title">Permissoes e roles: repensar a arquitetura</div>
+        </div>
+        <span class="priority-tag priority-high">Alta</span>
+      </div>
+      <p class="issue-summary">Os roles atuais estao complexos e muito centrados na Nodian como organizacao que permeia tudo. Se queremos que a plataforma vire o ambiente da empresa cliente, a arquitetura de permissoes precisa ser repensada. Problemas concretos: o que fica visivel ou nao dentro de uma sala dependendo do role, e o fato de existirem duas maneiras diferentes de convidar pessoas. Incluindo: quem pode criar salas?</p>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-top">
+        <div>
+          <div class="issue-id">DISCUSSAO</div>
+          <div class="issue-title">Login e cadastro: simplificar os caminhos</div>
+        </div>
+        <span class="priority-tag priority-high">Alta</span>
+      </div>
+      <p class="issue-summary">Hoje existem 2 fluxos de adicao de participantes, alem de magic link + codigo + senha + Teams. Precisamos discutir se faz sentido manter tudo isso ou simplificar para um caminho unico e claro.</p>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-top">
+        <div>
+          <div class="issue-id">DISCUSSAO</div>
+          <div class="issue-title">Tipo do asset: Dashboard vs. Superset</div>
+        </div>
+        <span class="priority-tag priority-medium">Media</span>
+      </div>
+      <p class="issue-summary">O "Tipo" do asset hoje e definido pela ferramenta de origem (Superset, Metabase), mas deveria refletir o que o conteudo realmente e: "Dashboard", "Arquivo", etc. Essa classificacao deveria vir do backend automaticamente, nao ser escolha do usuario. Isso implica mudar os dois componentes de card do asset.</p>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-top">
+        <div>
+          <div class="issue-id">DISCUSSAO</div>
+          <div class="issue-title">Tags livres em vez de campos fixos</div>
+        </div>
+        <span class="priority-tag priority-medium">Media</span>
+      </div>
+      <p class="issue-summary">Ter campos pre-determinados como "Tipo de projeto" e "Area do Projeto" nao e sustentavel a longo prazo. Um sistema de tags livres pode ser mais flexivel. Podemos pensar em sugestoes feitas pela IA para facilitar a categorizacao.</p>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-top">
+        <div>
+          <div class="issue-id">DISCUSSAO</div>
+          <div class="issue-title">Tipos de salas: estruturada vs. informal</div>
+        </div>
+        <span class="priority-tag priority-medium">Media</span>
+      </div>
+      <p class="issue-summary">Existem salas que precisam de estrutura completa (como as de projeto para o cliente), mas outras sao mais informais e nao precisam de tanta rigidez. Por exemplo, o campo "Sponsor" faz sentido em salas de projeto onde e importante nomear um responsavel, mas nao faz sentido em salas informais de uso interno. Precisamos pensar em como diferenciar e tratar esses diferentes tipos de sala sem complicar a experiencia.</p>
+    </div>
+  </div>
+
+  </div> <!-- close tab-backlog -->
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    Nodian &middot; Nova Plataforma &middot; Milestone: Salas como Moodle &middot; Maio 2026
+  </div>
+
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'neutral',
+    flowchart: {
+      useMaxWidth: true,
+      htmlLabels: true,
+      curve: 'basis',
+      padding: 16
+    },
+    themeVariables: {
+      fontFamily: 'DM Sans, sans-serif',
+      fontSize: '13px',
+      primaryColor: '#fef3c7',
+      primaryBorderColor: '#d97706',
+      primaryTextColor: '#1c1917',
+      lineColor: '#a8a29e',
+      secondaryColor: '#f5f5f4',
+      tertiaryColor: '#fff'
+    }
+  });
+
+  function renderMermaids(panel) {
+    var nodes = panel.querySelectorAll('pre.mermaid:not([data-processed])');
+    if (nodes.length > 0) {
+      mermaid.run({ nodes: Array.from(nodes) });
+    }
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    var panel = document.getElementById('tab-' + tab);
+    panel.classList.add('active');
+    event.currentTarget.classList.add('active');
+    setTimeout(function() { renderMermaids(panel); }, 50);
+  }
+
+  // Render mermaids in the initially active tab
+  document.addEventListener('DOMContentLoaded', function() {
+    var activePanel = document.querySelector('.tab-panel.active');
+    if (activePanel) renderMermaids(activePanel);
+  });
+</script>
+
+</body>
+</html>
