@@ -560,7 +560,7 @@
   <!-- TABS -->
   <div class="tabs-nav">
     <button class="tab-btn active" onclick="switchTab('novartis')">Missao Aguia Novartis</button>
-    <button class="tab-btn" onclick="switchTab('milestones')">Issues da Plataforma <span class="tab-count">8</span></button>
+    <button class="tab-btn" onclick="switchTab('milestones')">Issues da Plataforma <span class="tab-count">4</span></button>
     <button class="tab-btn" onclick="switchTab('backlog')">Backlog de Discussoes <span class="tab-count">5</span></button>
   </div>
 
@@ -753,36 +753,90 @@
 
   <div class="page-goal" style="margin-bottom: 32px;">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-    Milestone da semana: limpar e organizar as salas
+    Issues da Plataforma
   </div>
 
   <!-- STATS -->
   <div class="stats-row">
     <div class="stat-card">
-      <div class="stat-number">8</div>
-      <div class="stat-label">Melhorias planejadas</div>
+      <div class="stat-number">8/8</div>
+      <div class="stat-label">Salas como Moodle</div>
     </div>
     <div class="stat-card">
-      <div class="stat-number">2</div>
-      <div class="stat-label">Prioridade alta</div>
+      <div class="stat-number">3</div>
+      <div class="stat-label">Em review</div>
     </div>
     <div class="stat-card">
       <div class="stat-number">1</div>
-      <div class="stat-label">Prioridade media</div>
+      <div class="stat-label">Backlog</div>
     </div>
   </div>
 
-  <h2 class="section-title">O que e esperado ver na plataforma esta semana</h2>
-  <p class="section-desc">Cada melhoria mostra o fluxo ideal que o usuario vai experimentar apos a mudanca.</p>
+  <!-- ACTIVE ISSUES -->
+  <h2 class="section-title">Em andamento</h2>
+  <p class="section-desc">Issues ativas que estao em review ou aguardando priorizacao.</p>
 
-  <div class="vision-box" role="region" aria-labelledby="vision-heading">
-    <h3 class="vision-title" id="vision-heading">Estado ideal ao final da semana</h3>
-    <p class="vision-text">Dentro das salas, os blocos voltam a ter o botao de colapsar/expandir, facilitando a navegacao em salas com muitos blocos. O admin passa a ter controle real sobre quem participa: consegue remover participantes diretamente pela lista. Alem disso, data apps podem ser removidos individualmente de um bloco sem precisar apagar o bloco inteiro.</p>
-    <p class="vision-text"><strong>Resumo:</strong> salas com mais controle — blocos colapsaveis, gestao de participantes e edicao granular de conteudo.</p>
+  <!-- NOD-185 - URGENT -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-185" target="_blank">NOD-185</a></div>
+        <div class="issue-title">Historico nao expande apos colapsar (Explorar)</div>
+      </div>
+      <span class="priority-tag" style="background: var(--red-100); color: var(--red-500);">Urgente</span>
+    </div>
+    <p class="issue-summary">Na tela de explorar, ao colapsar o historico no painel lateral, nao e possivel expandir novamente. Milestone: Busca Inteligente / IA.</p>
+    <span class="priority-tag" style="background: var(--blue-100); color: var(--blue-500); font-size: 11px;">In Review</span>
   </div>
 
-  <h2 class="section-title">Detalhamento por issue</h2>
-  <p class="section-desc">Cada card abaixo descreve o problema, a solucao e o fluxo esperado apos a implementacao.</p>
+  <!-- NOD-163 - HIGH -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-163" target="_blank">NOD-163</a></div>
+        <div class="issue-title">FileType enum sem HTML nem CSV</div>
+      </div>
+      <span class="priority-tag priority-high">Alta</span>
+    </div>
+    <p class="issue-summary">O enum FileType no Prisma so possui POWERBI, METABASE, LOOKER_STUDIO, SUPERSET, PDF, EXCEL. Nao existe tipo HTML nem CSV, causando mapeamento incorreto de assets.</p>
+    <span class="priority-tag" style="background: var(--blue-100); color: var(--blue-500); font-size: 11px;">In Review</span>
+  </div>
+
+  <!-- NOD-190 - HIGH -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-190" target="_blank">NOD-190</a></div>
+        <div class="issue-title">Editor de texto rico nos blocos da sala (Tiptap)</div>
+      </div>
+      <span class="priority-tag priority-high">Alta</span>
+    </div>
+    <p class="issue-summary">Permitir estilo markdown nos blocos das salas, com editor de texto rico (Tiptap via Kibo UI) e Bubble Menu. Milestone: Salas como Moodle.</p>
+    <span class="priority-tag" style="background: var(--blue-100); color: var(--blue-500); font-size: 11px;">In Review</span>
+  </div>
+
+  <!-- NOD-211 - BACKLOG -->
+  <div class="issue-card" style="opacity: 0.6;">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-211" target="_blank">NOD-211</a></div>
+        <div class="issue-title">Biblioteca: mostrar salas a que o dashboard pertence</div>
+      </div>
+      <span class="priority-tag" style="background: var(--stone-100); color: var(--stone-500);">Backlog</span>
+    </div>
+    <p class="issue-summary">Na biblioteca, exibir a quais salas cada dashboard pertence.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- COMPLETED MILESTONE -->
+  <h2 class="section-title">Milestone concluido: Salas como Moodle</h2>
+  <p class="section-desc">8 issues entregues em 15/mai. Clique no ID para ver detalhes no Linear.</p>
+
+  <div class="vision-box" role="region" aria-labelledby="vision-heading">
+    <h3 class="vision-title" id="vision-heading">Entregue</h3>
+    <p class="vision-text">Salas com mais controle — blocos colapsaveis, gestao de participantes, edicao granular de conteudo, navegacao mais direta e interface mais limpa em toda a plataforma.</p>
+  </div>
 
   <!-- NOD-214 - ALTA -->
   <div class="issue-card">
@@ -791,7 +845,7 @@
         <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-214" target="_blank">NOD-214</a></div>
         <div class="issue-title">Voltar o botao de colapsar/expandir blocos</div>
       </div>
-      <span class="priority-tag priority-high">Alta</span>
+      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
     </div>
     <p class="issue-summary">Os blocos dentro das salas tinham um icone no canto superior direito que permitia colapsar (esconder) ou expandir o conteudo. Esse icone sumiu. Em salas com muitos blocos, isso dificulta a navegacao. Vamos restaurar essa funcionalidade.</p>
     <div class="flow-label">Como vai funcionar</div>
@@ -813,7 +867,7 @@ flowchart TD
         <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-218" target="_blank">NOD-218</a></div>
         <div class="issue-title">Admin pode remover participantes da sala</div>
       </div>
-      <span class="priority-tag priority-high">Alta</span>
+      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
     </div>
     <p class="issue-summary">Hoje, uma vez que voce adiciona alguem a uma sala, nao ha como remover essa pessoa. O administrador da sala precisa ter controle sobre quem participa -- especialmente por questoes de seguranca e privacidade dos dados.</p>
     <div class="flow-label">Como vai funcionar</div>
@@ -836,7 +890,7 @@ flowchart TD
         <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-213" target="_blank">NOD-213</a></div>
         <div class="issue-title">Remover data apps de um bloco sem perder o bloco</div>
       </div>
-      <span class="priority-tag priority-medium">Media</span>
+      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
     </div>
     <p class="issue-summary">Quando voce adiciona um data app (dashboard, arquivo) a um bloco dentro de uma sala, nao da para remove-lo depois. O unico jeito e apagar o bloco inteiro e recriar do zero -- perdendo texto e outros data apps. Agora sera possivel remover individualmente.</p>
     <div class="flow-label">Como vai funcionar</div>
@@ -851,14 +905,7 @@ flowchart TD
     </div>
   </div>
 
-  <h2 class="section-title">Pequeno backlog</h2>
-  <p class="section-desc">Ajustes pequenos esperados para semana que vem.</p>
-
-  <div class="vision-box" role="region" aria-labelledby="backlog-vision-heading">
-    <h3 class="vision-title" id="backlog-vision-heading">Esperado para o comeco da semana que vem</h3>
-    <p class="vision-text">Ao abrir <strong>bombord.nodian.dev</strong>, o usuario cai direto no conteudo — login ou tela Explorar, sem tela intermediaria. A listagem de salas aparece limpa, sem filtros inuteis. Dentro das salas, o cabecalho mostra apenas nome e descricao (sem tags duplicadas) e o titulo redundante "Dashboards e Arquivos" desaparece. No menu lateral, a pagina "Perfil" duplicada e removida.</p>
-    <p class="vision-text"><strong>Resumo:</strong> navegacao mais direta e interface mais limpa em toda a plataforma.</p>
-  </div>
+  <!-- LOW PRIORITY - DONE -->
 
   <!-- NOD-212 - BAIXA -->
   <div class="issue-card">
@@ -867,7 +914,7 @@ flowchart TD
         <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-212" target="_blank">NOD-212</a></div>
         <div class="issue-title">Acesso direto ao conteudo ao abrir a plataforma</div>
       </div>
-      <span class="priority-tag priority-low">Baixa</span>
+      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
     </div>
     <p class="issue-summary">Hoje, ao abrir <strong>bombord.nodian.dev</strong>, voce ve uma tela intermediaria com botoes "Entrar" e "Ver Salas" que nao agrega nada. O objetivo e que a plataforma leve voce direto ao conteudo -- ou para a tela de login (se nao estiver logado) ou para a tela Explorar (se ja estiver).</p>
     <div class="flow-label">Como vai funcionar</div>
@@ -889,7 +936,7 @@ flowchart TD
         <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-215" target="_blank">NOD-215</a></div>
         <div class="issue-title">Remover filtros inuteis da listagem de salas</div>
       </div>
-      <span class="priority-tag priority-low">Baixa</span>
+      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
     </div>
     <p class="issue-summary">A tela de Salas mostra tres filtros -- "Todos", "Com PDF" e "Equipe Grande" -- que nao tem utilidade pratica e so adicionam ruido visual. Serao removidos para deixar a interface mais limpa.</p>
     <div class="flow-label">Como vai funcionar</div>
@@ -908,7 +955,7 @@ flowchart TD
         <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-216" target="_blank">NOD-216</a></div>
         <div class="issue-title">Remover pagina Perfil duplicada</div>
       </div>
-      <span class="priority-tag priority-low">Baixa</span>
+      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
     </div>
     <p class="issue-summary">Existem duas paginas com a mesma informacao: "Perfil" e "Configuracoes". As informacoes de perfil ja estao dentro de Configuracoes, entao a pagina Perfil sera removida do menu lateral para evitar confusao.</p>
     <div class="flow-label">Como vai funcionar</div>
@@ -928,7 +975,7 @@ flowchart TD
         <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-217" target="_blank">NOD-217</a></div>
         <div class="issue-title">Remover titulo redundante dentro das salas</div>
       </div>
-      <span class="priority-tag priority-low">Baixa</span>
+      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
     </div>
     <p class="issue-summary">Dentro de cada sala, aparece o titulo fixo "Dashboards e Arquivos" entre o cabecalho da sala e os blocos de conteudo. Como o usuario ja sabe que esta dentro de uma sala, esse titulo e desnecessario e sera removido.</p>
     <div class="flow-label">Como vai funcionar</div>
@@ -948,7 +995,7 @@ flowchart TD
         <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-219" target="_blank">NOD-219</a></div>
         <div class="issue-title">Limpar tags duplicadas do cabecalho da sala</div>
       </div>
-      <span class="priority-tag priority-low">Baixa</span>
+      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
     </div>
     <p class="issue-summary">O cabecalho da sala mostra tags como Empresa, Sponsor, Tema, Tipo e Area. Essas mesmas informacoes ja aparecem organizadas no painel lateral "Detalhes do Projeto". A duplicacao sera removida para deixar o cabecalho mais limpo.</p>
     <div class="flow-label">Como vai funcionar</div>
