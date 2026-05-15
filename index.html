@@ -567,49 +567,90 @@
   <!-- TAB: NOVARTIS -->
   <div id="tab-novartis" class="tab-panel active">
 
-  <div class="page-goal" style="margin-bottom: 32px;">
+  <div class="page-goal" style="margin-bottom: 8px;">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-    Milestone para Novartis: busca conversacional + data apps
+    Busca conversacional que recomenda o data app certo para a pergunta do usuario
   </div>
+  <p class="section-desc" style="text-align:center; margin-bottom: 48px;">O chat e canal. O produto e encontrar o data app certo. Antes de formatar bonito, precisamos <strong>ver e validar</strong> o que a busca retorna.</p>
 
-  <h2 class="section-title">Fluxo esperado</h2>
-  <p class="section-desc">Como a experiencia de busca deve funcionar para o usuario final.</p>
+  <!-- ===== ENTREGAS ===== -->
+  <h2 class="section-title" style="margin-top: 48px;">Entregas incrementais</h2>
+  <p class="section-desc">Cada entrega e um ponto de corte valido. Se o prazo apertar, entregas 1+2 ja demonstram que o motor funciona.</p>
 
+  <!-- ENTREGA 1: DEBUG VIEW -->
   <div class="issue-card">
     <div class="issue-top">
       <div>
-        <div class="issue-id">FLUXO IDEAL</div>
-        <div class="issue-title">Busca conversacional na aba Explorar</div>
+        <div class="issue-id">ENTREGA 1</div>
+        <div class="issue-title">Debug view da busca</div>
       </div>
+      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Entregue</span>
     </div>
-    <p class="issue-summary">O usuario entra na aba "Explorar", digita uma pergunta como <strong>"Qual o perfil de pacientes com cancer de mama?"</strong> e recebe de volta a melhor (ou N melhores) opcao de data app com uma descricao do motivo da recomendacao. Abaixo, uma secao de outras opcoes relevantes e um sumario de classificacao de relevancia.</p>
-    <div class="flow-label">Como vai funcionar</div>
-    <div class="mermaid-wrapper">
-      <pre class="mermaid">
-flowchart TD
-    A["Usuario acessa aba Explorar"] --> B["Digita pergunta em linguagem natural"]
-    B --> C["Plataforma busca e classifica data apps por relevancia"]
-    C --> D["Exibe melhor resultado com descricao do motivo"]
-    D --> E["Secao: outras opcoes relevantes"]
-    E --> F["Sumario de classificacao de relevancia"]
-      </pre>
+    <p class="issue-summary">Playground que mostra os resultados crus do endpoint <code>/discover</code>: eixos extraidos da query, chunks recuperados com scores, vocab_hits, e score_breakdown (content vs vocab_match). Permite inspecionar exatamente o que a busca retorna para qualquer pergunta.</p>
+    <p class="issue-summary"><strong>O que valida:</strong> "a busca encontra algo?" — visibilidade total sobre o que entra e o que sai do pipeline.</p>
+    <div style="margin-top:12px;">
+      <a href="http://bragi:8000/ui/discover" target="_blank" style="display:inline-flex; align-items:center; gap:8px; padding:10px 18px; background:var(--stone-900); color:white; border:none; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; text-decoration:none; transition:opacity 0.15s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Abrir playground
+      </a>
     </div>
   </div>
 
-  <h2 class="section-title" style="margin-top: 48px;">Roadmap</h2>
-  <p class="section-desc">3 frentes: spec destrava as outras duas, que rodam em paralelo. Cada frente quebrada em tarefas incrementais, cada uma demonstravel sozinha.</p>
-
-  <!-- ===== EIXO 1: SPEC ===== -->
+  <!-- ENTREGA 2A: CORPO DE TESTE -->
   <div class="issue-card">
     <div class="issue-top">
       <div>
-        <div class="issue-id">EIXO 1 / SPEC</div>
-        <div class="issue-title">Definir o contrato chatd &harr; front do Explorar</div>
+        <div class="issue-id">ENTREGA 2A</div>
+        <div class="issue-title">Corpo de teste (gold set)</div>
       </div>
-      <span class="priority-tag priority-high">Bloqueante</span>
+      <span class="priority-tag priority-high">Proximo</span>
     </div>
-    <p class="issue-summary">Documento curto que fixa o contrato de API entre o servico de chat e o front: endpoints HTTP, header de caller, vocabulario SSE incluindo um sinal novo de progresso de fase, schema do <code>discover_result</code> (card principal + complementares + coortes inline + tabela-resumo), fluxo de confirmacao de coorte, casos de erro e empty state. Premissas simplificadoras explicitas.</p>
-    <p class="issue-summary"><strong>Outcome:</strong> chatd e front podem ser implementados independentemente, contra fixtures que respeitam o contrato. Brief do chatd permanece valido; ajustes que o spec exigir entram em revisao posterior, nao bloqueiam.</p>
+    <p class="issue-summary">Conjunto de 10-20 queries representativas do uso Novartis (ex: "perfil de pacientes com cancer de mama", "dashboard de adesao ao tratamento") com os data apps que <strong>devem</strong> aparecer no top-3 para cada query (ground truth definido manualmente por quem conhece o dominio).</p>
+    <p class="issue-summary"><strong>O que valida:</strong> cria um baseline mensuravel. Qualquer ajuste no pipeline pode ser avaliado como "melhorou/piorou" com metricas simples (hit@3, hit@5, MRR).</p>
+    <p class="issue-summary"><strong>Quem monta:</strong> quem conhece o dominio define o que e "certo". Time tecnico roda e mede.</p>
+  </div>
+
+  <!-- ENTREGA 2B: BENCHMARK -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">ENTREGA 2B</div>
+        <div class="issue-title">Benchmark externo de RAG</div>
+      </div>
+      <span class="priority-tag priority-medium">Aberto</span>
+    </div>
+    <p class="issue-summary">Comparar nosso pipeline contra solucoes existentes para responder: "nosso retrieve esta em que patamar?" Opcoes a avaliar:</p>
+    <ul style="margin: 12px 0 12px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.8;">
+      <li><strong>RAGAS</strong> — framework open-source de eval para RAG (faithfulness, relevance, context precision). Roda local.</li>
+      <li><strong>BEIR</strong> — benchmark academico de information retrieval. Util pra comparar embeddings/chunking contra baselines publicados.</li>
+      <li><strong>Teste direto</strong> — rodar as mesmas queries num concorrente (Perplexity, ChatGPT com corpus) e comparar resultados. Mais rapido que montar benchmark formal.</li>
+    </ul>
+    <p class="issue-summary"><strong>O que valida:</strong> "nosso pipeline esta razoavel comparado ao estado da arte, ou tem gap fundamental?"</p>
+  </div>
+
+  <!-- ENTREGA 2C: CLASSIFICACAO -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">ENTREGA 2C</div>
+        <div class="issue-title">Classificacao de relevancia acessivel</div>
+      </div>
+      <span class="priority-tag priority-medium">Aberto</span>
+    </div>
+    <p class="issue-summary">Sobre os resultados do discover, expor de forma acessivel (integrado ao debug, nao em UI separada): ranking final, breakdown de por que cada file aparece (% contribuicao content vs vocab), e quais chunks matcharam com qual score.</p>
+    <p class="issue-summary"><strong>O que valida:</strong> qualquer pessoa consegue olhar e dizer "sim, a classificacao faz sentido" ou "nao, esta trazendo coisa errada e priorizando pelo motivo errado".</p>
+  </div>
+
+  <!-- ENTREGA 3 -->
+  <div class="issue-card" style="opacity: 0.6;">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">ENTREGA 3</div>
+        <div class="issue-title">Resposta formatada (card principal + complementares)</div>
+      </div>
+      <span class="priority-tag priority-low">Depende de 2</span>
+    </div>
+    <p class="issue-summary">A experiencia bonita: card destacado com racional textual, lista secundaria, sumario de classificacao. So faz sentido se entregas 1+2 estao validadas — se a busca encontra e classifica corretamente.</p>
     <div style="display:flex; gap:12px; align-items:center; margin-top:12px;">
       <button onclick="openPrototypeModal()" style="display:inline-flex; align-items:center; gap:8px; padding:10px 18px; background:var(--stone-900); color:white; border:none; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:opacity 0.15s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -619,90 +660,88 @@ flowchart TD
     </div>
   </div>
 
-  <!-- ===== EIXO 2: CHATD ===== -->
-  <div class="axis-section">
-    <div class="axis-header">
-      <div class="axis-number">Eixo 2 / Chatd</div>
-      <h2 class="axis-title">Implementar o motor de descoberta no servico de chat</h2>
-      <span class="axis-meta">Paralelo apos spec &middot; 6 tarefas</span>
+  <!-- ENTREGA 4 -->
+  <div class="issue-card" style="opacity: 0.6;">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">ENTREGA 4</div>
+        <div class="issue-title">Interacao conversacional (coortes, refinamento)</div>
+      </div>
+      <span class="priority-tag priority-low">Depende de 3</span>
     </div>
-    <div class="axis-outcome">
-      <strong>Outcome:</strong> qualquer cliente HTTP que respeite o contrato recebe a resposta rica do Explorar, com transparencia real de relevancia (item Alta da missao Novartis) saindo natural do pipeline.
+    <p class="issue-summary">Usuario refina a busca, confirma coortes sugeridas, abre dashboard filtrado. Extensao que so faz sentido se o fluxo base (1-3) esta solido.</p>
+  </div>
+
+  <!-- ===== RISCOS E ALAVANCAS ===== -->
+  <h2 class="section-title" style="margin-top: 56px;">Riscos e alavancas de melhoria</h2>
+  <p class="section-desc">O que pode dar errado, como detectamos, e quais sao os eixos de ajuste disponiveis.</p>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">RISCO 1</div>
+        <div class="issue-title">Busca nao retorna o data app certo no top-3</div>
+      </div>
+      <span class="priority-tag priority-high">Critico</span>
     </div>
+    <p class="issue-summary"><strong>Como detectamos:</strong> gold set (entrega 2A) mostra hit@3 baixo — o data app esperado nao aparece entre os primeiros resultados.</p>
+    <div class="flow-label" style="margin-top: 16px;">Alavancas de ajuste</div>
     <ol class="task-list">
       <li class="task-item">
-        <div class="task-title">Caller policy minima</div>
-        <div class="task-desc">Header <code>X-Caller</code> identifica quem chamou (proto-bomb ou nodian-saude). Tabela hardcoded mapeia caller para modos permitidos. Nodian-saude so consegue criar conversa exploratoria; proto-bomb mantem ambos.</div>
-        <span class="task-deliverable">Demonstravel: curl com X-Caller invalido recebe 403</span>
+        <div class="task-title">Algoritmo de ranking (pesos do blend)</div>
+        <div class="task-desc">Hoje: 50% content + 50% vocab. Content usa <code>0.7 * max_chunk + 0.3 * mean_top3</code>. Ajustar pesos pode priorizar relevancia semantica vs match de vocabulario clinico conforme o caso.</div>
       </li>
       <li class="task-item">
-        <div class="task-title">Extracao de eixos da pergunta</div>
-        <div class="task-desc">Etapa 1 do pipeline: dado o turno do usuario, LLM extrai 1-N eixos semanticos ("cancer de mama", "perfil de pacientes"). Output validado por schema. Funciona end-to-end sem chamar o ragd ainda.</div>
-        <span class="task-deliverable">Demonstravel: input "perfil de pacientes com cancer de mama" devolve eixos extraidos como JSON</span>
+        <div class="task-title">Estrategia de chunking</div>
+        <div class="task-desc">Hoje: 512 chars, split semantico por paragrafo, overlap de 50 chars. Chunks podem ser curtos demais para capturar contexto, ou longos demais e diluir relevancia. Tamanho e overlap sao ajustaveis.</div>
       </li>
       <li class="task-item">
-        <div class="task-title">Integracao com discover do ragd</div>
-        <div class="task-desc">Etapa 2 do pipeline: substituir o rag_search atual (que usa /documents/search) por chamada ao /discover do ragd. Repassa eixos extraidos, recebe hits ranqueados com expanded codes e vocab hits. Resultado cru ja pode ser inspecionado.</div>
-        <span class="task-deliverable">Demonstravel: para cada eixo, lista de hits do ragd persistida no Message</span>
-      </li>
-      <li class="task-item">
-        <div class="task-title">Sintese de principal + complementares + racional</div>
-        <div class="task-desc">Etapa 3 do pipeline: LLM com schema rigido transforma os hits crus em DiscoverResult: escolhe o card principal, classifica complementares, gera o racional textual ("Responde: quem e essa paciente?"). Coortes inline derivadas dos expanded codes do ragd. Fallback gracioso se LLM falhar (devolve hits crus).</div>
-        <span class="task-deliverable">Demonstravel: resposta no formato exato do prototipo, sem front ainda</span>
-      </li>
-      <li class="task-item">
-        <div class="task-title">Eventos de progresso por fase via SSE</div>
-        <div class="task-desc">Cada uma das tres etapas (extrair eixos, discover, sintetizar) emite um sinal SSE de progresso. Sinal e payload-free (mantendo a invariante atual); endpoint dedicado devolve qual fase esta rodando. Front renderiza o nome da fase atual.</div>
-        <span class="task-deliverable">Demonstravel: cliente SSE recebe 3 sinais em ordem, com nome de fase consultavel</span>
-      </li>
-      <li class="task-item">
-        <div class="task-title">Endpoint de resolucao de coorte</div>
-        <div class="task-desc">Quando o usuario confirma uma coorte sugerida (ou edita no modal de revisao), o front chama um endpoint utilitario que repassa os codigos selecionados ao ragd e devolve a URL embed do dashboard ja filtrado. Sincrono, sem criar nova mensagem na conversa.</div>
-        <span class="task-deliverable">Demonstravel: POST com 3 CIDs devolve URL pronta para iframe</span>
+        <div class="task-title">Cobertura de vocabulario indexado</div>
+        <div class="task-desc">O vocab_match depende dos <code>filter_definitions</code> declarados na indexacao. Se os documents nao mapeiam termos clinicos da Novartis, o segundo sinal e cego. Revisar cobertura dos vocabularios.</div>
       </li>
     </ol>
   </div>
 
-  <!-- ===== EIXO 3: FRONT ===== -->
-  <div class="axis-section">
-    <div class="axis-header">
-      <div class="axis-number">Eixo 3 / Front</div>
-      <h2 class="axis-title">Conectar a aba Explorar ao novo motor</h2>
-      <span class="axis-meta">Paralelo apos spec &middot; 6 tarefas</span>
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">RISCO 2</div>
+        <div class="issue-title">Scores muito proximos — sem discriminacao clara</div>
+      </div>
+      <span class="priority-tag priority-medium">Medio</span>
     </div>
-    <div class="axis-outcome">
-      <strong>Outcome:</strong> a experiencia descrita no prototipo entra em producao. Sequencia "da casca pro centro": cada tarefa adiciona uma camada visivel sobre a anterior.
-    </div>
+    <p class="issue-summary"><strong>Como detectamos:</strong> top-5 files com scores quase identicos, impossibilitando recomendar "o melhor" com confianca.</p>
+    <div class="flow-label" style="margin-top: 16px;">Alavancas de ajuste</div>
     <ol class="task-list">
       <li class="task-item">
-        <div class="task-title">Cliente HTTP do chatd no Fastify</div>
-        <div class="task-desc">Thin async client no nodian-saude que chama os endpoints do chatd com HMAC e header X-Caller. Substitui as chamadas diretas ao /discover do ragd. Sem mudanca visual ainda; so prepara a base.</div>
-        <span class="task-deliverable">Demonstravel: nodian consegue criar conversa exploratoria no chatd via teste manual</span>
+        <div class="task-title">Calibracao da curva de saturacao</div>
+        <div class="task-desc">Vocab score usa <code>mean / (k + mean)</code> com k=0.0025. Se k for muito baixo, tudo satura proximo de 1. Ajustar k pode abrir a distribuicao.</div>
       </li>
       <li class="task-item">
-        <div class="task-title">Renderizar resposta rica (cards estaticos)</div>
-        <div class="task-desc">Refatora a aba Explorar para consumir o DiscoverResult contra fixtures (sem ainda esperar o backend pronto). Componentes novos: PrimaryCard com destaque, ComplementaryList rebaixada, SummaryTable. Click no card abre o dashboard.</div>
-        <span class="task-deliverable">Demonstravel: aba Explorar renderiza visualmente o estado-alvo a partir de mock</span>
+        <div class="task-title">Sinais adicionais</div>
+        <div class="task-desc">Adicionar fatores como recencia do data app, popularidade (acessos), ou match exato de titulo pode criar separacao quando content+vocab empatam.</div>
+      </li>
+    </ol>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">RISCO 3</div>
+        <div class="issue-title">Vocabulario nao expande a query corretamente</div>
+      </div>
+      <span class="priority-tag priority-medium">Medio</span>
+    </div>
+    <p class="issue-summary"><strong>Como detectamos:</strong> debug view mostra <code>expanded_query_codes</code> vazio ou com CIDs irrelevantes para a pergunta feita.</p>
+    <div class="flow-label" style="margin-top: 16px;">Alavancas de ajuste</div>
+    <ol class="task-list">
+      <li class="task-item">
+        <div class="task-title">Qualidade do mapeamento query &rarr; codigos</div>
+        <div class="task-desc">A expansao de vocabulario depende do embedding dos termos clinicos. Se "cancer de mama" nao produz CIDs de neoplasia mamaria, o embedding do vocabulario precisa ser revisado ou complementado.</div>
       </li>
       <li class="task-item">
-        <div class="task-title">Plugar SSE e mensagens reais do chatd</div>
-        <div class="task-desc">Substitui as fixtures pelos dados reais. Front cria conversation no chatd, abre stream SSE, recarrega mensagens quando recebe MESSAGES_INVALIDATED. Loading state generico (spinner) enquanto pipeline roda.</div>
-        <span class="task-deliverable">Demonstravel: usuario digita pergunta de verdade e recebe resposta real do chatd</span>
-      </li>
-      <li class="task-item">
-        <div class="task-title">Typing por etapas reais</div>
-        <div class="task-desc">Substitui o spinner generico pelo componente StageProgress que reage ao sinal STAGE_PROGRESS. Mostra "Interpretando...", "Buscando CIDs...", "Sintetizando..." conforme o pipeline avanca. Feedback honesto, debugavel.</div>
-        <span class="task-deliverable">Demonstravel: usuario ve as 3 etapas reais aparecerem em ordem durante a busca</span>
-      </li>
-      <li class="task-item">
-        <div class="task-title">Coorte inline com confirmacao em 1 clique</div>
-        <div class="task-desc">Cards do tipo "Requer filtros" ganham o componente InlineDataAppWithCohort: nome da coorte, contagem de codigos, botao Confirmar. Click chama o endpoint de resolucao de coorte e abre o dashboard filtrado. Sem modal ainda.</div>
-        <span class="task-deliverable">Demonstravel: usuario confirma coorte sugerida e dashboard abre filtrado</span>
-      </li>
-      <li class="task-item">
-        <div class="task-title">Modal de revisao granular + sidebar de historico</div>
-        <div class="task-desc">Botao "Revisar" abre modal de 2 colunas (browse de codigos / selecionados) reusando vocabularies/search. Sidebar de historico passa a listar conversas exploratorias do chatd. Tabela searchConversation antiga deprecada.</div>
-        <span class="task-deliverable">Demonstravel: usuario edita coorte, abre dashboard customizado, ve a busca aparecer no historico</span>
+        <div class="task-title">Threshold de score para expansao</div>
+        <div class="task-desc">Codigos com score muito baixo podem estar entrando como ruido. Ajustar threshold minimo de inclusao pode melhorar precisao.</div>
       </li>
     </ol>
   </div>
