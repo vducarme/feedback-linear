@@ -537,6 +537,9 @@
     color: var(--stone-400);
   }
 
+  details summary::-webkit-details-marker { display: none; }
+  details[open] .dropdown-chevron { transform: rotate(180deg); }
+
   @media (max-width: 600px) {
     .page-wrapper { padding: 32px 16px 60px; }
     .page-title { font-size: 30px; }
@@ -560,7 +563,7 @@
   <!-- TABS -->
   <div class="tabs-nav">
     <button class="tab-btn active" onclick="switchTab('novartis')">Missao Aguia Novartis</button>
-    <button class="tab-btn" onclick="switchTab('milestones')">Issues da Plataforma <span class="tab-count">4</span></button>
+    <button class="tab-btn" onclick="switchTab('milestones')">Issues da Plataforma <span class="tab-count">1</span></button>
     <button class="tab-btn" onclick="switchTab('backlog')">Backlog de Discussoes <span class="tab-count">5</span></button>
     <button class="tab-btn" onclick="switchTab('roles')">Roles / Permissoes</button>
   </div>
@@ -760,27 +763,51 @@
   <!-- STATS -->
   <div class="stats-row">
     <div class="stat-card">
-      <div class="stat-number">8/8</div>
-      <div class="stat-label">Salas como Moodle</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">0</div>
-      <div class="stat-label">Em andamento</div>
+      <div class="stat-number">1</div>
+      <div class="stat-label">Em aberto</div>
     </div>
     <div class="stat-card">
       <div class="stat-number">8</div>
       <div class="stat-label">Concluidas</div>
     </div>
+    <div class="stat-card">
+      <div class="stat-number">8/8</div>
+      <div class="stat-label">Salas como Moodle</div>
+    </div>
   </div>
 
-  <!-- COMPLETED MILESTONE -->
-  <h2 class="section-title">Milestone concluido: Salas como Moodle</h2>
-  <p class="section-desc">8 issues entregues em 15/mai. Clique no ID para ver detalhes no Linear.</p>
+  <h2 class="section-title">Esta semana</h2>
+  <p class="section-desc">Issues abertas e em andamento.</p>
 
-  <div class="vision-box" role="region" aria-labelledby="vision-heading">
-    <h3 class="vision-title" id="vision-heading">Entregue</h3>
-    <p class="vision-text">Salas com mais controle — blocos colapsaveis, gestao de participantes, edicao granular de conteudo, navegacao mais direta e interface mais limpa em toda a plataforma.</p>
+  <!-- NOD-253 -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-253" target="_blank">NOD-253</a></div>
+        <div class="issue-title">Atualizar URL do data app nao salva a alteracao</div>
+      </div>
+      <span class="priority-tag priority-medium">Media</span>
+    </div>
+    <p class="issue-summary">Ao editar a URL de um data app no cadastro e salvar, a alteracao nao persiste — a URL antiga permanece. Isso impede corrigir URLs erradas sem recriar o data app do zero.</p>
+    <div class="flow-label">Fluxo esperado</div>
+    <div class="mermaid-wrapper">
+      <pre class="mermaid">
+flowchart TD
+    A["Usuario acessa cadastro do data app"] --> B["Altera a URL"]
+    B --> C["Salva"]
+    C --> D["URL e atualizada com sucesso"]
+      </pre>
+    </div>
   </div>
+
+  <!-- DROPDOWN: SEMANA PASSADA -->
+  <details style="margin-top: 40px;">
+    <summary style="font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--stone-700); cursor: pointer; padding: 16px 0; border-bottom: 1px solid var(--stone-200); list-style: none; display: flex; align-items: center; gap: 10px; user-select: none;">
+      <svg class="dropdown-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.2s ease; flex-shrink: 0;"><polyline points="6 9 12 15 18 9"/></svg>
+      Issues da semana passada
+      <span style="font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; background: var(--green-100); color: var(--green-500); padding: 3px 10px; border-radius: 100px; margin-left: 8px;">8 done</span>
+    </summary>
+    <div style="padding-top: 24px;">
 
   <!-- NOD-214 - ALTA -->
   <div class="issue-card">
@@ -951,6 +978,9 @@ flowchart TD
       </pre>
     </div>
   </div>
+
+    </div>
+  </details>
 
   </div> <!-- close tab-milestones -->
 
