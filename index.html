@@ -562,6 +562,7 @@
     <button class="tab-btn active" onclick="switchTab('novartis')">Missao Aguia Novartis</button>
     <button class="tab-btn" onclick="switchTab('milestones')">Issues da Plataforma <span class="tab-count">4</span></button>
     <button class="tab-btn" onclick="switchTab('backlog')">Backlog de Discussoes <span class="tab-count">5</span></button>
+    <button class="tab-btn" onclick="switchTab('roles')">Roles / Permissoes</button>
   </div>
 
   <!-- TAB: NOVARTIS -->
@@ -1017,6 +1018,56 @@ flowchart TD
   </div>
 
   </div> <!-- close tab-backlog -->
+
+  <!-- TAB: ROLES -->
+  <div id="tab-roles" class="tab-panel">
+
+  <div class="page-goal" style="margin-bottom: 8px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+    Milestone: Definicao de roles e permissoes
+  </div>
+  <p class="section-desc" style="text-align:center; margin-bottom: 48px;">Repensar a arquitetura de permissoes, login e cadastro para que a plataforma funcione como ambiente do cliente.</p>
+
+  <h2 class="section-title">Etapas</h2>
+  <p class="section-desc">Cada etapa e um ponto de corte. A definicao de roles destrava o mock, que destrava o backend.</p>
+
+  <!-- PASSO 1 -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">ETAPA 1</div>
+        <div class="issue-title">Definicao dos roles/permissoes e requisitos de login/cadastro</div>
+      </div>
+      <span class="priority-tag" style="background: var(--amber-100); color: var(--amber-700);">Fazendo</span>
+    </div>
+    <p class="issue-summary">Mapear os roles necessarios (admin, membro, viewer, etc.), definir o que cada role pode ver e fazer dentro de uma sala, e simplificar os caminhos de login e cadastro (magic link, codigo, senha, Teams). Resultado: documento com a matriz de permissoes e os fluxos de autenticacao escolhidos.</p>
+  </div>
+
+  <!-- PASSO 2 -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">ETAPA 2</div>
+        <div class="issue-title">Mock do frontend</div>
+      </div>
+      <span class="priority-tag priority-high">Proximo</span>
+    </div>
+    <p class="issue-summary">Prototipar as telas impactadas pelas novas permissoes: criacao de sala, convite de participantes, visibilidade de conteudo por role, fluxo de login/cadastro simplificado. Validar com stakeholders antes de implementar.</p>
+  </div>
+
+  <!-- PASSO 3 -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">ETAPA 3</div>
+        <div class="issue-title">Definicao do backend</div>
+      </div>
+      <span class="priority-tag priority-high">Proximo</span>
+    </div>
+    <p class="issue-summary">Definir a arquitetura tecnica: modelo de dados para roles e permissoes, policies de acesso, endpoints afetados, migracoes necessarias. Resultado: spec tecnico que permite implementacao independente de front e back.</p>
+  </div>
+
+  </div> <!-- close tab-roles -->
 
   <!-- ===== PROTOTYPE MODAL ===== -->
   <div id="prototype-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; padding:24px;" onclick="closePrototypeModal(event)">
