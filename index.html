@@ -1059,7 +1059,7 @@ flowchart TD
   <p class="section-desc" style="text-align:center; margin-bottom: 48px;">Repensar a arquitetura de permissoes, login e cadastro para que a plataforma funcione como ambiente do cliente.</p>
 
   <h2 class="section-title">Etapas</h2>
-  <p class="section-desc">Cada etapa e um ponto de corte. A definicao de roles destrava o mock, que destrava o backend.</p>
+  <p class="section-desc">Cada etapa e um ponto de corte. A definicao de roles destrava o mock, que destrava o desenvolvimento.</p>
 
   <!-- PASSO 1 -->
   <div class="issue-card">
@@ -1085,16 +1085,40 @@ flowchart TD
     <p class="issue-summary">Prototipar as telas impactadas pelas novas permissoes: criacao de sala, convite de participantes, visibilidade de conteudo por role, fluxo de login/cadastro simplificado. Validar com stakeholders antes de implementar.</p>
   </div>
 
+  <!-- PASSO 2A -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">ETAPA 2A</div>
+        <div class="issue-title">Markdown com o escopo baseado no front, com os casos de uso</div>
+      </div>
+      <span class="priority-tag priority-high">Proximo</span>
+    </div>
+    <p class="issue-summary">Documento descrevendo o escopo derivado do mock: cada tela com seus casos de uso (quem faz o que, o que ve, o que nao ve), fluxos de permissao por role, e edge cases. Serve como contrato entre design e engenharia.</p>
+  </div>
+
   <!-- PASSO 3 -->
   <div class="issue-card">
     <div class="issue-top">
       <div>
         <div class="issue-id">ETAPA 3</div>
-        <div class="issue-title">Definicao do backend</div>
+        <div class="issue-title">Desenvolvimento do front</div>
       </div>
       <span class="priority-tag priority-high">Proximo</span>
     </div>
-    <p class="issue-summary">Definir a arquitetura tecnica: modelo de dados para roles e permissoes, policies de acesso, endpoints afetados, migracoes necessarias. Resultado: spec tecnico que permite implementacao independente de front e back.</p>
+    <p class="issue-summary">Implementar no frontend as telas e componentes validados no mock: guards de permissao por role, fluxo de login/cadastro simplificado, visibilidade condicional de conteudo nas salas.</p>
+  </div>
+
+  <!-- PASSO 4 -->
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">ETAPA 4</div>
+        <div class="issue-title">Desenvolvimento do backend</div>
+      </div>
+      <span class="priority-tag priority-high">Proximo</span>
+    </div>
+    <p class="issue-summary">Implementar a arquitetura tecnica: modelo de dados para roles e permissoes, policies de acesso, endpoints afetados, migracoes necessarias.</p>
   </div>
 
   </div> <!-- close tab-roles -->
