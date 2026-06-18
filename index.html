@@ -576,9 +576,10 @@
   <!-- TABS -->
   <div class="tabs-nav">
     <button class="tab-btn active" onclick="switchTab('novartis')">Missao Aguia Novartis</button>
-    <button class="tab-btn" onclick="switchTab('roles')">Roles / Permissoes</button>
-    <button class="tab-btn" onclick="switchTab('cadastro')">Redesign Cadastro de Data App</button>
-    <button class="tab-btn" onclick="switchTab('downloads')">Downloads + outros</button>
+<button class="tab-btn" onclick="switchTab('cadastro')">Redesign Cadastro de Data App</button>
+    <button class="tab-btn" onclick="switchTab('downloads')">Downloads</button>
+    <button class="tab-btn" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">2</span></button>
+    <button class="tab-btn" onclick="switchTab('feedback')">Feedback de Usuários</button>
     <button class="tab-btn" onclick="switchTab('backlog')">Backlog de Discussoes <span class="tab-count">8</span></button>
   </div>
 
@@ -767,6 +768,327 @@
   </div>
 
   </div> <!-- close tab-novartis -->
+
+  <!-- TAB: BUGS / MELHORIAS -->
+  <div id="tab-bugs" class="tab-panel">
+
+  <div class="page-goal" style="margin-bottom: 8px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+    Bugs e melhorias da plataforma
+  </div>
+  <p class="section-desc" style="text-align:center; margin-bottom: 48px;">Problemas encontrados e melhorias identificadas no uso da plataforma. Cada item vira uma issue no Linear.</p>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-161/iframe-do-csv-fica-carregando-e-nao-aparece" target="_blank">NOD-161</a></div>
+        <div class="issue-title">Iframe do CSV fica carregando e não aparece</div>
+      </div>
+      <span class="priority-tag priority-medium">Médio/Alto</span>
+    </div>
+    <p class="issue-summary">Ao clicar em um arquivo CSV na biblioteca, ele é identificado como PowerBI e o iframe nunca carrega — o arquivo fica em estado de loading indefinido.</p>
+
+    <div class="flow-label">Passos para reproduzir</div>
+    <ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Subir um arquivo CSV</li>
+      <li>Observar que ele é classificado como <code>POWERBI</code></li>
+      <li>Clicar no iframe do arquivo</li>
+    </ol>
+
+    <div style="background: var(--amber-50); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+      <strong>Resultado:</strong> O iframe não carrega nunca. O arquivo CSV é identificado incorretamente como PowerBI, o que provavelmente causa a falha de renderização.
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">BUG · <a href="https://linear.app/nodian-dev/issue/NOD-363/usuario-removido-continua-na-lista-de-participantes-apos-atualizar-a" target="_blank">NOD-363</a></div>
+        <div class="issue-title">Usuário removido continua na lista de participantes após atualizar a página</div>
+      </div>
+      <span class="priority-tag priority-high">Alto</span>
+    </div>
+
+    <p class="issue-summary">Como admin de uma sala, ao remover um participante a mensagem de sucesso é exibida, mas ao atualizar a página o usuário continua aparecendo na lista. Isso gera confusão sobre se a ação foi executada e pode levar o admin a tentar remover o mesmo usuário múltiplas vezes.</p>
+
+    <div class="flow-label">Passos para reproduzir</div>
+    <ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Acessar uma sala em <code>bombord.nodian.dev</code> como admin</li>
+      <li>Abrir a lista de participantes</li>
+      <li>Clicar em excluir em um participante (ex: <code>membro-extra@nodian.com.br</code>)</li>
+      <li>Confirmar a exclusão — mensagem de sucesso aparece</li>
+      <li>Atualizar a página (F5)</li>
+    </ol>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+      <div>
+        <div class="flow-label">Fluxo atual</div>
+        <pre class="mermaid">flowchart TD
+    A["Admin clica em excluir participante"] --> B["Mensagem de sucesso exibida"]
+    B --> C["Admin atualiza a pagina"]
+    C --> D["Usuario ainda aparece na lista"]</pre>
+      </div>
+      <div>
+        <div class="flow-label">Fluxo esperado</div>
+        <pre class="mermaid">flowchart TD
+    A["Admin clica em excluir participante"] --> B["Mensagem de sucesso exibida"]
+    B --> C["Admin atualiza a pagina"]
+    C --> D["Usuario nao aparece mais na lista"]</pre>
+      </div>
+    </div>
+
+    <div class="flow-label">Critérios de aceite</div>
+    <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Ao remover um participante e atualizar a página, o usuário removido não deve mais aparecer na lista</li>
+      <li>A mensagem de sucesso só deve ser exibida se a remoção foi de fato persistida no backend</li>
+      <li>Ao tentar acessar a sala com o usuário removido, o acesso deve ser negado</li>
+    </ul>
+
+    <div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+      <strong>Consequência:</strong> A remoção parece funcionar mas não persiste — o usuário continua com acesso à sala sem que o admin saiba.
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">BUG · <a href="https://linear.app/nodian-dev/issue/NOD-161/iframe-do-csv-fica-carregando-e-nao-aparece" target="_blank">NOD-161</a></div>
+        <div class="issue-title">Iframe do CSV fica carregando e não aparece</div>
+      </div>
+      <span class="priority-tag priority-medium">Médio/Alto</span>
+    </div>
+
+    <p class="issue-summary">Ao subir um arquivo CSV na biblioteca, ele é identificado incorretamente como POWERBI. Ao clicar no arquivo para abri-lo, o iframe fica em carregamento permanente e o conteúdo nunca aparece. O bug não trava o uso geral da plataforma, mas impede a visualização do arquivo.</p>
+
+    <div class="flow-label">Passos para reproduzir</div>
+    <ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Acessar a biblioteca de uma sala</li>
+      <li>Subir um arquivo CSV</li>
+      <li>Observar que o arquivo é identificado como <code>POWERBI</code></li>
+      <li>Clicar no arquivo para abrir o iframe</li>
+      <li>O iframe fica carregando indefinidamente e nunca exibe o conteúdo</li>
+    </ol>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+      <div>
+        <div class="flow-label">Fluxo atual</div>
+        <pre class="mermaid">flowchart TD
+    A["Usuario sobe um CSV"] --> B["Arquivo identificado como POWERBI"]
+    B --> C["Usuario clica para abrir"]
+    C --> D["Iframe carrega para sempre"]</pre>
+      </div>
+      <div>
+        <div class="flow-label">Fluxo esperado</div>
+        <pre class="mermaid">flowchart TD
+    A["Usuario sobe um CSV"] --> B["Arquivo identificado como CSV"]
+    B --> C["Usuario clica para abrir"]
+    C --> D["Conteudo do CSV e exibido"]</pre>
+      </div>
+    </div>
+
+    <div class="flow-label">Critérios de aceite</div>
+    <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Arquivos CSV devem ser identificados com o tipo correto (CSV), não como POWERBI</li>
+      <li>Ao clicar em um arquivo CSV, o conteúdo deve ser exibido corretamente, sem carregamento infinito</li>
+      <li>Caso o tipo de visualização não seja suportado, exibir mensagem de erro clara em vez de carregamento permanente</li>
+    </ul>
+
+    <div style="background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+      <strong>Consequência:</strong> O usuário não consegue visualizar o conteúdo do CSV — a tela fica travada em carregamento, sem feedback de erro.
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">BUG · <a href="https://linear.app/nodian-dev/issue/NOD-364/erro-400-ao-editar-a-imagem-de-um-data-app-existente" target="_blank">NOD-364</a></div>
+        <div class="issue-title">Erro 400 ao editar a imagem de um data app existente</div>
+      </div>
+      <span class="priority-tag priority-high">Alto</span>
+    </div>
+
+    <p class="issue-summary">Como usuário administrando um data app em <code>bombord.nodian.dev</code>, ao tentar editar a imagem de um data app existente e confirmar, uma mensagem de erro aparece no console: <code>Failed to load resource: the server responded with a status of 400 ()</code>. A imagem não é atualizada e o usuário precisa recriar o data app do zero para alterar a imagem.</p>
+
+    <div class="flow-label">Passos para reproduzir</div>
+    <ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Acessar o cadastro de um data app existente em <code>bombord.nodian.dev</code></li>
+      <li>Clicar em editar a imagem do data app</li>
+      <li>Selecionar uma nova imagem</li>
+      <li>Confirmar a alteração</li>
+      <li>Observar erro 400 no console do navegador</li>
+    </ol>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+      <div>
+        <div class="flow-label">Fluxo atual</div>
+        <pre class="mermaid">flowchart TD
+    A["Usuario acessa cadastro do data app"] --> B["Clica para editar a imagem"]
+    B --> C["Seleciona nova imagem e confirma"]
+    C --> D["Erro 400 no console e imagem nao atualizada"]</pre>
+      </div>
+      <div>
+        <div class="flow-label">Fluxo esperado</div>
+        <pre class="mermaid">flowchart TD
+    A["Usuario acessa cadastro do data app"] --> B["Clica para editar a imagem"]
+    B --> C["Seleciona nova imagem e confirma"]
+    C --> D["Imagem e atualizada com sucesso"]</pre>
+      </div>
+    </div>
+
+    <div class="flow-label">Critérios de aceite</div>
+    <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Ao editar a imagem de um data app existente e confirmar, a imagem deve ser atualizada sem erro</li>
+      <li>Nenhuma mensagem de erro 400 deve aparecer no console do navegador</li>
+      <li>A nova imagem deve persistir e ser exibida corretamente ao reabrir o cadastro</li>
+    </ul>
+
+    <div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+      <strong>Consequência:</strong> A edição de imagem parece falhar silenciosamente — o usuário não consegue atualizar a imagem de um data app existente sem recriar o cadastro.
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">BUG · <a href="https://linear.app/nodian-dev/issue/NOD-365/pagina-de-perfil-exibe-role-incorreto-sempre-mostra-admin-independente" target="_blank">NOD-365</a></div>
+        <div class="issue-title">Página de perfil exibe role incorreto — sempre mostra Admin</div>
+      </div>
+      <span class="priority-tag priority-high">Alto</span>
+    </div>
+
+    <p class="issue-summary">Como usuário logado em <code>bombord.nodian.dev</code>, ao acessar minha página de perfil, meu role é exibido como "Admin" independentemente do tenant em que estou. Mesmo quando meu role no tenant atual é diferente (ex: membro comum), a página de perfil sempre mostra "Admin".</p>
+
+    <div style="display: flex; gap: 16px; margin: 20px 0;">
+      <div style="flex: 1; background: var(--stone-100); border-radius: 12px; padding: 20px; text-align: center;">
+        <div style="width: 64px; height: 64px; background: var(--stone-900); border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; color: white; font-family: 'DM Sans', sans-serif; font-size: 24px; font-weight: 700;">VM</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--stone-900); margin-bottom: 4px;">Vitor Makiyama</div>
+        <div style="font-size: 14px; color: var(--stone-500);">Admin</div>
+        <div style="margin-top: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border: 1px solid var(--stone-300); border-radius: 100px; font-size: 12px; color: var(--stone-600);">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+          Editar perfil
+        </div>
+      </div>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+        <div style="background: var(--red-100); border: 1px solid var(--red-500); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+          <strong>Problema:</strong> O usuário vitor@nodian.com.br tem role "membro" no tenant atual, mas a página de perfil exibe "Admin".
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-label">Passos para reproduzir</div>
+    <ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Fazer login em <code>bombord.nodian.dev</code> com um usuário que não seja Admin no tenant atual</li>
+      <li>Acessar a página de perfil (clicar no avatar ou no menu de usuário)</li>
+      <li>Observar que o role exibido é "Admin"</li>
+      <li>Verificar no admin/backend que o role real do usuário no tenant é diferente</li>
+    </ol>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+      <div>
+        <div class="flow-label">Fluxo atual</div>
+        <pre class="mermaid">flowchart TD
+    A["Usuario logado em um tenant"] --> B["Acessa pagina de perfil"]
+    B --> C["Perfil exibe 'Admin' como role"]
+    C --> D["Role exibido nao corresponde ao role real no tenant"]</pre>
+      </div>
+      <div>
+        <div class="flow-label">Fluxo esperado</div>
+        <pre class="mermaid">flowchart TD
+    A["Usuario logado em um tenant"] --> B["Acessa pagina de perfil"]
+    B --> C["Perfil exibe o role correto do usuario"]
+    C --> D["Role exibido corresponde ao role real no tenant"]</pre>
+      </div>
+    </div>
+
+    <div class="flow-label">Critérios de aceite</div>
+    <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Ao acessar a página de perfil, o role exibido deve corresponder ao role do usuário no tenant atual</li>
+      <li>Se o usuário tiver roles diferentes em diferentes tenants, a página de perfil deve mostrar o role do tenant ativo</li>
+      <li>O role exibido deve ser consistente com o role verificado no backend/admin para o mesmo tenant</li>
+      <li>Caso o usuário não tenha role definido no tenant, exibir estado apropriado (ex: "Sem role" ou não exibir)</li>
+    </ul>
+
+    <div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+      <strong>Consequência:</strong> O usuário não consegue saber seu role real no tenant atual, o que gera confusão sobre permissões e pode levar a comportamentos inesperados na plataforma.
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-366/usuarios-cadastrados-na-plataforma-nao-aparecem-na-lista-de" target="_blank">NOD-366</a></div>
+        <div class="issue-title">Usuários cadastrados na plataforma não aparecem na lista de participantes</div>
+      </div>
+      <span class="priority-tag priority-high">Alto</span>
+    </div>
+    <p class="issue-summary">Como admin de uma sala, ao tentar adicionar um participante já cadastrado na plataforma, o usuário não aparece na lista de busca — tornando impossível adicioná-lo. Exemplos relatados: Guilherme, Tamires e Maurício (todos admins) não aparecem na lista.</p>
+
+    <div class="flow-label">Passos para reproduzir</div>
+    <ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Acessar <code>bombord.nodian.dev</code> como admin</li>
+      <li>Entrar em qualquer sala</li>
+      <li>Abrir o painel de adicionar participantes</li>
+      <li>Buscar por "Guilherme", "Tamires" ou "Maurício"</li>
+    </ol>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+      <div>
+        <div class="flow-label">Fluxo atual</div>
+        <pre class="mermaid">flowchart TD
+    A["Admin abre painel de participantes"] --> B["Busca usuario cadastrado"]
+    B --> C["Usuario nao aparece na lista"]
+    C --> D["Impossivel adicionar participante"]</pre>
+      </div>
+      <div>
+        <div class="flow-label">Fluxo esperado</div>
+        <pre class="mermaid">flowchart TD
+    A["Admin abre painel de participantes"] --> B["Busca usuario cadastrado"]
+    B --> C["Usuario aparece na lista"]
+    C --> D["Admin adiciona participante com sucesso"]</pre>
+      </div>
+    </div>
+
+    <div class="flow-label">Critérios de aceite</div>
+    <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Ao buscar um usuário já cadastrado na plataforma, ele deve aparecer na lista de participantes disponíveis</li>
+      <li>Usuários com role de admin devem aparecer normalmente na busca</li>
+      <li>Após adicionar o participante, ele deve aparecer na lista da sala</li>
+    </ul>
+
+    <div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+      <strong>Consequência:</strong> Impossível montar equipes nas salas — o fluxo de colaboração fica bloqueado para usuários já cadastrados.
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-358/convite-pendente-nao-e-removido-ao-deletar-usuario-bloqueando-novo" target="_blank">NOD-358</a></div>
+        <div class="issue-title">Convite pendente não é removido ao deletar usuário, bloqueando novo convite</div>
+      </div>
+      <span class="priority-tag priority-high">Urgent</span>
+    </div>
+
+    <p class="issue-summary">Ao deletar um usuário e tentar convidá-lo novamente — no mesmo tenant ou em outro — o sistema exibe o erro "já existe um convite pendente para este e-mail". Convites pendentes são armazenados de forma global, sem isolamento por tenant, bloqueando o re-convite em toda a plataforma.</p>
+
+    <div class="flow-label">Passos para reproduzir</div>
+    <ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Convidar um usuário para uma sala</li>
+      <li>Deletar esse usuário</li>
+      <li>Tentar convidá-lo novamente pelo mesmo email</li>
+    </ol>
+
+    <div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+      <strong>Resultado observado:</strong> Erro "já existe um convite pendente" — o usuário não pode ser re-convidado.<br>
+      <strong>Resultado esperado:</strong> Ao deletar o usuário, o convite pendente associado ao email deve ser removido ou invalidado.
+    </div>
+
+    <div style="margin-top: 12px;">
+      <span class="priority-tag" style="background: var(--stone-100); color: var(--stone-600); font-size: 11px;">In Review</span>
+    </div>
+  </div>
+
+  </div> <!-- close tab-bugs -->
 
   <!-- TAB: BACKLOG -->
   <div id="tab-backlog" class="tab-panel">
@@ -1010,93 +1332,7 @@
 
   </div> <!-- close tab-backlog -->
 
-  <!-- TAB: ROLES -->
-  <div id="tab-roles" class="tab-panel">
-
-  <div class="page-goal" style="margin-bottom: 8px;">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-    Milestone: Definicao de roles e permissoes
-  </div>
-  <p class="section-desc" style="text-align:center; margin-bottom: 48px;">Repensar a arquitetura de permissoes, login e cadastro para que a plataforma funcione como ambiente do cliente.</p>
-
-  <h2 class="section-title">Etapas</h2>
-  <p class="section-desc">Cada etapa e um ponto de corte. A definicao de roles destrava o mock, que destrava o desenvolvimento.</p>
-
-  <!-- PASSO 1 -->
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">ETAPA 1</div>
-        <div class="issue-title">Definicao dos roles/permissoes e requisitos de login/cadastro</div>
-      </div>
-      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
-    </div>
-    <p class="issue-summary">Mapear os roles necessarios (admin, membro, viewer, etc.), definir o que cada role pode ver e fazer dentro de uma sala, e simplificar os caminhos de login e cadastro (magic link, codigo, senha, Teams). Resultado: documento com a matriz de permissoes e os fluxos de autenticacao escolhidos.</p>
-  </div>
-
-  <!-- PASSO 2 -->
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">ETAPA 2</div>
-        <div class="issue-title">Mock do frontend</div>
-      </div>
-       <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
-    </div>
-    <p class="issue-summary">Prototipar as telas impactadas pelas novas permissoes: criacao de sala, convite de participantes, visibilidade de conteudo por role, fluxo de login/cadastro simplificado. Validar com stakeholders antes de implementar.</p>
-  </div>
-
-  <!-- PASSO 2A -->
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">ETAPA 2A</div>
-        <div class="issue-title">Markdown com o escopo baseado no front, com os casos de uso</div>
-      </div>
-      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
-    </div>
-    <p class="issue-summary">Documento descrevendo o escopo derivado do mock: cada tela com seus casos de uso (quem faz o que, o que ve, o que nao ve), fluxos de permissao por role, e edge cases. Serve como contrato entre design e engenharia.</p>
-  </div>
-
-  <!-- PASSO 3 -->
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">ETAPA 3</div>
-        <div class="issue-title">Desenvolvimento do front</div>
-      </div>
-      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
-    </div>
-    <p class="issue-summary">Implementar no frontend as telas e componentes validados no mock: guards de permissao por role, fluxo de login/cadastro simplificado, visibilidade condicional de conteudo nas salas.</p>
-  </div>
-
-  <!-- PASSO 4 -->
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">ETAPA 4</div>
-        <div class="issue-title">Desenvolvimento do backend</div>
-      </div>
-      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
-    </div>
-    <p class="issue-summary">Implementar a arquitetura tecnica: modelo de dados para roles e permissoes, policies de acesso, endpoints afetados, migracoes necessarias.</p>
-  </div>
-
-  <!-- PASSO 5 -->
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">ETAPA 5</div>
-        <div class="issue-title">Deploy</div>
-      </div>
-      <span class="priority-tag" style="background: var(--amber-100); color: var(--amber-700);">Fazendo</span>
-    </div>
-    <p class="issue-summary">Publicar as alteracoes em producao, validar o funcionamento dos roles e permissoes no ambiente real com os primeiros usuarios.</p>
-  </div>
-
-  </div> <!-- close tab-roles -->
-
-  <!-- TAB: REDESIGN CADASTRO DE DATA APP -->
+<!-- TAB: REDESIGN CADASTRO DE DATA APP -->
   <div id="tab-cadastro" class="tab-panel">
 
   <div class="page-goal" style="margin-bottom: 8px;">
@@ -1175,9 +1411,9 @@
 
   <div class="page-goal" style="margin-bottom: 8px;">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-    Milestone: Downloads + outros — on hold
+    Milestone: Downloads — on hold
   </div>
-  <p class="section-desc" style="margin-bottom: 40px;">Definicao e implementacao do fluxo de downloads e funcionalidades adicionais da plataforma.</p>
+  <p class="section-desc" style="margin-bottom: 40px;">Definicao e implementacao do fluxo de download de arquivos da plataforma.</p>
 
   <h2 class="section-title">Etapas</h2>
   <p class="section-desc">Cada etapa e um ponto de corte. O escopo destrava o frontend, que destrava o backend.</p>
@@ -1243,6 +1479,59 @@
   </div>
 
   </div> <!-- close tab-downloads -->
+
+  <!-- TAB: FEEDBACK DE USUÁRIOS -->
+  <div id="tab-feedback" class="tab-panel">
+
+  <div class="page-goal" style="margin-bottom: 8px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+    Feedbacks recebidos de usuários da plataforma
+  </div>
+  <p class="section-desc" style="text-align:center; margin-bottom: 48px;">Registros de feedback coletados com usuários reais. Cada item pode virar uma discussao no backlog ou uma issue no Linear.</p>
+
+  <h2 class="section-title">Feedbacks</h2>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK</div>
+        <div class="issue-title">Não é possível referenciar um arquivo específico — só o link da sala inteira</div>
+      </div>
+      <span class="priority-tag priority-medium">🕳️ Lacuna de funcionalidade</span>
+    </div>
+    <p class="issue-summary"><em>"Eu gostaria muito de poder ter um hyperlink no bloco para poder referenciar um arquivo específico ao invés de só mandar o link da sala."</em></p>
+    <p class="issue-summary">Quando o usuário quer chamar atenção de alguém para um arquivo em particular, a única opção hoje é compartilhar o link da sala — que abre tudo, sem contexto. Não há como apontar diretamente para um arquivo dentro de um bloco, o que faz a referência perder precisão e força o receptor a procurar o que foi mencionado.</p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK</div>
+        <div class="issue-title">O editor de texto não suporta operações básicas de formatação e conteúdo estruturado</div>
+      </div>
+      <span class="priority-tag priority-medium">🧩 Usabilidade</span>
+    </div>
+    <p class="issue-summary"><em>"No bloco de texto, não consigo copiar e colar ou construir uma tabela, pois ele não fica renderizado corretamente."</em></p>
+    <p class="issue-summary">O bloco de texto falha nas operações mais esperadas de um editor: conteúdo colado não mantém sua estrutura, e tabelas não são renderizadas. Isso faz com que o usuário não consiga registrar informações no formato que já tem — criando retrabalho ou abandono do recurso.</p>
+  </div>
+
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-18 · Viviane Ducarme</div>
+        <div class="issue-title">Fluxo de exclusão de assets órfãos ao remover blocos</div>
+      </div>
+      <span class="priority-tag priority-medium">💡 Sugestão</span>
+    </div>
+    <p class="issue-summary"><em>"um mesmo asset pode existir em mais de uma sala. e pode existir sem estar em nenhuma sala. mas ao apagar do bloco e aquela é a única sala que existe o asset, eu poderia mostrar um pop-up se o usuário quer apagar o asset da ferramenta.
+&nbsp;
+nesse meu caso, essa ação vai me obrigar a navegar pra outro lugar pra fazer isso. eu imagino que ninguém vai fazer isso, e o armazenamento só vai crescer, já que apagar coisas exige um esforço adicional (e ninguém tem muito incentivo pra apagar coisas).
+&nbsp;
+no limite, a gente vai ter um limite de storage. o usuário só vai se dar conta que precisa apagar coisas quando vier um lembrete. e ai vai entrar na biblioteca e vai ter tanta coisa lá que vai ser difícil definir o que pode ou não ser apagado com segurança"</em></p>
+    <p class="issue-summary">O usuário aponta a dificuldade de gerenciar o armazenamento ao deletar blocos que contêm assets exclusivos, exigindo navegação extra para a exclusão definitiva. A proposta visa implementar um pop-up de confirmação durante a deleção do bloco para oferecer a opção de remover o asset da biblioteca, evitando o acúmulo desnecessário de dados.</p>
+  </div>
+  </div> <!-- close tab-feedback -->
 
   <!-- ===== PROTOTYPE MODAL ===== -->
   <div id="prototype-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; padding:24px;" onclick="closePrototypeModal(event)">
