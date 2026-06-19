@@ -1088,6 +1088,54 @@
     </div>
   </div>
 
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">BUG · 2026-06-19 · Vitor Makiyama</div>
+        <div class="issue-title">Falha ao atualizar role de membros em salas de dados</div>
+      </div>
+      <span class="priority-tag priority-high">Alto</span>
+    </div>
+    <p class="issue-summary"><em>"uma vez convidado alguém para uma sala, não é possível atualizar seu role dentro da sala"</em></p>
+    <p class="issue-summary">Como administrador da sala, ao editar as permissões de um membro convidado, o sistema não salva a atualização do cargo.</p>
+
+    <div class="flow-label">Passos para reproduzir</div>
+    <ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Acessar uma sala existente como administrador</li>
+      <li>Navegar até a aba de membros</li>
+      <li>Selecionar um usuário convidado</li>
+      <li>Tentar alterar o role (cargo) do usuário</li>
+      <li>Clicar em salvar alterações</li>
+    </ol>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+      <div>
+        <div class="flow-label">Fluxo atual</div>
+        <pre class="mermaid">flowchart TD
+    N0["Lista de Membros"] --> N1["Edição de Role"]
+    N1["Edição de Role"] --> N2["Erro de Persistência"]</pre>
+      </div>
+      <div>
+        <div class="flow-label">Fluxo esperado</div>
+        <pre class="mermaid">flowchart TD
+    N0["Lista de Membros"] --> N1["Edição de Role"]
+    N1["Edição de Role"] --> N2["Salvar Alterações"]
+    N2["Salvar Alterações"] --> N3["Confirmação de Sucesso"]</pre>
+      </div>
+    </div>
+
+    <div class="flow-label">Critérios de aceite</div>
+    <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>O sistema deve permitir a alteração do role de membros convidados</li>
+      <li>As novas permissões devem ser aplicadas imediatamente</li>
+      <li>O status de sucesso deve ser exibido após a alteração</li>
+    </ul>
+
+    <div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+      <strong>Consequência:</strong> Usuários convidados ficam retidos com permissões incorretas, impedindo a colaboração adequada ou gerando riscos de acesso indevido.
+    </div>
+  </div>
   </div> <!-- close tab-bugs -->
 
   <!-- TAB: BACKLOG -->
@@ -1547,6 +1595,33 @@ nesse meu caso, essa ação vai me obrigar a navegar pra outro lugar pra fazer i
 no limite, a gente vai ter um limite de storage. o usuário só vai se dar conta que precisa apagar coisas quando vier um lembrete. e ai vai entrar na biblioteca e vai ter tanta coisa lá que vai ser difícil definir o que pode ou não ser apagado com segurança
 &nbsp;"</em></p>
     <p class="issue-summary">A usuária sugere a implementação de um pop-up de confirmação para deletar assets durante a remoção de blocos, evitando que arquivos fiquem órfãos no sistema. Essa melhoria visa otimizar a gestão de armazenamento e prevenir o acúmulo desnecessário de dados, simplificando o fluxo de trabalho do usuário.</p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-19 · Vitor Makiyama</div>
+        <div class="issue-title">Dificuldade de descoberta na gestão de participantes</div>
+      </div>
+      <span class="priority-tag priority-medium">🧩 Usabilidade</span>
+    </div>
+    <p class="issue-summary"><em>"(opinião) o modal de gestão de participantes aparece quando se clica na bolinha de algum usuário. isso não é claro o suficiente num primeiro contato que a gestão de participantes é ali e não no botão muito maior 'configurações'"</em></p>
+    <p class="issue-summary">O usuário relata que a localização da gestão de participantes, vinculada a ícones de usuários, não é intuitiva para novos acessos. A proximidade visual com o botão de 'configurações' gera confusão, sugerindo uma falha na hierarquia de elementos da interface.</p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-18 · Viviane Ducarme</div>
+        <div class="issue-title">Centralização de feedback e bugs no canal dedicado</div>
+      </div>
+      <span class="priority-tag priority-medium">💡 Sugestão</span>
+    </div>
+    <p class="issue-summary"><em>"Mauricio&nbsp;Longato&nbsp;Guilherme&nbsp;Cordeiro&nbsp;Vitor&nbsp;Makiyama&nbsp;Amanda&nbsp;Moraes&nbsp;Tamires&nbsp;Pimenta
+Galera, para bugs e feedbacks da plataforma, por favor, podem colocar neste canal a partir de agora?&nbsp;
+&nbsp;
+Agradeço d++&nbsp;"</em></p>
+    <p class="issue-summary">A usuária propõe a centralização de todos os relatos de bugs e feedbacks da plataforma em um canal de comunicação específico. A medida visa otimizar o fluxo de trabalho e facilitar o monitoramento das solicitações da equipe.</p>
   </div>
   </div> <!-- close tab-feedback -->
 
