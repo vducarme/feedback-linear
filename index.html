@@ -1136,6 +1136,59 @@
       <strong>Consequência:</strong> Usuários convidados ficam retidos com permissões incorretas, impedindo a colaboração adequada ou gerando riscos de acesso indevido.
     </div>
   </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">BUG · 2026-06-19 · Vitor Makiyama</div>
+        <div class="issue-title">Erro 429 excessivo ao salvar bloco durante digitação</div>
+      </div>
+      <span class="priority-tag priority-high">Alto</span>
+    </div>
+    <p class="issue-summary"><em>"quando estava digitando conteúdo em um bloco numa sala, em um determinado momento começou a surgir um toast de "erro ao salvar bloco" para cada novo caracter digitado.
+&nbsp;
+console do google chrome mostra uma série de erros
+
+/api/rooms/67f21319-7255-458d-87aa-03d3b0fc1240/blocks/d2e78dbe-6177-46b2-981e-435a72e78024:1&nbsp; Failed to load resource: the server responded with a status of 429 ()
+/api/rooms/67f21319-7255-458d-87aa-03d3b0fc1240/blocks/d2e78dbe-6177-46b2-981e-435a72e78024:1&nbsp; Failed to load resource: the server responded with a status of 429 ()
+/api/rooms/67f21319-7255-458d-87aa-03d3b0fc1240/blocks/d2e78dbe-6177-46b2-981e-435a72e78024:1&nbsp; Failed to load resource: the server responded with a status of 429 ()"</em></p>
+    <p class="issue-summary">Como usuário, ao digitar em um bloco, recebo múltiplos toasts de erro por caractere devido ao limite de requisições excedido.</p>
+
+    <div class="flow-label">Passos para reproduzir</div>
+    <ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Abrir uma sala na plataforma</li>
+      <li>Selecionar um bloco de edição</li>
+      <li>Digitar continuamente no bloco</li>
+    </ol>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+      <div>
+        <div class="flow-label">Fluxo atual</div>
+        <pre class="mermaid">flowchart TD
+    N0["Digitar caractere"] --> N1["Request API"]
+    N1["Request API"] --> N2["Erro 429"]
+    N2["Erro 429"] --> N3["Exibir toast de erro"]</pre>
+      </div>
+      <div>
+        <div class="flow-label">Fluxo esperado</div>
+        <pre class="mermaid">flowchart TD
+    N0["Digitar caractere"] --> N1["Debounce input"]
+    N1["Debounce input"] --> N2["Request API"]
+    N2["Request API"] --> N3["Salvar conteúdo"]</pre>
+      </div>
+    </div>
+
+    <div class="flow-label">Critérios de aceite</div>
+    <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Implementar debounce na requisição de salvamento</li>
+      <li>Limitar a frequência de chamadas a API</li>
+      <li>Evitar múltiplos toasts repetidos para o mesmo erro</li>
+    </ul>
+
+    <div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+      <strong>Consequência:</strong> O usuário é interrompido por constantes notificações de erro, impedindo a edição fluida do conteúdo.
+    </div>
+  </div>
   </div> <!-- close tab-bugs -->
 
   <!-- TAB: BACKLOG -->
@@ -1622,6 +1675,42 @@ Galera, para bugs e feedbacks da plataforma, por favor, podem colocar neste cana
 &nbsp;
 Agradeço d++&nbsp;"</em></p>
     <p class="issue-summary">A usuária propõe a centralização de todos os relatos de bugs e feedbacks da plataforma em um canal de comunicação específico. A medida visa otimizar o fluxo de trabalho e facilitar o monitoramento das solicitações da equipe.</p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-19 · Viviane Ducarme</div>
+        <div class="issue-title">Contato inicial do usuário Viviane Ducarme</div>
+      </div>
+      <span class="priority-tag priority-medium">💡 Sugestão</span>
+    </div>
+    <p class="issue-summary"><em>"alô"</em></p>
+    <p class="issue-summary">A usuária Viviane Ducarme entrou em contato com a plataforma sem especificar uma solicitação clara. Recomenda-se realizar um acompanhamento para identificar necessidades ou problemas de usabilidade.</p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-19 · Vitor Makiyama</div>
+        <div class="issue-title">Feedback incompleto enviado pelo usuário</div>
+      </div>
+      <span class="priority-tag priority-medium">💡 Sugestão</span>
+    </div>
+    <p class="issue-summary"><em>"meu feedbacl"</em></p>
+    <p class="issue-summary">O usuário Vitor Makiyama submeteu um feedback sem fornecer detalhes ou conteúdo específico sobre a experiência na plataforma. Recomenda-se realizar um acompanhamento para coletar informações adicionais que permitam a melhoria do produto.</p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-19 · Vitor Makiyama</div>
+        <div class="issue-title">Mensagem de saudação enviada pelo usuário</div>
+      </div>
+      <span class="priority-tag priority-medium">💬 Comunicação</span>
+    </div>
+    <p class="issue-summary"><em>"oi"</em></p>
+    <p class="issue-summary">O usuário Vitor Makiyama enviou uma saudação simples através da plataforma. O contato não contém solicitações específicas ou feedback técnico para processamento imediato.</p>
   </div>
   </div> <!-- close tab-feedback -->
 
