@@ -248,6 +248,25 @@
     box-shadow: 0 4px 24px rgba(0,0,0,0.06);
   }
 
+  .issue-card.collapsible .issue-top {
+    cursor: pointer;
+    user-select: none;
+  }
+  .issue-card.collapsed .card-body {
+    display: none;
+  }
+  .card-chevron {
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+    color: var(--stone-400);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  .issue-card:not(.collapsed) .card-chevron {
+    transform: rotate(90deg);
+  }
+
   .issue-top {
     display: flex;
     align-items: flex-start;
@@ -1662,56 +1681,6 @@ no limite, a gente vai ter um limite de storage. o usuário só vai se dar conta
     <p class="issue-summary">O usuário relata que a localização da gestão de participantes, vinculada a ícones de usuários, não é intuitiva para novos acessos. A proximidade visual com o botão de 'configurações' gera confusão, sugerindo uma falha na hierarquia de elementos da interface.</p>
   </div>
 
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">FEEDBACK · 2026-06-18 · Viviane Ducarme</div>
-        <div class="issue-title">Centralização de feedback e bugs no canal dedicado</div>
-      </div>
-      <span class="priority-tag priority-medium">💡 Sugestão</span>
-    </div>
-    <p class="issue-summary"><em>"Mauricio&nbsp;Longato&nbsp;Guilherme&nbsp;Cordeiro&nbsp;Vitor&nbsp;Makiyama&nbsp;Amanda&nbsp;Moraes&nbsp;Tamires&nbsp;Pimenta
-Galera, para bugs e feedbacks da plataforma, por favor, podem colocar neste canal a partir de agora?&nbsp;
-&nbsp;
-Agradeço d++&nbsp;"</em></p>
-    <p class="issue-summary">A usuária propõe a centralização de todos os relatos de bugs e feedbacks da plataforma em um canal de comunicação específico. A medida visa otimizar o fluxo de trabalho e facilitar o monitoramento das solicitações da equipe.</p>
-  </div>
-
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">FEEDBACK · 2026-06-19 · Viviane Ducarme</div>
-        <div class="issue-title">Contato inicial do usuário Viviane Ducarme</div>
-      </div>
-      <span class="priority-tag priority-medium">💡 Sugestão</span>
-    </div>
-    <p class="issue-summary"><em>"alô"</em></p>
-    <p class="issue-summary">A usuária Viviane Ducarme entrou em contato com a plataforma sem especificar uma solicitação clara. Recomenda-se realizar um acompanhamento para identificar necessidades ou problemas de usabilidade.</p>
-  </div>
-
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">FEEDBACK · 2026-06-19 · Vitor Makiyama</div>
-        <div class="issue-title">Feedback incompleto enviado pelo usuário</div>
-      </div>
-      <span class="priority-tag priority-medium">💡 Sugestão</span>
-    </div>
-    <p class="issue-summary"><em>"meu feedbacl"</em></p>
-    <p class="issue-summary">O usuário Vitor Makiyama submeteu um feedback sem fornecer detalhes ou conteúdo específico sobre a experiência na plataforma. Recomenda-se realizar um acompanhamento para coletar informações adicionais que permitam a melhoria do produto.</p>
-  </div>
-
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">FEEDBACK · 2026-06-19 · Vitor Makiyama</div>
-        <div class="issue-title">Mensagem de saudação enviada pelo usuário</div>
-      </div>
-      <span class="priority-tag priority-medium">💬 Comunicação</span>
-    </div>
-    <p class="issue-summary"><em>"oi"</em></p>
-    <p class="issue-summary">O usuário Vitor Makiyama enviou uma saudação simples através da plataforma. O contato não contém solicitações específicas ou feedback técnico para processamento imediato.</p>
-  </div>
   </div> <!-- close tab-feedback -->
 
   <!-- ===== PROTOTYPE MODAL ===== -->
@@ -1775,8 +1744,40 @@ Agradeço d++&nbsp;"</em></p>
     setTimeout(function() { renderMermaids(panel); }, 50);
   }
 
+  function initCollapsibleCards() {
+    var CHEVRON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+    var selectors = '#tab-bugs .issue-card, #tab-feedback .issue-card';
+    document.querySelectorAll(selectors).forEach(function(card) {
+      var top = card.querySelector('.issue-top');
+      if (!top) return;
+
+      var toWrap = Array.from(card.children).filter(function(el) { return el !== top; });
+      if (!toWrap.length) return;
+
+      var body = document.createElement('div');
+      body.className = 'card-body';
+      toWrap.forEach(function(el) { body.appendChild(el); });
+      card.appendChild(body);
+
+      var titleEl = top.querySelector('.issue-title');
+      if (titleEl) {
+        var chevron = document.createElement('span');
+        chevron.className = 'card-chevron';
+        chevron.innerHTML = CHEVRON;
+        titleEl.insertBefore(chevron, titleEl.firstChild);
+      }
+
+      card.classList.add('collapsible', 'collapsed');
+
+      top.addEventListener('click', function() {
+        card.classList.toggle('collapsed');
+      });
+    });
+  }
+
   // Render mermaids in the initially active tab
   document.addEventListener('DOMContentLoaded', function() {
+    initCollapsibleCards();
     var activePanel = document.querySelector('.tab-panel.active');
     if (activePanel) renderMermaids(activePanel);
   });
