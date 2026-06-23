@@ -131,6 +131,116 @@
     height: 14px;
   }
 
+  /* ---- RELEASE BOARD ---- */
+  .release-board {
+    background: linear-gradient(135deg, var(--amber-50), #fff);
+    border: 1px solid var(--amber-200);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 40px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .release-board-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .release-board-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--stone-900);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .release-board-title svg {
+    width: 22px;
+    height: 22px;
+    color: var(--amber-600);
+  }
+
+  .release-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--amber-100);
+    border: 1px solid var(--amber-200);
+    color: var(--amber-700);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 100px;
+  }
+
+  .release-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .release-columns { grid-template-columns: 1fr; }
+  }
+
+  .release-col-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--stone-500);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .release-col-label .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .release-col.bugs .dot { background: var(--red-500); }
+  .release-col.features .dot { background: var(--green-500); }
+
+  .release-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid var(--stone-200);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--stone-700);
+    text-decoration: none;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  }
+
+  a.release-item:hover {
+    border-color: var(--amber-400);
+    box-shadow: 0 2px 8px rgba(180,83,9,0.08);
+    transform: translateY(-1px);
+  }
+
+  .release-item .ticket {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--stone-400);
+    font-variant-numeric: tabular-nums;
+    padding-top: 1px;
+  }
+
+  .release-col.features .release-item .ticket { color: var(--green-500); }
+
   /* ---- TABS ---- */
   .tabs-nav {
     display: flex;
@@ -592,11 +702,47 @@
 
   </header>
 
+  <!-- RELEASE BOARD -->
+  <section class="release-board">
+    <div class="release-board-header">
+      <div class="release-board-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+        Vai subir em prod esta semana
+      </div>
+      <span class="release-tag">Deploy · quinta-feira</span>
+    </div>
+
+    <div class="release-columns">
+      <div class="release-col bugs">
+        <div class="release-col-label"><span class="dot"></span>Bugs corrigidos</div>
+        <a class="release-item" href="https://linear.app/nodian-dev/issue/NOD-363/usuario-removido-continua-na-lista-de-participantes-apos-atualizar-a" target="_blank" rel="noopener">
+          <span class="ticket">NOD-363</span>
+          <span>Usuário removido continua na lista de participantes após atualizar a página</span>
+        </a>
+        <a class="release-item" href="https://linear.app/nodian-dev/issue/NOD-365/pagina-de-perfil-exibe-role-incorreto-sempre-mostra-admin-independente" target="_blank" rel="noopener">
+          <span class="ticket">NOD-365</span>
+          <span>Página de perfil exibe role incorreto (sempre mostra Admin)</span>
+        </a>
+        <a class="release-item" href="https://linear.app/nodian-dev/issue/NOD-366/usuarios-cadastrados-na-plataforma-nao-aparecem-na-lista-de" target="_blank" rel="noopener">
+          <span class="ticket">NOD-366</span>
+          <span>Usuários cadastrados na plataforma não aparecem na lista</span>
+        </a>
+      </div>
+
+      <div class="release-col features">
+        <div class="release-col-label"><span class="dot"></span>Features</div>
+        <div class="release-item"><span class="ticket">✦</span><span>Upload de qualquer tipo de arquivo</span></div>
+        <div class="release-item"><span class="ticket">✦</span><span>Download de arquivos (exceto dashboards)</span></div>
+        <div class="release-item"><span class="ticket">✦</span><span>Sessão de login de 8 horas</span></div>
+        <div class="release-item"><span class="ticket">✦</span><span>Logs</span></div>
+      </div>
+    </div>
+  </section>
+
   <!-- TABS -->
   <div class="tabs-nav">
     <button class="tab-btn active" onclick="switchTab('novartis')">Missao Aguia Novartis</button>
 <button class="tab-btn" onclick="switchTab('cadastro')">Redesign Cadastro de Data App</button>
-    <button class="tab-btn" onclick="switchTab('downloads')">Downloads</button>
     <button class="tab-btn" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">2</span></button>
     <button class="tab-btn" onclick="switchTab('feedback')">Feedback de Usuários</button>
     <button class="tab-btn" onclick="switchTab('backlog')">Backlog de Discussoes <span class="tab-count">8</span></button>
@@ -1457,7 +1603,7 @@ console do google chrome mostra uma série de erros
 
   <div class="page-goal" style="margin-bottom: 8px;">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-    Milestone: Redesign do cadastro de data app — final da semana (12/06)
+    Milestone: Redesign do cadastro de data app — final da semana (03/07)
   </div>
   <p class="section-desc" style="margin-bottom: 40px;">Ter o novo cadastro pronto: processamento do arquivo no RAG, pre-preenchimento dos campos e cadastro.</p>
 
@@ -1525,80 +1671,6 @@ console do google chrome mostra uma série de erros
   </div>
 
   </div> <!-- close tab-cadastro -->
-
-  <!-- TAB: DOWNLOADS + OUTROS -->
-  <div id="tab-downloads" class="tab-panel">
-
-  <div class="page-goal" style="margin-bottom: 8px;">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-    Milestone: Downloads — on hold
-  </div>
-  <p class="section-desc" style="margin-bottom: 40px;">Definicao e implementacao do fluxo de download de arquivos da plataforma.</p>
-
-  <h2 class="section-title">Etapas</h2>
-  <p class="section-desc">Cada etapa e um ponto de corte. O escopo destrava o frontend, que destrava o backend.</p>
-
-  <!-- ETAPA 1 -->
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">ETAPA 1</div>
-        <div class="issue-title">Definicao do novo fluxo</div>
-      </div>
-      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
-    </div>
-    <p class="issue-summary">Mapear os problemas do fluxo atual e definir o novo fluxo: etapas, comportamentos esperados e casos de uso.</p>
-  </div>
-
-  <!-- ETAPA 2 -->
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">ETAPA 2</div>
-        <div class="issue-title">Mock do front</div>
-      </div>
-      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
-    </div>
-    <p class="issue-summary">Prototipar as telas do novo fluxo. Validar com stakeholders antes de implementar.</p>
-  </div>
-
-  <!-- ETAPA 3 -->
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">ETAPA 3</div>
-        <div class="issue-title">Markdown com o escopo</div>
-      </div>
-      <span class="priority-tag" style="background: var(--green-100); color: var(--green-500);">Done</span>
-    </div>
-    <p class="issue-summary">Documento descrevendo o escopo derivado do mock: cada tela com seus casos de uso, fluxos e edge cases. Serve como contrato entre design e engenharia.</p>
-  </div>
-
-  <!-- ETAPA 4 -->
-  <div class="issue-card" style="opacity: 0.65;">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">ETAPA 4</div>
-        <div class="issue-title">Frontend</div>
-      </div>
-      <span class="priority-tag priority-high">Proximo</span>
-    </div>
-    <p class="issue-summary">Implementar no frontend o novo fluxo validado no mock.</p>
-  </div>
-
-  <!-- ETAPA 5 -->
-  <div class="issue-card" style="opacity: 0.65;">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">ETAPA 5</div>
-        <div class="issue-title">Backend</div>
-      </div>
-      <span class="priority-tag priority-high">Proximo</span>
-    </div>
-    <p class="issue-summary">Implementar as alteracoes necessarias no backend para suportar o novo fluxo.</p>
-  </div>
-
-  </div> <!-- close tab-downloads -->
 
   <!-- TAB: FEEDBACK DE USUÁRIOS -->
   <div id="tab-feedback" class="tab-panel">
@@ -1681,6 +1753,42 @@ no limite, a gente vai ter um limite de storage. o usuário só vai se dar conta
     <p class="issue-summary">O usuário relata que a localização da gestão de participantes, vinculada a ícones de usuários, não é intuitiva para novos acessos. A proximidade visual com o botão de 'configurações' gera confusão, sugerindo uma falha na hierarquia de elementos da interface.</p>
   </div>
 
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-23 · Viviane Ducarme</div>
+        <div class="issue-title">Inclusão de Termos e Condições de Uso na plataforma</div>
+      </div>
+      <span class="priority-tag priority-medium">🧩 Usabilidade</span>
+    </div>
+    <p class="issue-summary"><em>"Precisamos adicionar na plataforma os termos e condições de uso.&nbsp;"</em></p>
+    <p class="issue-summary">A usuária solicita a implementação de uma seção contendo os termos e condições de uso da plataforma. A medida visa garantir a conformidade legal e a transparência nas políticas de utilização do sistema.</p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-23 · Viviane Ducarme</div>
+        <div class="issue-title">Integração de suporte humano na plataforma</div>
+      </div>
+      <span class="priority-tag priority-medium">💡 Sugestão</span>
+    </div>
+    <p class="issue-summary"><em>"Precisamos, em algum nível, ter um contato humano na plataforma? Se sim, ela vai estar embedada no chat, vai ser o Tidio separado, vai ser um link para o whats do Gui?&nbsp;"</em></p>
+    <p class="issue-summary">A usuária questiona como será realizada a implementação de um canal de atendimento humano dentro da interface. Ela busca esclarecimentos sobre o formato dessa integração, avaliando se será nativa, via chat externo ou redirecionamento para aplicativos de mensageria.</p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-22 · Viviane Ducarme</div>
+        <div class="issue-title">Dificuldade em referenciar arquivos da biblioteca no MS Teams</div>
+      </div>
+      <span class="priority-tag priority-medium">🕳️ Lacuna de funcionalidade</span>
+    </div>
+    <p class="issue-summary"><em>"Dado um arquivo, gostaria de poder referenciá-lo diretamente ao compartilhar no Teams. Em paralelo, uma observação é que eu quis subir um arquivo agora que eu achei que não fazia sentido criar uma sala pra ele, mas ao subir para a biblioteca, eu não consigo apontar para ele.&nbsp;"</em></p>
+    <p class="issue-summary">A usuária deseja maior flexibilidade ao compartilhar arquivos da plataforma diretamente no Microsoft Teams. Ela relata que, ao carregar arquivos para a biblioteca fora de uma sala específica, não consegue gerar links diretos para referência ou compartilhamento externo.</p>
+  </div>
   </div> <!-- close tab-feedback -->
 
   <!-- ===== PROTOTYPE MODAL ===== -->
