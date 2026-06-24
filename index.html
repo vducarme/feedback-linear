@@ -946,6 +946,54 @@
   <div class="issue-card">
     <div class="issue-top">
       <div>
+        <div class="issue-id">BUG · <a href="https://linear.app/nodian-dev/issue/NOD-378/usuario-convidado-nao-passa-pelas-telas-de-completar-perfil-nome-e" target="_blank">NOD-378</a></div>
+        <div class="issue-title">Usuário convidado não passa pelas telas de completar perfil (nome e cargo) no primeiro acesso</div>
+      </div>
+      <span class="priority-tag priority-high">Alto</span>
+    </div>
+
+    <p class="issue-summary">Como usuário convidado para a plataforma em <code>bombord.nodian.dev</code>, ao fazer o primeiro cadastro/acesso, eu deveria passar pelas telas de "Complete seu perfil" para informar meu nome completo e cargo na empresa. No entanto, o fluxo de onboarding é ignorado e o usuário é levado direto para a plataforma, ficando sem nome e cargo cadastrados.</p>
+
+    <div class="flow-label">Passos para reproduzir</div>
+    <ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Convidar um novo usuário para a plataforma</li>
+      <li>Acessar <code>bombord.nodian.dev</code> com esse usuário pela primeira vez</li>
+      <li>Concluir o primeiro cadastro/login</li>
+    </ol>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+      <div>
+        <div class="flow-label">Fluxo atual</div>
+        <pre class="mermaid">flowchart TD
+    A["Usuario convidado faz primeiro acesso"] --> B["Tela Complete seu perfil deveria abrir"]
+    B --> C["Tela de onboarding e ignorada"]
+    C --> D["Usuario entra na plataforma sem nome e cargo"]</pre>
+      </div>
+      <div>
+        <div class="flow-label">Fluxo esperado</div>
+        <pre class="mermaid">flowchart TD
+    A["Usuario convidado faz primeiro acesso"] --> B["Sistema exibe Complete seu perfil"]
+    B --> C["Usuario informa nome completo e cargo"]
+    C --> D["Dados sao salvos e usuario entra na plataforma"]</pre>
+      </div>
+    </div>
+
+    <div class="flow-label">Critérios de aceite</div>
+    <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Ao acessar a plataforma pela primeira vez como usuário convidado, a tela "Complete seu perfil" deve ser exibida antes do acesso</li>
+      <li>O usuário deve informar nome completo e cargo antes de prosseguir</li>
+      <li>Ao clicar em Continuar, os dados de nome e cargo devem ser persistidos no perfil</li>
+      <li>Após completar o perfil, em acessos seguintes a tela de onboarding não deve mais ser exibida</li>
+    </ul>
+
+    <div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+      <strong>Consequência:</strong> Usuários entram na plataforma sem nome e cargo cadastrados, prejudicando a identificação e a exibição correta dos dados do perfil.
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
         <div class="issue-id"><a href="https://linear.app/nodian-dev/issue/NOD-161/iframe-do-csv-fica-carregando-e-nao-aparece" target="_blank">NOD-161</a></div>
         <div class="issue-title">Iframe do CSV fica carregando e não aparece</div>
       </div>
@@ -1358,7 +1406,7 @@ console do google chrome mostra uma série de erros
   <div class="issue-card">
     <div class="issue-top">
       <div>
-        <div class="issue-id">BUG · 2026-06-24 · Amanda (teste de usabilidade)</div>
+        <div class="issue-id">BUG · <a href="https://linear.app/nodian-dev/issue/NOD-379/visualizacao-de-arquivo-excel-exibe-tela-em-branco-sem-feedback" target="_blank">NOD-379</a> · Amanda (teste de usabilidade)</div>
         <div class="issue-title">Visualização de arquivo Excel exibe tela em branco sem feedback</div>
       </div>
       <span class="priority-tag priority-medium">Médio</span>
