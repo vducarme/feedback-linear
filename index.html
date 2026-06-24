@@ -1354,6 +1354,51 @@ console do google chrome mostra uma série de erros
       <strong>Consequência:</strong> O usuário é interrompido por constantes notificações de erro, impedindo a edição fluida do conteúdo.
     </div>
   </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">BUG · 2026-06-24 · Amanda (teste de usabilidade)</div>
+        <div class="issue-title">Visualização de arquivo Excel exibe tela em branco sem feedback</div>
+      </div>
+      <span class="priority-tag priority-medium">Médio</span>
+    </div>
+    <p class="issue-summary"><em>"ela foi adicionar o Helmet na sala [...] o Excel, ele não dá para visualizar e fica branco, então você não tem nenhum feedback de que ele não é visualizável pela plataforma. Ele simplesmente só fica branco e isso tem, fica com uma cara de erro."</em></p>
+    <p class="issue-summary">Como usuária, ao tentar abrir um arquivo Excel na plataforma, a tela fica completamente em branco sem nenhuma mensagem de erro ou aviso de que o formato não é suportado para visualização.</p>
+
+    <div class="flow-label">Passos para reproduzir</div>
+    <ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Fazer upload de um arquivo .xlsx para uma sala</li>
+      <li>Clicar no arquivo para visualizá-lo</li>
+      <li>A tela exibe apenas branco, sem mensagem alguma</li>
+    </ol>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+      <div>
+        <div class="flow-label">Fluxo atual</div>
+        <pre class="mermaid">flowchart TD
+    N0["Abrir arquivo .xlsx"] --> N1["Tela em branco"]
+    N1["Tela em branco"] --> N2["Nenhum feedback"]</pre>
+      </div>
+      <div>
+        <div class="flow-label">Fluxo esperado</div>
+        <pre class="mermaid">flowchart TD
+    N0["Abrir arquivo .xlsx"] --> N1["Detectar formato"]
+    N1["Detectar formato"] --> N2["Exibir aviso + botão download"]</pre>
+      </div>
+    </div>
+
+    <div class="flow-label">Critérios de aceite</div>
+    <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+      <li>Exibir mensagem clara quando o formato não suporta visualização inline</li>
+      <li>Oferecer botão de download como alternativa</li>
+      <li>Nunca deixar tela completamente em branco ao abrir qualquer tipo de arquivo</li>
+    </ul>
+
+    <div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+      <strong>Consequência:</strong> O usuário interpreta a tela em branco como falha da plataforma, gerando desconfiança no produto e sem caminho para acessar o arquivo.
+    </div>
+  </div>
   </div> <!-- close tab-bugs -->
 
   <!-- TAB: BACKLOG -->
@@ -1397,6 +1442,27 @@ console do google chrome mostra uma série de erros
 
     <h2 class="section-title">Discussoes para o futuro</h2>
     <p class="section-desc">Temas que precisam ser debatidos em equipe antes de virar tarefas. Planejados para pos-segunda.</p>
+
+    <div class="issue-card">
+      <div class="issue-top">
+        <div>
+          <div class="issue-id">DISCUSSAO · 2026-06-24 · Amanda (teste de usabilidade)</div>
+          <div class="issue-title">Como lidar com arquivos colaborativos (Excel/OneDrive) compartilhados pela plataforma?</div>
+        </div>
+        <span class="priority-tag priority-medium">Media</span>
+      </div>
+      <p class="issue-summary">Amanda compartilhou um arquivo Excel que está hospedado no OneDrive. Ao compartilhá-lo pela plataforma como um arquivo comum, a experiência se degrada: quem recebe não consegue co-editar — precisa baixar, editar localmente e reenviar. O arquivo é colaborativo por natureza, então a plataforma está quebrando esse fluxo.</p>
+      <p class="issue-summary"><strong>Pontos a discutir:</strong></p>
+      <ul style="margin: 4px 0 16px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+        <li><strong>Identificação do tipo:</strong> Como detectar que um arquivo é colaborativo (Excel Online, Google Docs, Notion, etc.) e não apenas um binário estático?</li>
+        <li><strong>Estratégia de exibição:</strong> Redirecionar para o ambiente colaborativo original (OneDrive, Google Drive) ou tentar incorporar via iframe?</li>
+        <li><strong>Upload vs. link:</strong> Faz sentido distinguir "anexar arquivo" de "referenciar documento colaborativo" no fluxo de upload?</li>
+        <li><strong>Escopo do problema:</strong> Isso vale só para Excel/OneDrive ou precisamos pensar em qualquer fonte colaborativa externa?</li>
+      </ul>
+      <div style="background: #fef3c7; border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+        <strong>Impacto:</strong> Usuários que trabalham com arquivos colaborativos são diretamente prejudicados ao usar a plataforma para compartilhamento — o resultado é pior do que enviar o link diretamente fora dela.
+      </div>
+    </div>
 
     <div class="issue-card">
       <div class="issue-top">
@@ -1810,6 +1876,79 @@ no limite, a gente vai ter um limite de storage. o usuário só vai se dar conta
     </div>
     <p class="issue-summary"><em>"Dado um arquivo, gostaria de poder referenciá-lo diretamente ao compartilhar no Teams. Em paralelo, uma observação é que eu quis subir um arquivo agora que eu achei que não fazia sentido criar uma sala pra ele, mas ao subir para a biblioteca, eu não consigo apontar para ele.&nbsp;"</em></p>
     <p class="issue-summary">A usuária deseja maior flexibilidade ao compartilhar arquivos da plataforma diretamente no Microsoft Teams. Ela relata que, ao carregar arquivos para a biblioteca fora de uma sala específica, não consegue gerar links diretos para referência ou compartilhamento externo.</p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-24 · Amanda (teste de usabilidade)</div>
+        <div class="issue-title">Descrições dos papéis de participante ficam escondidas ao adicionar membro</div>
+      </div>
+      <span class="priority-tag priority-medium">🧩 Usabilidade</span>
+    </div>
+    <p class="issue-summary"><em>"ela ficou na dúvida de qual papel adicioná-lo e ela não viu que tinha a descrição dos papéis embaixo. Ela só percebeu na segunda vez que ela foi utilizar."</em></p>
+    <p class="issue-summary">Amanda não percebeu as descrições dos papéis durante o primeiro uso — só as encontrou no segundo acesso. A informação existe, mas não tem visibilidade suficiente no momento em que o usuário mais precisa dela: ao escolher o papel antes de confirmar o convite.</p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-24 · Amanda + Viviane + Victor (recorrente)</div>
+        <div class="issue-title">Thumbnails de participantes não são claramente clicáveis — usuários vão para "Editar" por engano</div>
+      </div>
+      <span class="priority-tag priority-medium">🧩 Usabilidade</span>
+    </div>
+    <p class="issue-summary"><em>"ela clicou no toggle de editar para ver os participantes enquanto ela não precisava fazer isso [...] isso é algo que eu mesma já passei de clicar no editar e acho que o Victor também comentou sobre não estar muito claro que os participantes é clicável."</em></p>
+    <p class="issue-summary">Três pessoas independentemente clicaram no botão "Editar/Configurações" na tentativa de gerenciar participantes, sem perceber que o acesso correto é pelos thumbnails dos avatares. Esse padrão recorrente indica que o ponto de entrada da gestão de participantes está visualmente subestimado. Confirma o feedback anterior de Victor (NOD).
+    </p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-24 · Amanda (teste de usabilidade)</div>
+        <div class="issue-title">Termo "tenant" no papel de Gesh não é compreensível para usuários finais</div>
+      </div>
+      <span class="priority-tag priority-low">✏️ Copy</span>
+    </div>
+    <p class="issue-summary"><em>"no papel de Gesh, a gente faz uma menção de tenant e tenant não é um texto que a pessoa entende, então talvez trocar para empresa."</em></p>
+    <p class="issue-summary">O termo técnico "tenant" aparece na descrição do papel de Gesh mas não faz parte do vocabulário dos usuários finais da plataforma. Substituir por "empresa" alinharia o texto à linguagem usada em outros pontos da interface e reduziria a fricção cognitiva ao escolher papéis.</p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-24 · Amanda (teste de usabilidade)</div>
+        <div class="issue-title">Etapa "filtros disponíveis" no cadastro de data app não tem contexto explicativo</div>
+      </div>
+      <span class="priority-tag priority-low">🕳️ Lacuna de funcionalidade</span>
+    </div>
+    <p class="issue-summary"><em>"na parte do cadastro de data apps, aparece a etapa de filtros disponíveis e ela não sabe ainda o que significa isso. Disse que provavelmente para dados e ela pulou."</em></p>
+    <p class="issue-summary">Amanda encontrou a etapa "filtros disponíveis" no fluxo de cadastro de data app sem compreender seu propósito. Sem tooltip, texto auxiliar ou exemplo, ela assumiu que era algo relacionado a dados e avançou sem interagir. Usuários podem estar pulando configurações importantes por falta de orientação.</p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-24 · Amanda (teste de usabilidade)</div>
+        <div class="issue-title">Sugestão: arrastar datatype diretamente para o bloco correspondente</div>
+      </div>
+      <span class="priority-tag priority-low">💡 Sugestão</span>
+    </div>
+    <p class="issue-summary"><em>"ela perguntou também quando o datatype foi adicionado, se não daria pra arrastar o datatype para o bloco respectivo que ela gostaria."</em></p>
+    <p class="issue-summary">Amanda sugeriu a possibilidade de arrastar um datatype recém-adicionado diretamente para o bloco de destino. A interação via drag-and-drop tornaria o fluxo de associação mais direto e intuitivo, reduzindo o número de cliques necessários para vincular um datatype a um bloco específico.</p>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-top">
+      <div>
+        <div class="issue-id">FEEDBACK · 2026-06-24 · Amanda (teste de usabilidade)</div>
+        <div class="issue-title">Participante não aparece disponível para adicionar enquanto convite está pendente</div>
+      </div>
+      <span class="priority-tag priority-medium">🕳️ Lacuna de funcionalidade</span>
+    </div>
+    <p class="issue-summary"><em>"primeiro que ele não estava disponível, porque ele ainda não tinha aceito o convite."</em></p>
+    <p class="issue-summary">Amanda tentou adicionar o Helmet como participante de uma sala, mas ele não aparecia na lista porque o convite ainda estava pendente de aceite. A plataforma não oferece nenhum feedback indicando o motivo da ausência — o usuário fica sem saber se a pessoa não existe, ainda não aceitou, ou se há outro problema.</p>
   </div>
   </div> <!-- close tab-feedback -->
 
