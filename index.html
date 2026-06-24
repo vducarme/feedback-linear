@@ -1402,6 +1402,28 @@ console do google chrome mostra uma série de erros
       <div class="issue-top">
         <div>
           <div class="issue-id">DISCUSSAO</div>
+          <div class="issue-title">O que acontece quando um usuário é deletado?</div>
+        </div>
+        <span class="priority-tag priority-high">Alta</span>
+      </div>
+      <p class="issue-summary">Quando um usuário é removido da plataforma, precisamos definir o comportamento esperado para todos os ativos que ele deixa para trás: arquivos enviados, salas criadas, conteúdos compartilhados e participações em projetos.</p>
+      <p class="issue-summary"><strong>Pontos a discutir:</strong></p>
+      <ul style="margin: 4px 0 16px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+        <li><strong>Arquivos enviados:</strong> Devem ser deletados junto com o usuário, transferidos para um responsável, ou mantidos na sala?</li>
+        <li><strong>Salas criadas:</strong> A sala some, é transferida para outro admin, ou continua existindo sem dono?</li>
+        <li><strong>Participações em projetos:</strong> Como tratar tarefas atribuídas, comentários e histórico de atividade?</li>
+        <li><strong>Dados de auditoria:</strong> Precisamos manter rastro de quem fez o quê mesmo após a deleção?</li>
+        <li><strong>Soft delete vs. hard delete:</strong> Vale ter um período de graça ou suspensão antes da remoção definitiva?</li>
+      </ul>
+      <div style="background: #fef3c7; border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+        <strong>Impacto:</strong> Definição com consequências diretas na modelagem de dados, integridade referencial e experiência dos demais membros da equipe.
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-top">
+        <div>
+          <div class="issue-id">DISCUSSAO</div>
           <div class="issue-title">Tipos de salas: estruturada vs. informal</div>
         </div>
         <span class="priority-tag priority-medium">Media</span>
