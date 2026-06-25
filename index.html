@@ -510,6 +510,30 @@
   .mermaid {
     font-family: 'DM Sans', sans-serif !important;
   }
+  /* ---- BUG FLOW ---- */
+  .bug-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    background: var(--stone-50);
+    border: 1px solid var(--stone-200);
+    border-radius: 8px;
+  }
+  .bug-flow-node {
+    background: white;
+    border: 1px solid var(--stone-200);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--stone-700);
+    line-height: 1.4;
+  }
+  .bug-flow-node.bad { background: var(--red-100); border-color: #fca5a5; color: #991b1b; font-weight: 600; }
+  .bug-flow-node.good { background: var(--green-100); border-color: #86efac; color: #166534; font-weight: 600; }
+  .bug-flow-arrow { color: var(--stone-400); font-size: 11px; padding-left: 6px; }
+
+
 
   /* ---- AXIS SECTION ---- */
   .axis-section {
@@ -961,22 +985,7 @@
       <li>Concluir o primeiro cadastro/login</li>
     </ol>
 
-    <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;">
-      <div>
-        <div class="flow-label">Fluxo atual</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    A["Usuario convidado faz primeiro acesso"] --> B["Tela Complete seu perfil deveria abrir"]
-    B --> C["Tela de onboarding e ignorada"]
-    C --> D["Usuario entra na plataforma sem nome e cargo"]</pre></div>
-      </div>
-      <div>
-        <div class="flow-label">Fluxo esperado</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    A["Usuario convidado faz primeiro acesso"] --> B["Sistema exibe Complete seu perfil"]
-    B --> C["Usuario informa nome completo e cargo"]
-    C --> D["Dados sao salvos e usuario entra na plataforma"]</pre></div>
-      </div>
-    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Usuario convidado faz primeiro acesso</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Tela Complete seu perfil deveria abrir</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Tela de onboarding e ignorada</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Usuario entra na plataforma sem nome e cargo</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Usuario convidado faz primeiro acesso</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Sistema exibe Complete seu perfil</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Usuario informa nome completo e cargo</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Dados sao salvos e usuario entra na plataforma</div></div></div></div>
 
     <div class="flow-label">Critérios de aceite</div>
     <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
@@ -1033,22 +1042,7 @@
       <li>Atualizar a página (F5)</li>
     </ol>
 
-    <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;">
-      <div>
-        <div class="flow-label">Fluxo atual</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    A["Admin clica em excluir participante"] --> B["Mensagem de sucesso exibida"]
-    B --> C["Admin atualiza a pagina"]
-    C --> D["Usuario ainda aparece na lista"]</pre></div>
-      </div>
-      <div>
-        <div class="flow-label">Fluxo esperado</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    A["Admin clica em excluir participante"] --> B["Mensagem de sucesso exibida"]
-    B --> C["Admin atualiza a pagina"]
-    C --> D["Usuario nao aparece mais na lista"]</pre></div>
-      </div>
-    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Admin clica em excluir participante</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Mensagem de sucesso exibida</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Admin atualiza a pagina</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Usuario ainda aparece na lista</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Admin clica em excluir participante</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Mensagem de sucesso exibida</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Admin atualiza a pagina</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Usuario nao aparece mais na lista</div></div></div></div>
 
     <div class="flow-label">Critérios de aceite</div>
     <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
@@ -1082,22 +1076,7 @@
       <li>O iframe fica carregando indefinidamente e nunca exibe o conteúdo</li>
     </ol>
 
-    <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;">
-      <div>
-        <div class="flow-label">Fluxo atual</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    A["Usuario sobe um CSV"] --> B["Arquivo identificado como POWERBI"]
-    B --> C["Usuario clica para abrir"]
-    C --> D["Iframe carrega para sempre"]</pre></div>
-      </div>
-      <div>
-        <div class="flow-label">Fluxo esperado</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    A["Usuario sobe um CSV"] --> B["Arquivo identificado como CSV"]
-    B --> C["Usuario clica para abrir"]
-    C --> D["Conteudo do CSV e exibido"]</pre></div>
-      </div>
-    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Usuario sobe um CSV</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Arquivo identificado como POWERBI</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Usuario clica para abrir</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Iframe carrega para sempre</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Usuario sobe um CSV</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Arquivo identificado como CSV</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Usuario clica para abrir</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Conteudo do CSV e exibido</div></div></div></div>
 
     <div class="flow-label">Critérios de aceite</div>
     <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
@@ -1131,22 +1110,7 @@
       <li>Observar erro 400 no console do navegador</li>
     </ol>
 
-    <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;">
-      <div>
-        <div class="flow-label">Fluxo atual</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    A["Usuario acessa cadastro do data app"] --> B["Clica para editar a imagem"]
-    B --> C["Seleciona nova imagem e confirma"]
-    C --> D["Erro 400 no console e imagem nao atualizada"]</pre></div>
-      </div>
-      <div>
-        <div class="flow-label">Fluxo esperado</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    A["Usuario acessa cadastro do data app"] --> B["Clica para editar a imagem"]
-    B --> C["Seleciona nova imagem e confirma"]
-    C --> D["Imagem e atualizada com sucesso"]</pre></div>
-      </div>
-    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Usuario acessa cadastro do data app</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Clica para editar a imagem</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Seleciona nova imagem e confirma</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Erro 400 no console e imagem nao atualizada</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Usuario acessa cadastro do data app</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Clica para editar a imagem</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Seleciona nova imagem e confirma</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Imagem e atualizada com sucesso</div></div></div></div>
 
     <div class="flow-label">Critérios de aceite</div>
     <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
@@ -1196,22 +1160,7 @@
       <li>Verificar no admin/backend que o role real do usuário no tenant é diferente</li>
     </ol>
 
-    <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;">
-      <div>
-        <div class="flow-label">Fluxo atual</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    A["Usuario logado em um tenant"] --> B["Acessa pagina de perfil"]
-    B --> C["Perfil exibe 'Admin' como role"]
-    C --> D["Role exibido nao corresponde ao role real no tenant"]</pre></div>
-      </div>
-      <div>
-        <div class="flow-label">Fluxo esperado</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    A["Usuario logado em um tenant"] --> B["Acessa pagina de perfil"]
-    B --> C["Perfil exibe o role correto do usuario"]
-    C --> D["Role exibido corresponde ao role real no tenant"]</pre></div>
-      </div>
-    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Usuario logado em um tenant</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Acessa pagina de perfil</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Perfil exibe 'Admin' como role</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Role exibido nao corresponde ao role real no tenant</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Usuario logado em um tenant</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Acessa pagina de perfil</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Perfil exibe o role correto do usuario</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Role exibido corresponde ao role real no tenant</div></div></div></div>
 
     <div class="flow-label">Critérios de aceite</div>
     <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
@@ -1244,22 +1193,7 @@
       <li>Buscar por "Guilherme", "Tamires" ou "Maurício"</li>
     </ol>
 
-    <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;">
-      <div>
-        <div class="flow-label">Fluxo atual</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    A["Admin abre painel de participantes"] --> B["Busca usuario cadastrado"]
-    B --> C["Usuario nao aparece na lista"]
-    C --> D["Impossivel adicionar participante"]</pre></div>
-      </div>
-      <div>
-        <div class="flow-label">Fluxo esperado</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    A["Admin abre painel de participantes"] --> B["Busca usuario cadastrado"]
-    B --> C["Usuario aparece na lista"]
-    C --> D["Admin adiciona participante com sucesso"]</pre></div>
-      </div>
-    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Admin abre painel de participantes</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Busca usuario cadastrado</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Usuario nao aparece na lista</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Impossivel adicionar participante</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Admin abre painel de participantes</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Busca usuario cadastrado</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Usuario aparece na lista</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Admin adiciona participante com sucesso</div></div></div></div>
 
     <div class="flow-label">Critérios de aceite</div>
     <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
@@ -1322,21 +1256,7 @@
       <li>Clicar em salvar alterações</li>
     </ol>
 
-    <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;">
-      <div>
-        <div class="flow-label">Fluxo atual</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    N0["Lista de Membros"] --> N1["Edição de Role"]
-    N1["Edição de Role"] --> N2["Erro de Persistência"]</pre></div>
-      </div>
-      <div>
-        <div class="flow-label">Fluxo esperado</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    N0["Lista de Membros"] --> N1["Edição de Role"]
-    N1["Edição de Role"] --> N2["Salvar Alterações"]
-    N2["Salvar Alterações"] --> N3["Confirmação de Sucesso"]</pre></div>
-      </div>
-    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Lista de Membros</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Edição de Role</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Erro de Persistência</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Lista de Membros</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Edição de Role</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Salvar Alterações</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Confirmação de Sucesso</div></div></div></div>
 
     <div class="flow-label">Critérios de aceite</div>
     <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
@@ -1374,22 +1294,7 @@ console do google chrome mostra uma série de erros
       <li>Digitar continuamente no bloco</li>
     </ol>
 
-    <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;">
-      <div>
-        <div class="flow-label">Fluxo atual</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    N0["Digitar caractere"] --> N1["Request API"]
-    N1["Request API"] --> N2["Erro 429"]
-    N2["Erro 429"] --> N3["Exibir toast de erro"]</pre></div>
-      </div>
-      <div>
-        <div class="flow-label">Fluxo esperado</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    N0["Digitar caractere"] --> N1["Debounce input"]
-    N1["Debounce input"] --> N2["Request API"]
-    N2["Request API"] --> N3["Salvar conteúdo"]</pre></div>
-      </div>
-    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Digitar caractere</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Request API</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Erro 429</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Exibir toast de erro</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Digitar caractere</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Debounce input</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Request API</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Salvar conteúdo</div></div></div></div>
 
     <div class="flow-label">Critérios de aceite</div>
     <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
@@ -1421,20 +1326,7 @@ console do google chrome mostra uma série de erros
       <li>A tela exibe apenas branco, sem mensagem alguma</li>
     </ol>
 
-    <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;">
-      <div>
-        <div class="flow-label">Fluxo atual</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    N0["Abrir arquivo .xlsx"] --> N1["Tela em branco"]
-    N1["Tela em branco"] --> N2["Nenhum feedback"]</pre></div>
-      </div>
-      <div>
-        <div class="flow-label">Fluxo esperado</div>
-        <div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    N0["Abrir arquivo .xlsx"] --> N1["Detectar formato"]
-    N1["Detectar formato"] --> N2["Exibir aviso + botão download"]</pre></div>
-      </div>
-    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Abrir arquivo .xlsx</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Tela em branco</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Nenhum feedback</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Abrir arquivo .xlsx</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Detectar formato</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Exibir aviso + botão download</div></div></div></div>
 
     <div class="flow-label">Critérios de aceite</div>
     <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
@@ -1468,22 +1360,7 @@ console do google chrome mostra uma série de erros
       <li>Avançar até a etapa final e clicar em salvar</li>
     </ol>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-      <div>
-        <div class="flow-label">Fluxo atual</div>
-        <pre class="mermaid">flowchart TD
-    N0["Edicao"] --> N1["Upload Arquivo"]
-    N1["Upload Arquivo"] --> N2["Validacao"]
-    N2["Validacao"] --> N3["Erro Dados Invalidos"]</pre>
-      </div>
-      <div>
-        <div class="flow-label">Fluxo esperado</div>
-        <pre class="mermaid">flowchart TD
-    N0["Edicao"] --> N1["Upload Arquivo"]
-    N1["Upload Arquivo"] --> N2["Validacao"]
-    N2["Validacao"] --> N3["Sucesso"]</pre>
-      </div>
-    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Edicao</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Upload Arquivo</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Validacao</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Erro Dados Invalidos</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Edicao</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Upload Arquivo</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Validacao</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Sucesso</div></div></div></div>
 
     <div class="flow-label">Critérios de aceite</div>
     <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
@@ -1516,20 +1393,7 @@ console do google chrome mostra uma série de erros
       <li>Verificar os resultados exibidos</li>
     </ol>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-      <div>
-        <div class="flow-label">Fluxo atual</div>
-        <pre class="mermaid">flowchart TD
-    N0["Busca"] --> N1["Filtro DataApp"]</pre>
-      </div>
-      <div>
-        <div class="flow-label">Fluxo esperado</div>
-        <pre class="mermaid">flowchart TD
-    N0["Busca"] --> N1["Filtro DataApp"]
-    N1["Busca"] --> N2["Filtro Responsavel"]
-    N2["Busca"] --> N3["Filtro Fonte"]</pre>
-      </div>
-    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Busca</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Filtro DataApp</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Busca</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Filtro DataApp</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Filtro Responsavel</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Filtro Fonte</div></div></div></div>
 
     <div class="flow-label">Critérios de aceite</div>
     <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
