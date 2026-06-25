@@ -1471,6 +1471,48 @@ Uncaught (in promise) Error: Sem permissão: create Room
 </details>
 <details class="issue-row">
 <summary>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-385/bug-botao-de-criar-sala-nao-aparece-para-roles-editor-e-contributor" onclick="event.stopPropagation()" target="_blank">NOD-385</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Botão de criar sala não aparece para roles Editor e Contributor</div>
+<span class="priority-tag priority-high">Alto</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary">Usuários com role Editor ou Contributor não veem o botão de criar sala na interface, mesmo que esses roles devam ter essa permissão. Issue relacionada: <a href="https://linear.app/nodian-dev/issue/NOD-382" target="_blank">NOD-382</a> (erro 403 ao criar sala via API).</p>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+<div>
+<div class="flow-label">Fluxo atual</div>
+<div class="bug-flow">
+<div class="bug-flow-node">Editor/Contributor faz login</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node bad">Botão de criar sala não aparece</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node bad">Impossível iniciar criação de sala</div>
+</div>
+</div>
+<div>
+<div class="flow-label">Fluxo esperado</div>
+<div class="bug-flow">
+<div class="bug-flow-node">Editor/Contributor faz login</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node good">Botão de criar sala visível</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node good">Sala criada com sucesso</div>
+</div>
+</div>
+</div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Usuário com role Editor visualiza o botão de criar sala</li>
+<li>Usuário com role Contributor visualiza o botão de criar sala</li>
+<li>Ao clicar no botão, o fluxo de criação de sala é iniciado sem erros</li>
+</ul>
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> Editors e Contributors ficam impedidos de criar salas, bloqueando o fluxo básico de colaboração.
+</div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-383/bug-campo-de-e-mail-no-perfil-do-usuario-esta-editavel-deveria-ser" onclick="event.stopPropagation()" target="_blank">NOD-383</a></div><div class="issue-row-type">BUG</div>
 <div class="issue-row-title">Campo de e-mail no perfil do usuário está editável — deveria ser somente leitura</div>
 <div class="issue-row-author">Helmut</div>
