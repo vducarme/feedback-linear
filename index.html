@@ -887,7 +887,7 @@
 <div class="tabs-nav">
 <button class="tab-btn active" onclick="switchTab('novartis')" style="display:none">Missao Aguia Novartis</button>
 <button class="tab-btn" onclick="switchTab('cadastro')">Redesign Cadastro de Data App</button>
-<button class="tab-btn active" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">18</span></button>
+<button class="tab-btn active" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">21</span></button>
 <button class="tab-btn" onclick="switchTab('feedback')">Feedback de Usuários</button>
 <button class="tab-btn" onclick="switchTab('backlog')">Backlog de Discussoes <span class="tab-count">9</span></button>
 </div>
@@ -1071,7 +1071,7 @@
 <details class="issue-section" open>
 <summary>
 <svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-Prioridade <span class="issue-section-count">5</span>
+Prioridade <span class="issue-section-count">8</span>
 </summary>
 <div class="issues-table">
 <details class="issue-row">
@@ -1293,6 +1293,91 @@ Uncaught (in promise) Error: Sem permissão: create Room
 </ul>
 <div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
 <strong>Consequência:</strong> Usuários entram na plataforma sem nome e cargo cadastrados, prejudicando a identificação e a exibição correta dos dados do perfil.
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">6</div>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-388/room-editor-room-member-consegue-apagar-blocosarquivos-criados-por" onclick="event.stopPropagation()" target="_blank">NOD-388</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">room_editor (room_member) consegue apagar blocos/arquivos criados por outras pessoas</div>
+<span class="priority-tag priority-high">Alto</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary">Como <strong>room_editor</strong> (room_member) acessando uma sala em <code>new-app.nodian.dev</code>, consigo apagar blocos/arquivos adicionados por <strong>outros participantes</strong>, quando deveria poder apagar apenas o que eu mesmo criei. Viola a matriz Roles &amp; Permissions v4 (<code>room.resource.remove</code> = só sobre o que criou, para room_member).</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Acessar <code>new-app.nodian.dev</code> como <strong>room_editor (room_member)</strong> de uma sala</li>
+<li>Abrir uma sala com blocos/arquivos criados por outro participante (ex.: sala "Teste 1", arquivo "Dashboard Outro" criado pela dona)</li>
+<li>Localizar um bloco/arquivo de terceiro e acionar a opção de excluir</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">room_editor abre a sala</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Visualiza bloco criado por outra pessoa</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Acao de excluir disponivel</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Bloco de terceiro e apagado</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">room_editor abre a sala</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Visualiza bloco criado por outra pessoa</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Acao de excluir indisponivel/bloqueada</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Apenas conteudo proprio pode ser apagado</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>room_editor consegue apagar blocos/arquivos que ele mesmo criou</li>
+<li>room_editor não consegue apagar blocos/arquivos criados por outros participantes</li>
+<li>Tentativa via API direta também é negada para conteúdo de terceiros</li>
+</ul>
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> Perda de dados de outros usuários — um editor pode remover conteúdo alheio, violando a matriz de permissões (room_member só apaga o que cria).
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">7</div>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-389/room-member-editor-na-ui-consegue-convidar-usuarios-a-sala" onclick="event.stopPropagation()" target="_blank">NOD-389</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">room_member (Editor na UI) consegue convidar usuários à sala</div>
+<span class="priority-tag priority-high">Alto</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary">Como <strong>room_member</strong> (exibido como Editor em <code>new-app.nodian.dev</code>), consigo convidar/adicionar usuários à sala — quando <code>room.member.invite</code> deveria estar disponível apenas para tenant_admin e room_owner. Confirmado ao vivo: o "Editor" vê a aba <strong>Convidar</strong> no modal de Participantes (evidência anexada no Linear).</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Acessar <code>new-app.nodian.dev</code> como <strong>room_member (Editor na UI)</strong> de uma sala</li>
+<li>Abrir a sala e navegar até a área de membros/participantes</li>
+<li>Observar a aba "Convidar" e acioná-la</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">room_member abre a sala</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Acessa area de membros</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Aba Convidar disponivel</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">room_member adiciona novo usuario a sala</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">room_member abre a sala</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Acessa area de membros</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Acao de convidar indisponivel</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Somente tenant_admin ou room_owner convidam</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>tenant_admin e room_owner conseguem convidar/adicionar usuários à sala</li>
+<li>room_member não consegue convidar/adicionar usuários (ação ausente ou bloqueada)</li>
+<li>Tentativa via API direta também é negada para room_member</li>
+</ul>
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> Escalonamento de acesso — um participante comum pode dar acesso à sala a terceiros sem o owner saber, violando a matriz de permissões.
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">8</div>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-390/bloquear-atribuicao-de-guest-como-dono-room-owner-de-sala" onclick="event.stopPropagation()" target="_blank">NOD-390</a></div><div class="issue-row-type">MELHORIA</div>
+<div class="issue-row-title">Bloquear atribuição de guest como dono (room_owner) de sala</div>
+<span class="priority-tag priority-medium">Médio</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary">Como <strong>tenant_admin / room_owner</strong> atribuindo papéis numa sala em <code>new-app.nodian.dev</code>, não deveria conseguir definir um usuário <strong>guest</strong> como <strong>dono (room_owner)</strong> — apenas como Editor (room_member) ou Visualizador (room_viewer). O guest é acesso externo pontual; torná-lo dono lhe daria controle da sala, contrariando a spec v4.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Acessar <code>new-app.nodian.dev</code> como tenant_admin ou room_owner</li>
+<li>Numa sala, adicionar/editar o papel de um usuário <strong>guest</strong></li>
+<li>Verificar as opções de papel oferecidas (Dono / Editor / Visualizador)</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Atribui papel de sala a um guest</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Opcao Dono (room_owner) disponivel</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Guest pode ser definido como dono da sala</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Atribui papel de sala a um guest</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Apenas Editor e Visualizador ofertados</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Guest limitado a room_member ou room_viewer</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Ao atribuir papel a um guest, as únicas opções são Editor e Visualizador</li>
+<li>A opção Dono (room_owner) fica indisponível/oculta para guest</li>
+<li>Tentativa via API direta de definir guest como room_owner é negada</li>
+<li>Guests já existentes não podem ser promovidos a dono</li>
+</ul>
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> Um acesso externo (guest) poderia controlar a sala (convidar terceiros, alterar settings, arquivar/deletar), contrariando o princípio do guest na v4.
     </div>
 </div>
 </details>
