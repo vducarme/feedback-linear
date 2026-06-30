@@ -520,6 +520,61 @@
     margin-bottom: 24px;
   }
 
+  /* ---- ISSUE RANK (priority order indicator) ---- */
+  .issue-rank {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--stone-900);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .issue-row[open] .issue-rank { background: var(--amber-600); }
+
+  /* ---- ISSUE SECTION (dropdown) ---- */
+  .issue-section { margin-bottom: 20px; }
+  .issue-section > summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    list-style: none;
+    padding: 12px 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--stone-500);
+    user-select: none;
+    border-bottom: 1px solid var(--stone-200);
+    margin-bottom: 16px;
+  }
+  .issue-section > summary::-webkit-details-marker { display: none; }
+  .issue-section > summary:hover { color: var(--stone-800); }
+  .issue-section-chevron {
+    color: var(--stone-400);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+  .issue-section[open] > summary .issue-section-chevron { transform: rotate(90deg); }
+  .issue-section-count {
+    margin-left: auto;
+    background: var(--stone-100);
+    color: var(--stone-500);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0;
+    padding: 2px 10px;
+    border-radius: 100px;
+  }
+
   .issue-row {
     border-bottom: 1px solid var(--stone-200);
   }
@@ -821,25 +876,10 @@
 <div class="release-columns">
 <div class="release-col bugs">
 <div class="release-col-label"><span class="dot"></span>Bugs corrigidos</div>
-<a class="release-item" href="https://linear.app/nodian-dev/issue/NOD-363/usuario-removido-continua-na-lista-de-participantes-apos-atualizar-a" rel="noopener" target="_blank">
-<span class="ticket">NOD-363</span>
-<span>Usuário removido continua na lista de participantes após atualizar a página</span>
-</a>
-<a class="release-item" href="https://linear.app/nodian-dev/issue/NOD-365/pagina-de-perfil-exibe-role-incorreto-sempre-mostra-admin-independente" rel="noopener" target="_blank">
-<span class="ticket">NOD-365</span>
-<span>Página de perfil exibe role incorreto (sempre mostra Admin)</span>
-</a>
-<a class="release-item" href="https://linear.app/nodian-dev/issue/NOD-366/usuarios-cadastrados-na-plataforma-nao-aparecem-na-lista-de" rel="noopener" target="_blank">
-<span class="ticket">NOD-366</span>
-<span>Usuários cadastrados na plataforma não aparecem na lista</span>
-</a>
 </div>
 <div class="release-col features">
 <div class="release-col-label"><span class="dot"></span>Features</div>
-<div class="release-item"><span class="ticket">✦</span><span>Upload de qualquer tipo de arquivo</span></div>
-<div class="release-item"><span class="ticket">✦</span><span>Download de arquivos (exceto dashboards)</span></div>
-<div class="release-item"><span class="ticket">✦</span><span>Sessão de login de 8 horas</span></div>
-<div class="release-item"><span class="ticket">✦</span><span>Logs</span></div>
+<div class="release-item"><span class="ticket">✦</span><span>Frontend do cadastro de data app</span></div>
 </div>
 </div>
 </section>
@@ -847,7 +887,7 @@
 <div class="tabs-nav">
 <button class="tab-btn active" onclick="switchTab('novartis')" style="display:none">Missao Aguia Novartis</button>
 <button class="tab-btn" onclick="switchTab('cadastro')">Redesign Cadastro de Data App</button>
-<button class="tab-btn active" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">2</span></button>
+<button class="tab-btn active" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">18</span></button>
 <button class="tab-btn" onclick="switchTab('feedback')">Feedback de Usuários</button>
 <button class="tab-btn" onclick="switchTab('backlog')">Backlog de Discussoes <span class="tab-count">9</span></button>
 </div>
@@ -1028,9 +1068,208 @@
     Bugs e melhorias da plataforma
   </div>
 <p class="section-desc" style="text-align:center; margin-bottom: 48px;">Problemas encontrados e melhorias identificadas no uso da plataforma. Cada item vira uma issue no Linear.</p>
+<details class="issue-section" open>
+<summary>
+<svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+Prioridade <span class="issue-section-count">5</span>
+</summary>
 <div class="issues-table">
 <details class="issue-row">
 <summary>
+<div class="issue-rank">1</div>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-387/usuario-removido-de-um-tenant-continua-vinculado-a-ele-apos-ser" onclick="event.stopPropagation()" target="_blank">NOD-387</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Usuário removido de um tenant continua vinculado a ele após ser adicionado a outro</div>
+<span class="priority-tag priority-high">Alto</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary">Ao remover um usuário de um tenant e adicioná-lo a outro, ao logar o usuário continua aparecendo no tenant antigo e não aparece no tenant novo. Caso reportado: <code>vivianeducarme@gmail.com</code> foi removido do tenant "Nodian" e adicionado ao tenant "Viviane Ducarme", mas ao logar apareceu em "Nodian" e não em "Viviane Ducarme". Quebra o isolamento multi-tenant.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Adicionar o e-mail <code>vivianeducarme@gmail.com</code> ao tenant "Nodian"</li>
+<li>Remover esse e-mail do tenant "Nodian"</li>
+<li>Adicionar o e-mail ao tenant "Viviane Ducarme"</li>
+<li>Fazer login com <code>vivianeducarme@gmail.com</code></li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+<div>
+<div class="flow-label">Fluxo atual</div>
+<div class="bug-flow">
+<div class="bug-flow-node">Remove do tenant Nodian</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node">Adiciona ao tenant Viviane Ducarme</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node bad">Loga e aparece em Nodian, nao em Viviane Ducarme</div>
+</div>
+</div>
+<div>
+<div class="flow-label">Fluxo esperado</div>
+<div class="bug-flow">
+<div class="bug-flow-node">Remove do tenant Nodian</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node">Adiciona ao tenant Viviane Ducarme</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node good">Loga e aparece somente em Viviane Ducarme</div>
+</div>
+</div>
+</div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Ao remover um usuário de um tenant, ele não aparece mais nesse tenant ao logar</li>
+<li>Ao adicionar um usuário a um novo tenant, ele passa a aparecer e ter acesso a esse tenant ao logar</li>
+<li>Após remover do tenant A e adicionar ao tenant B, o usuário vê apenas o tenant B</li>
+<li>A resolução do tenant no login não deve apontar para um membership removido ou desativado</li>
+</ul>
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> Usuário mantém acesso a um tenant do qual foi removido (falha de isolamento/segurança) e fica sem acesso ao tenant correto.
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">2</div>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-383/bug-campo-de-e-mail-no-perfil-do-usuario-esta-editavel-deveria-ser" onclick="event.stopPropagation()" target="_blank">NOD-383</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Campo de e-mail no perfil do usuário está editável — deveria ser somente leitura</div>
+<div class="issue-row-author">Helmut</div>
+<span class="priority-tag priority-high">Alto</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary">Ao acessar a página de perfil em <code>bombord.nodian.dev</code>, o campo de e-mail aparece como um input editável. O e-mail é identificador de autenticação e não deve ser alterado diretamente sem um fluxo de verificação.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Fazer login em <code>bombord.nodian.dev</code></li>
+<li>Acessar a página de perfil</li>
+<li>Observar que o campo de e-mail está editável</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+<div>
+<div class="flow-label">Fluxo atual</div>
+<div class="bug-flow">
+<div class="bug-flow-node">Usuário acessa página de perfil</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node bad">Campo de e-mail está editável</div>
+</div>
+</div>
+<div>
+<div class="flow-label">Fluxo esperado</div>
+<div class="bug-flow">
+<div class="bug-flow-node">Usuário acessa página de perfil</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node good">Campo de e-mail somente leitura</div>
+</div>
+</div>
+</div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>O campo de e-mail na página de perfil deve ser somente leitura</li>
+<li>Nenhum input deve permitir edição direta do e-mail</li>
+<li>Se houver fluxo de alteração de e-mail no futuro, deve passar por verificação (confirmar no e-mail atual)</li>
+</ul>
+<div style="background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> Usuário pode alterar o campo de e-mail sem verificação, potencialmente causando inconsistências de autenticação ou perda de acesso à conta.
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">3</div>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-382/bug-editor-nao-consegue-criar-sala-erro-403-sem-permissao-create-room" onclick="event.stopPropagation()" target="_blank">NOD-382</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Editor não consegue criar sala — erro 403 "Sem permissão: create Room"</div>
+<div class="issue-row-author">Helmut</div>
+<span class="priority-tag priority-high">Alto</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary">Como usuário com role Editor, ao tentar criar uma sala, o sistema retorna erro 403. A permissão <code>create Room</code> não está associada ao role Editor no backend.</p>
+<div class="flow-label">Erro reportado</div>
+<pre style="background: var(--stone-900); color: #e5e7eb; border-radius: 8px; padding: 14px 16px; font-size: 12px; line-height: 1.7; overflow-x: auto; margin-bottom: 20px; font-family: 'DM Mono', monospace;">Failed to load resource: the server responded with a status of 403 ()
+Uncaught (in promise) Error: Sem permissão: create Room
+    at page-e9b0781e9c740dfb.js:1:7137</pre>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Fazer login com um usuário que tenha role <strong>Editor</strong></li>
+<li>Tentar criar uma nova sala</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+<div>
+<div class="flow-label">Fluxo atual</div>
+<div class="bug-flow">
+<div class="bug-flow-node">Editor tenta criar sala</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node">API valida permissão</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node bad">403 — Sem permissão: create Room</div>
+</div>
+</div>
+<div>
+<div class="flow-label">Fluxo esperado</div>
+<div class="bug-flow">
+<div class="bug-flow-node">Editor tenta criar sala</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node">API valida permissão do Editor</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node good">Sala criada com sucesso</div>
+</div>
+</div>
+</div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Usuário com role Editor consegue criar salas sem erro</li>
+<li>A permissão <code>create Room</code> deve estar associada ao role Editor no backend</li>
+<li>Nenhum erro 403 deve ser retornado para Editors ao tentar criar sala</li>
+</ul>
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> Editors ficam bloqueados de criar salas, impedindo o fluxo básico de colaboração para esse role.
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">4</div>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-385/bug-botao-de-criar-sala-nao-aparece-para-roles-editor-e-contributor" onclick="event.stopPropagation()" target="_blank">NOD-385</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Botão de criar sala não aparece para roles Editor e Contributor</div>
+<span class="priority-tag priority-high">Alto</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary">Usuários com role Editor ou Contributor não veem o botão de criar sala na interface, mesmo que esses roles devam ter essa permissão. Issue relacionada: <a href="https://linear.app/nodian-dev/issue/NOD-382" target="_blank">NOD-382</a> (erro 403 ao criar sala via API).</p>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+<div>
+<div class="flow-label">Fluxo atual</div>
+<div class="bug-flow">
+<div class="bug-flow-node">Editor/Contributor faz login</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node bad">Botão de criar sala não aparece</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node bad">Impossível iniciar criação de sala</div>
+</div>
+</div>
+<div>
+<div class="flow-label">Fluxo esperado</div>
+<div class="bug-flow">
+<div class="bug-flow-node">Editor/Contributor faz login</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node good">Botão de criar sala visível</div>
+<div class="bug-flow-arrow">↓</div>
+<div class="bug-flow-node good">Sala criada com sucesso</div>
+</div>
+</div>
+</div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Usuário com role Editor visualiza o botão de criar sala</li>
+<li>Usuário com role Contributor visualiza o botão de criar sala</li>
+<li>Ao clicar no botão, o fluxo de criação de sala é iniciado sem erros</li>
+</ul>
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> Editors e Contributors ficam impedidos de criar salas, bloqueando o fluxo básico de colaboração.
+</div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">5</div>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-378/usuario-convidado-nao-passa-pelas-telas-de-completar-perfil-nome-e" onclick="event.stopPropagation()" target="_blank">NOD-378</a></div><div class="issue-row-type">BUG</div>
 <div class="issue-row-title">Usuário convidado não passa pelas telas de completar perfil (nome e cargo) no primeiro acesso</div>
 <span class="priority-tag priority-high">Alto</span>
@@ -1057,6 +1296,14 @@
     </div>
 </div>
 </details>
+</div>
+</details>
+<details class="issue-section">
+<summary>
+<svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+Backlog <span class="issue-section-count">13</span>
+</summary>
+<div class="issues-table">
 <details class="issue-row">
 <summary>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-161/iframe-do-csv-fica-carregando-e-nao-aparece" onclick="event.stopPropagation()" target="_blank">NOD-161</a></div><div class="issue-row-type">BUG</div>
@@ -1419,145 +1666,6 @@ console do google chrome mostra uma série de erros
 </details>
 <details class="issue-row">
 <summary>
-<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-382/bug-editor-nao-consegue-criar-sala-erro-403-sem-permissao-create-room" onclick="event.stopPropagation()" target="_blank">NOD-382</a></div><div class="issue-row-type">BUG</div>
-<div class="issue-row-title">Editor não consegue criar sala — erro 403 "Sem permissão: create Room"</div>
-<div class="issue-row-author">Helmut</div>
-<span class="priority-tag priority-high">Alto</span>
-<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-</summary>
-<div class="issue-row-body">
-<p class="issue-summary">Como usuário com role Editor, ao tentar criar uma sala, o sistema retorna erro 403. A permissão <code>create Room</code> não está associada ao role Editor no backend.</p>
-<div class="flow-label">Erro reportado</div>
-<pre style="background: var(--stone-900); color: #e5e7eb; border-radius: 8px; padding: 14px 16px; font-size: 12px; line-height: 1.7; overflow-x: auto; margin-bottom: 20px; font-family: 'DM Mono', monospace;">Failed to load resource: the server responded with a status of 403 ()
-Uncaught (in promise) Error: Sem permissão: create Room
-    at page-e9b0781e9c740dfb.js:1:7137</pre>
-<div class="flow-label">Passos para reproduzir</div>
-<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Fazer login com um usuário que tenha role <strong>Editor</strong></li>
-<li>Tentar criar uma nova sala</li>
-</ol>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-<div>
-<div class="flow-label">Fluxo atual</div>
-<div class="bug-flow">
-<div class="bug-flow-node">Editor tenta criar sala</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node">API valida permissão</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node bad">403 — Sem permissão: create Room</div>
-</div>
-</div>
-<div>
-<div class="flow-label">Fluxo esperado</div>
-<div class="bug-flow">
-<div class="bug-flow-node">Editor tenta criar sala</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node">API valida permissão do Editor</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node good">Sala criada com sucesso</div>
-</div>
-</div>
-</div>
-<div class="flow-label">Critérios de aceite</div>
-<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Usuário com role Editor consegue criar salas sem erro</li>
-<li>A permissão <code>create Room</code> deve estar associada ao role Editor no backend</li>
-<li>Nenhum erro 403 deve ser retornado para Editors ao tentar criar sala</li>
-</ul>
-<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Consequência:</strong> Editors ficam bloqueados de criar salas, impedindo o fluxo básico de colaboração para esse role.
-    </div>
-</div>
-</details>
-<details class="issue-row">
-<summary>
-<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-385/bug-botao-de-criar-sala-nao-aparece-para-roles-editor-e-contributor" onclick="event.stopPropagation()" target="_blank">NOD-385</a></div><div class="issue-row-type">BUG</div>
-<div class="issue-row-title">Botão de criar sala não aparece para roles Editor e Contributor</div>
-<span class="priority-tag priority-high">Alto</span>
-<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-</summary>
-<div class="issue-row-body">
-<p class="issue-summary">Usuários com role Editor ou Contributor não veem o botão de criar sala na interface, mesmo que esses roles devam ter essa permissão. Issue relacionada: <a href="https://linear.app/nodian-dev/issue/NOD-382" target="_blank">NOD-382</a> (erro 403 ao criar sala via API).</p>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-<div>
-<div class="flow-label">Fluxo atual</div>
-<div class="bug-flow">
-<div class="bug-flow-node">Editor/Contributor faz login</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node bad">Botão de criar sala não aparece</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node bad">Impossível iniciar criação de sala</div>
-</div>
-</div>
-<div>
-<div class="flow-label">Fluxo esperado</div>
-<div class="bug-flow">
-<div class="bug-flow-node">Editor/Contributor faz login</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node good">Botão de criar sala visível</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node good">Sala criada com sucesso</div>
-</div>
-</div>
-</div>
-<div class="flow-label">Critérios de aceite</div>
-<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Usuário com role Editor visualiza o botão de criar sala</li>
-<li>Usuário com role Contributor visualiza o botão de criar sala</li>
-<li>Ao clicar no botão, o fluxo de criação de sala é iniciado sem erros</li>
-</ul>
-<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Consequência:</strong> Editors e Contributors ficam impedidos de criar salas, bloqueando o fluxo básico de colaboração.
-</div>
-</div>
-</details>
-<details class="issue-row">
-<summary>
-<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-383/bug-campo-de-e-mail-no-perfil-do-usuario-esta-editavel-deveria-ser" onclick="event.stopPropagation()" target="_blank">NOD-383</a></div><div class="issue-row-type">BUG</div>
-<div class="issue-row-title">Campo de e-mail no perfil do usuário está editável — deveria ser somente leitura</div>
-<div class="issue-row-author">Helmut</div>
-<span class="priority-tag priority-medium">Médio</span>
-<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-</summary>
-<div class="issue-row-body">
-<p class="issue-summary">Ao acessar a página de perfil em <code>bombord.nodian.dev</code>, o campo de e-mail aparece como um input editável. O e-mail é identificador de autenticação e não deve ser alterado diretamente sem um fluxo de verificação.</p>
-<div class="flow-label">Passos para reproduzir</div>
-<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Fazer login em <code>bombord.nodian.dev</code></li>
-<li>Acessar a página de perfil</li>
-<li>Observar que o campo de e-mail está editável</li>
-</ol>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-<div>
-<div class="flow-label">Fluxo atual</div>
-<div class="bug-flow">
-<div class="bug-flow-node">Usuário acessa página de perfil</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node bad">Campo de e-mail está editável</div>
-</div>
-</div>
-<div>
-<div class="flow-label">Fluxo esperado</div>
-<div class="bug-flow">
-<div class="bug-flow-node">Usuário acessa página de perfil</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node good">Campo de e-mail somente leitura</div>
-</div>
-</div>
-</div>
-<div class="flow-label">Critérios de aceite</div>
-<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>O campo de e-mail na página de perfil deve ser somente leitura</li>
-<li>Nenhum input deve permitir edição direta do e-mail</li>
-<li>Se houver fluxo de alteração de e-mail no futuro, deve passar por verificação (confirmar no e-mail atual)</li>
-</ul>
-<div style="background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Consequência:</strong> Usuário pode alterar o campo de e-mail sem verificação, potencialmente causando inconsistências de autenticação ou perda de acesso à conta.
-    </div>
-</div>
-</details>
-<details class="issue-row">
-<summary>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-384/melhoria-sala-vazia-deve-criar-bloco-automaticamente-ao-adicionar-o" onclick="event.stopPropagation()" target="_blank">NOD-384</a></div><div class="issue-row-type">MELHORIA</div>
 <div class="issue-row-title">Sala vazia deve criar bloco automaticamente ao adicionar o primeiro data app</div>
 <div class="issue-row-author">Helmut</div>
@@ -1604,7 +1712,8 @@ Uncaught (in promise) Error: Sem permissão: create Room
 </div>
 </details>
 </div>
-</div> </div> <!-- close tab-bugs -->
+</details>
+</div> <!-- close tab-bugs -->
 <!-- TAB: BACKLOG -->
 <div class="tab-panel" id="tab-backlog">
 <div class="backlog-section">
@@ -2155,6 +2264,7 @@ no limite, a gente vai ter um limite de storage. o usuário só vai se dar conta
 <div class="page-footer">
     Nodian · Nova Plataforma · Milestone: Salas como Moodle · Maio 2026
   </div>
+</div> <!-- close page-wrapper -->
 
 <script>
   mermaid.initialize({
