@@ -1144,6 +1144,36 @@ Prioridade <span class="issue-section-count">9</span>
 <details class="issue-row">
 <summary>
 <div class="issue-rank">2</div>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-392/usuario-adicionado-a-um-segundo-tenant-continua-vinculado-apenas-ao" onclick="event.stopPropagation()" target="_blank">NOD-392</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Usuário adicionado a um segundo tenant continua vinculado apenas ao tenant inicial</div>
+<span class="priority-tag priority-high">Alto</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary">Ao adicionar um usuário a um segundo tenant, ele não ganha acesso ao novo e continua vinculado apenas ao tenant inicial. Caso reportado: <code>contrib2@nodian.com.br</code> foi adicionado ao tenant "Astrazeneca" e depois ao tenant "Nodian", mas continuou vinculado só a "Astrazeneca". Além disso, a operação corrompeu a visibilidade de tenants de outro usuário — <code>contrib@nodian.com.br</code> deixou de ver o tenant "Nodian" como opção. Relacionado ao NOD-387.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Como admin, adicionar <code>contrib2@nodian.com.br</code> ao tenant "Astrazeneca"</li>
+<li>Adicionar <code>contrib2@nodian.com.br</code> ao tenant "Nodian"</li>
+<li>Logar como <code>contrib2@nodian.com.br</code> e verificar os tenants disponíveis</li>
+<li>Logar como <code>contrib@nodian.com.br</code> (que já pertence a "Nodian") e verificar se "Nodian" aparece na lista</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Adiciona contrib2 a Astrazeneca</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Adiciona contrib2 a Nodian</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">contrib2 so ve Astrazeneca; contrib deixa de ver Nodian</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Adiciona contrib2 a Astrazeneca</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Adiciona contrib2 a Nodian</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">contrib2 ve os tenants adicionados; contrib continua vendo Nodian</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Ao adicionar um usuário a um segundo tenant, ele passa a ver e acessar esse tenant ao logar</li>
+<li>O vínculo com o tenant inicial permanece consistente</li>
+<li>Adicionar um usuário a um tenant não esconde esse tenant para outros que já pertencem a ele</li>
+<li>A resolução de tenants no login reflete exatamente os memberships ativos</li>
+</ul>
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> Usuários não ganham acesso aos tenants aos quais foram adicionados e a visibilidade de tenants de terceiros é corrompida, bloqueando o acesso legítimo.
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">3</div>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-383/bug-campo-de-e-mail-no-perfil-do-usuario-esta-editavel-deveria-ser" onclick="event.stopPropagation()" target="_blank">NOD-383</a></div><div class="issue-row-type">BUG</div>
 <div class="issue-row-title">Campo de e-mail no perfil do usuário está editável — deveria ser somente leitura</div>
 <div class="issue-row-author">Helmut</div>
@@ -1189,7 +1219,7 @@ Prioridade <span class="issue-section-count">9</span>
 </details>
 <details class="issue-row">
 <summary>
-<div class="issue-rank">3</div>
+<div class="issue-rank">4</div>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-382/bug-editor-nao-consegue-criar-sala-erro-403-sem-permissao-create-room" onclick="event.stopPropagation()" target="_blank">NOD-382</a></div><div class="issue-row-type">BUG</div>
 <div class="issue-row-title">Editor não consegue criar sala — erro 403 "Sem permissão: create Room"</div>
 <div class="issue-row-author">Helmut</div>
@@ -1242,7 +1272,7 @@ Uncaught (in promise) Error: Sem permissão: create Room
 </details>
 <details class="issue-row">
 <summary>
-<div class="issue-rank">4</div>
+<div class="issue-rank">5</div>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-385/bug-botao-de-criar-sala-nao-aparece-para-roles-editor-e-contributor" onclick="event.stopPropagation()" target="_blank">NOD-385</a></div><div class="issue-row-type">BUG</div>
 <div class="issue-row-title">Botão de criar sala não aparece para roles Editor e Contributor</div>
 <span class="priority-tag priority-high">Alto</span>
@@ -1285,7 +1315,7 @@ Uncaught (in promise) Error: Sem permissão: create Room
 </details>
 <details class="issue-row">
 <summary>
-<div class="issue-rank">5</div>
+<div class="issue-rank">6</div>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-378/usuario-convidado-nao-passa-pelas-telas-de-completar-perfil-nome-e" onclick="event.stopPropagation()" target="_blank">NOD-378</a></div><div class="issue-row-type">BUG</div>
 <div class="issue-row-title">Usuário convidado não passa pelas telas de completar perfil (nome e cargo) no primeiro acesso</div>
 <span class="priority-tag priority-high">Alto</span>
@@ -1314,7 +1344,7 @@ Uncaught (in promise) Error: Sem permissão: create Room
 </details>
 <details class="issue-row">
 <summary>
-<div class="issue-rank">6</div>
+<div class="issue-rank">7</div>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-388/room-editor-room-member-consegue-apagar-blocosarquivos-criados-por" onclick="event.stopPropagation()" target="_blank">NOD-388</a></div><div class="issue-row-type">BUG</div>
 <div class="issue-row-title">room_editor (room_member) consegue apagar blocos/arquivos criados por outras pessoas</div>
 <span class="priority-tag priority-high">Alto</span>
@@ -1342,7 +1372,7 @@ Uncaught (in promise) Error: Sem permissão: create Room
 </details>
 <details class="issue-row">
 <summary>
-<div class="issue-rank">7</div>
+<div class="issue-rank">8</div>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-389/room-member-editor-na-ui-consegue-convidar-usuarios-a-sala" onclick="event.stopPropagation()" target="_blank">NOD-389</a></div><div class="issue-row-type">BUG</div>
 <div class="issue-row-title">room_member (Editor na UI) consegue convidar usuários à sala</div>
 <span class="priority-tag priority-high">Alto</span>
@@ -1370,7 +1400,7 @@ Uncaught (in promise) Error: Sem permissão: create Room
 </details>
 <details class="issue-row">
 <summary>
-<div class="issue-rank">8</div>
+<div class="issue-rank">9</div>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-390/bloquear-atribuicao-de-guest-como-dono-room-owner-de-sala" onclick="event.stopPropagation()" target="_blank">NOD-390</a></div><div class="issue-row-type">MELHORIA</div>
 <div class="issue-row-title">Bloquear atribuição de guest como dono (room_owner) de sala</div>
 <span class="priority-tag priority-medium">Médio</span>
@@ -1394,36 +1424,6 @@ Uncaught (in promise) Error: Sem permissão: create Room
 </ul>
 <div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
 <strong>Consequência:</strong> Um acesso externo (guest) poderia controlar a sala (convidar terceiros, alterar settings, arquivar/deletar), contrariando o princípio do guest na v4.
-    </div>
-</div>
-</details>
-<details class="issue-row">
-<summary>
-<div class="issue-rank">9</div>
-<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-392/usuario-adicionado-a-um-segundo-tenant-continua-vinculado-apenas-ao" onclick="event.stopPropagation()" target="_blank">NOD-392</a></div><div class="issue-row-type">BUG</div>
-<div class="issue-row-title">Usuário adicionado a um segundo tenant continua vinculado apenas ao tenant inicial</div>
-<span class="priority-tag priority-high">Alto</span>
-<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-</summary>
-<div class="issue-row-body">
-<p class="issue-summary">Ao adicionar um usuário a um segundo tenant, ele não ganha acesso ao novo e continua vinculado apenas ao tenant inicial. Caso reportado: <code>contrib2@nodian.com.br</code> foi adicionado ao tenant "Astrazeneca" e depois ao tenant "Nodian", mas continuou vinculado só a "Astrazeneca". Além disso, a operação corrompeu a visibilidade de tenants de outro usuário — <code>contrib@nodian.com.br</code> deixou de ver o tenant "Nodian" como opção. Relacionado ao NOD-387.</p>
-<div class="flow-label">Passos para reproduzir</div>
-<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Como admin, adicionar <code>contrib2@nodian.com.br</code> ao tenant "Astrazeneca"</li>
-<li>Adicionar <code>contrib2@nodian.com.br</code> ao tenant "Nodian"</li>
-<li>Logar como <code>contrib2@nodian.com.br</code> e verificar os tenants disponíveis</li>
-<li>Logar como <code>contrib@nodian.com.br</code> (que já pertence a "Nodian") e verificar se "Nodian" aparece na lista</li>
-</ol>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Adiciona contrib2 a Astrazeneca</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Adiciona contrib2 a Nodian</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">contrib2 so ve Astrazeneca; contrib deixa de ver Nodian</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Adiciona contrib2 a Astrazeneca</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Adiciona contrib2 a Nodian</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">contrib2 ve os tenants adicionados; contrib continua vendo Nodian</div></div></div></div>
-<div class="flow-label">Critérios de aceite</div>
-<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Ao adicionar um usuário a um segundo tenant, ele passa a ver e acessar esse tenant ao logar</li>
-<li>O vínculo com o tenant inicial permanece consistente</li>
-<li>Adicionar um usuário a um tenant não esconde esse tenant para outros que já pertencem a ele</li>
-<li>A resolução de tenants no login reflete exatamente os memberships ativos</li>
-</ul>
-<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Consequência:</strong> Usuários não ganham acesso aos tenants aos quais foram adicionados e a visibilidade de tenants de terceiros é corrompida, bloqueando o acesso legítimo.
     </div>
 </div>
 </details>
