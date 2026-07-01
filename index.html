@@ -887,7 +887,7 @@
 <div class="tabs-nav">
 <button class="tab-btn active" onclick="switchTab('novartis')" style="display:none">Missao Aguia Novartis</button>
 <button class="tab-btn" onclick="switchTab('cadastro')">Redesign Cadastro de Data App</button>
-<button class="tab-btn active" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">21</span></button>
+<button class="tab-btn active" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">22</span></button>
 <button class="tab-btn" onclick="switchTab('feedback')">Feedback de Usuários</button>
 <button class="tab-btn" onclick="switchTab('backlog')">Backlog de Discussoes <span class="tab-count">9</span></button>
 </div>
@@ -1071,7 +1071,7 @@
 <details class="issue-section" open>
 <summary>
 <svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-Prioridade <span class="issue-section-count">8</span>
+Prioridade <span class="issue-section-count">9</span>
 </summary>
 <div class="issues-table">
 <details class="issue-row">
@@ -1381,14 +1381,72 @@ Uncaught (in promise) Error: Sem permissão: create Room
     </div>
 </div>
 </details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">9</div>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-392/usuario-adicionado-a-um-segundo-tenant-continua-vinculado-apenas-ao" onclick="event.stopPropagation()" target="_blank">NOD-392</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Usuário adicionado a um segundo tenant continua vinculado apenas ao tenant inicial</div>
+<span class="priority-tag priority-high">Alto</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary">Ao adicionar um usuário a um segundo tenant, ele não ganha acesso ao novo e continua vinculado apenas ao tenant inicial. Caso reportado: <code>contrib2@nodian.com.br</code> foi adicionado ao tenant "Astrazeneca" e depois ao tenant "Nodian", mas continuou vinculado só a "Astrazeneca". Além disso, a operação corrompeu a visibilidade de tenants de outro usuário — <code>contrib@nodian.com.br</code> deixou de ver o tenant "Nodian" como opção. Relacionado ao NOD-387.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Como admin, adicionar <code>contrib2@nodian.com.br</code> ao tenant "Astrazeneca"</li>
+<li>Adicionar <code>contrib2@nodian.com.br</code> ao tenant "Nodian"</li>
+<li>Logar como <code>contrib2@nodian.com.br</code> e verificar os tenants disponíveis</li>
+<li>Logar como <code>contrib@nodian.com.br</code> (que já pertence a "Nodian") e verificar se "Nodian" aparece na lista</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Adiciona contrib2 a Astrazeneca</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Adiciona contrib2 a Nodian</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">contrib2 so ve Astrazeneca; contrib deixa de ver Nodian</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Adiciona contrib2 a Astrazeneca</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Adiciona contrib2 a Nodian</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">contrib2 ve os tenants adicionados; contrib continua vendo Nodian</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Ao adicionar um usuário a um segundo tenant, ele passa a ver e acessar esse tenant ao logar</li>
+<li>O vínculo com o tenant inicial permanece consistente</li>
+<li>Adicionar um usuário a um tenant não esconde esse tenant para outros que já pertencem a ele</li>
+<li>A resolução de tenants no login reflete exatamente os memberships ativos</li>
+</ul>
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> Usuários não ganham acesso aos tenants aos quais foram adicionados e a visibilidade de tenants de terceiros é corrompida, bloqueando o acesso legítimo.
+    </div>
+</div>
+</details>
 </div>
 </details>
 <details class="issue-section">
 <summary>
 <svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-Backlog <span class="issue-section-count">13</span>
+Backlog <span class="issue-section-count">14</span>
 </summary>
 <div class="issues-table">
+<details class="issue-row">
+<summary>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-391/erro-de-cors-ao-visualizar-arquivo-md-apos-upload-bucket-s3-sem-access" onclick="event.stopPropagation()" target="_blank">NOD-391</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Erro de CORS ao visualizar arquivo .md após upload (bucket S3 sem Access-Control-Allow-Origin)</div>
+<span class="priority-tag priority-high">Alto</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary">Como usuário em <code>bombord.nodian.com.br</code>, ao subir um arquivo <code>.md</code> (ex: <code>TESTING-GUIDE.md</code>) e tentar visualizar seu conteúdo, o navegador bloqueia a requisição ao S3 por política de CORS — o conteúdo do markdown não carrega.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Acessar <code>bombord.nodian.com.br</code> autenticado</li>
+<li>Subir um arquivo <code>.md</code> (ex: <code>TESTING-GUIDE.md</code>)</li>
+<li>Tentar visualizar/pré-visualizar o conteúdo do arquivo</li>
+<li>Abrir o console do navegador (DevTools)</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Usuario sobe arquivo .md</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Frontend faz fetch da URL pre-assinada no S3</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">S3 responde SEM Access-Control-Allow-Origin</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Navegador bloqueia por CORS - conteudo nao carrega</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Usuario sobe arquivo .md</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Frontend faz fetch da URL pre-assinada no S3</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">S3 responde com Access-Control-Allow-Origin</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Conteudo do markdown e renderizado</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Ao subir e visualizar um arquivo <code>.md</code>, o conteúdo carrega sem erro de CORS</li>
+<li>O bucket S3 <code>bombord</code> responde com <code>Access-Control-Allow-Origin</code> para a origem do frontend</li>
+<li>Requisições GET cross-origin ao S3 (preview de arquivos texto) funcionam para todos os tipos lidos via fetch</li>
+</ul>
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> A URL pré-assinada é válida — falta configuração de CORS no bucket S3. O preview de arquivos markdown (e outros lidos via fetch) fica quebrado.
+    </div>
+</div>
+</details>
 <details class="issue-row">
 <summary>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-161/iframe-do-csv-fica-carregando-e-nao-aparece" onclick="event.stopPropagation()" target="_blank">NOD-161</a></div><div class="issue-row-type">BUG</div>
