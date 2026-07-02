@@ -903,7 +903,7 @@
 <div class="tabs-nav">
 <button class="tab-btn active" onclick="switchTab('novartis')" style="display:none">Missao Aguia Novartis</button>
 <button class="tab-btn" onclick="switchTab('cadastro')">Redesign Cadastro de Data App</button>
-<button class="tab-btn active" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">22</span></button>
+<button class="tab-btn active" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">24</span></button>
 <button class="tab-btn" onclick="switchTab('feedback')">Feedback de Usuários</button>
 <button class="tab-btn" onclick="switchTab('backlog')">Backlog de Discussoes <span class="tab-count">9</span></button>
 </div>
@@ -1087,7 +1087,7 @@
 <details class="issue-section" open>
 <summary>
 <svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-Prioridade <span class="issue-section-count">9</span>
+Prioridade <span class="issue-section-count">10</span>
 </summary>
 <div class="issues-table">
 <details class="issue-row">
@@ -1427,14 +1427,70 @@ Uncaught (in promise) Error: Sem permissão: create Room
     </div>
 </div>
 </details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">10</div>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-393/guest-ve-arquivos-publicos-na-biblioteca" onclick="event.stopPropagation()" target="_blank">NOD-393</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Guest vê arquivos públicos na Biblioteca</div>
+<span class="priority-tag priority-high">Alto</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary">Como usuário <strong>guest</strong> em <code>new-app.nodian.dev</code>, ao acessar a Biblioteca são exibidos arquivos marcados como públicos aos quais o guest não deveria ter acesso. O guest é um acesso externo pontual e só deveria enxergar o conteúdo das salas para as quais foi explicitamente convidado. Relacionado ao NOD-353.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Acessar <code>new-app.nodian.dev</code> como usuário <strong>guest</strong></li>
+<li>Abrir a Biblioteca</li>
+<li>Observar que arquivos públicos aparecem para o guest</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Guest abre a Biblioteca</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Sistema lista arquivos publicos do tenant</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Guest ve arquivos publicos que nao deveria acessar</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Guest abre a Biblioteca</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Sistema filtra pelo acesso do guest</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Guest ve apenas conteudo das salas a que foi convidado</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Guest não vê arquivos públicos da Biblioteca na qual não recebeu acesso explícito</li>
+<li>A Biblioteca de um guest lista apenas conteúdo das salas em que participa</li>
+<li>Tentativa de acessar via API direta um arquivo público é negada para guest</li>
+<li>Comportamento alinhado ao NOD-353 (visibilidade da Biblioteca)</li>
+</ul>
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> Um acesso externo (guest) enxerga arquivos que deveriam ser restritos, configurando vazamento de conteúdo e falha de isolamento de acesso.
+    </div>
+</div>
+</details>
 </div>
 </details>
 <details class="issue-section">
 <summary>
 <svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-Backlog <span class="issue-section-count">14</span>
+Backlog <span class="issue-section-count">15</span>
 </summary>
 <div class="issues-table">
+<details class="issue-row">
+<summary>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-394/lista-de-participantes-sem-email" onclick="event.stopPropagation()" target="_blank">NOD-394</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Lista de participantes sem email</div>
+<span class="priority-tag priority-medium">Médio</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary">Como <strong>tenant_admin / room_owner</strong> em <code>new-app.nodian.dev</code>, ao abrir a lista de participantes só é exibido o nome dos usuários, sem o e-mail. Isso dificulta identificar quem é quem — especialmente entre usuários com nomes iguais ou parecidos. Relacionado ao NOD-316.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Acessar <code>new-app.nodian.dev</code> como tenant_admin ou room_owner</li>
+<li>Abrir a lista de participantes (de uma sala ou do tenant)</li>
+<li>Observar que apenas o nome é exibido, sem o e-mail</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Abre lista de participantes</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Lista exibe apenas o nome</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Nao da pra distinguir usuarios homonimos</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Abre lista de participantes</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Lista exibe nome e e-mail</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Cada participante identificavel pelo e-mail</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>A lista de participantes exibe o e-mail de cada usuário junto ao nome</li>
+<li>Usuários com nomes iguais ou parecidos podem ser distinguidos pelo e-mail</li>
+<li>O e-mail é exibido de forma consistente com o NOD-316</li>
+</ul>
+<div style="background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> Sem o e-mail na lista, admins não conseguem identificar com segurança quem está em cada sala/tenant, aumentando o risco de gerenciar o usuário errado.
+    </div>
+</div>
+</details>
 <details class="issue-row">
 <summary>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-391/erro-de-cors-ao-visualizar-arquivo-md-apos-upload-bucket-s3-sem-access" onclick="event.stopPropagation()" target="_blank">NOD-391</a></div><div class="issue-row-type">BUG</div>
