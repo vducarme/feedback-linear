@@ -479,6 +479,30 @@
     color: var(--purple-500);
   }
 
+  .tag-backlog {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: var(--stone-100);
+    color: var(--stone-500);
+    border: 1px solid var(--stone-200);
+    white-space: nowrap;
+  }
+
+  .tag-backlog::before {
+    content: '';
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1.5px dashed var(--stone-400);
+    flex-shrink: 0;
+  }
+
   .priority-medium {
     background: var(--amber-100);
     color: var(--amber-700);
@@ -876,21 +900,17 @@
 <div class="release-columns">
 <div class="release-col bugs">
 <div class="release-col-label"><span class="dot"></span>Bugs corrigidos</div>
-<a class="release-item" href="https://linear.app/nodian-dev/issue/NOD-385/bug-botao-de-criar-sala-nao-aparece-para-roles-editor-e-contributor" rel="noopener" target="_blank">
-<span class="ticket">NOD-385</span>
-<span>Botão de criar sala não aparece para roles Editor e Contributor</span>
+<a class="release-item" href="https://linear.app/nodian-dev/issue/NOD-391/erro-de-cors-ao-visualizar-arquivo-md-apos-upload-bucket-s3-sem-access" rel="noopener" target="_blank">
+<span class="ticket">NOD-391</span>
+<span>Erro de CORS ao visualizar arquivo .md após upload (bucket S3 sem Access-Control-Allow-Origin)</span>
 </a>
-<a class="release-item" href="https://linear.app/nodian-dev/issue/NOD-378/usuario-convidado-nao-passa-pelas-telas-de-completar-perfil-nome-e" rel="noopener" target="_blank">
-<span class="ticket">NOD-378</span>
-<span>Usuário convidado não passa pela tela de boas-vindas para adicionar nome e cargo</span>
+<a class="release-item" href="https://linear.app/nodian-dev/issue/NOD-387/usuario-removido-de-um-tenant-continua-vinculado-a-ele-apos-ser" rel="noopener" target="_blank">
+<span class="ticket">NOD-387</span>
+<span>Usuário removido de um tenant continua vinculado a ele após ser adicionado a outro</span>
 </a>
-<a class="release-item" href="https://linear.app/nodian-dev/issue/NOD-382/bug-editor-nao-consegue-criar-sala-erro-403-sem-permissao-create-room" rel="noopener" target="_blank">
-<span class="ticket">NOD-382</span>
-<span>Editor não consegue criar sala — erro 403 "Sem permissão: create Room"</span>
-</a>
-<a class="release-item" href="https://linear.app/nodian-dev/issue/NOD-383/bug-campo-de-e-mail-no-perfil-do-usuario-esta-editavel-deveria-ser" rel="noopener" target="_blank">
-<span class="ticket">NOD-383</span>
-<span>Campo de e-mail no perfil do usuário está editável — deveria ser somente leitura</span>
+<a class="release-item" href="https://linear.app/nodian-dev/issue/NOD-392/usuario-adicionado-a-um-segundo-tenant-continua-vinculado-apenas-ao" rel="noopener" target="_blank">
+<span class="ticket">NOD-392</span>
+<span>Usuário adicionado a um segundo tenant continua vinculado apenas ao tenant inicial</span>
 </a>
 </div>
 <div class="release-col features">
@@ -903,9 +923,10 @@
 <div class="tabs-nav">
 <button class="tab-btn active" onclick="switchTab('novartis')" style="display:none">Missao Aguia Novartis</button>
 <button class="tab-btn" onclick="switchTab('cadastro')">Redesign Cadastro de Data App</button>
-<button class="tab-btn active" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">24</span></button>
+<button class="tab-btn active" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">17</span></button>
 <button class="tab-btn" onclick="switchTab('feedback')">Feedback de Usuários</button>
 <button class="tab-btn" onclick="switchTab('backlog')">Backlog de Discussoes <span class="tab-count">9</span></button>
+<button class="tab-btn" onclick="switchTab('alteracoes-sala')">Alterações na sala e full screen</button>
 </div>
 <!-- TAB: NOVARTIS -->
 <div class="tab-panel" id="tab-novartis">
@@ -1087,7 +1108,7 @@
 <details class="issue-section" open>
 <summary>
 <svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-Prioridade <span class="issue-section-count">10</span>
+Prioridade <span class="issue-section-count">3</span>
 </summary>
 <div class="issues-table">
 <details class="issue-row">
@@ -1174,177 +1195,42 @@ Prioridade <span class="issue-section-count">10</span>
 <details class="issue-row">
 <summary>
 <div class="issue-rank">3</div>
-<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-383/bug-campo-de-e-mail-no-perfil-do-usuario-esta-editavel-deveria-ser" onclick="event.stopPropagation()" target="_blank">NOD-383</a></div><div class="issue-row-type">BUG</div>
-<div class="issue-row-title">Campo de e-mail no perfil do usuário está editável — deveria ser somente leitura</div>
-<div class="issue-row-author">Helmut</div>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-391/erro-de-cors-ao-visualizar-arquivo-md-apos-upload-bucket-s3-sem-access" onclick="event.stopPropagation()" target="_blank">NOD-391</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Erro de CORS ao visualizar arquivo .md após upload (bucket S3 sem Access-Control-Allow-Origin)</div>
 <span class="priority-tag priority-high">Alto</span>
 <svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
 </summary>
 <div class="issue-row-body">
-<p class="issue-summary">Ao acessar a página de perfil em <code>bombord.nodian.dev</code>, o campo de e-mail aparece como um input editável. O e-mail é identificador de autenticação e não deve ser alterado diretamente sem um fluxo de verificação.</p>
+<p class="issue-summary">Como usuário em <code>bombord.nodian.com.br</code>, ao subir um arquivo <code>.md</code> (ex: <code>TESTING-GUIDE.md</code>) e tentar visualizar seu conteúdo, o navegador bloqueia a requisição ao S3 por política de CORS — o conteúdo do markdown não carrega.</p>
 <div class="flow-label">Passos para reproduzir</div>
 <ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Fazer login em <code>bombord.nodian.dev</code></li>
-<li>Acessar a página de perfil</li>
-<li>Observar que o campo de e-mail está editável</li>
+<li>Acessar <code>bombord.nodian.com.br</code> autenticado</li>
+<li>Subir um arquivo <code>.md</code> (ex: <code>TESTING-GUIDE.md</code>)</li>
+<li>Tentar visualizar/pré-visualizar o conteúdo do arquivo</li>
+<li>Abrir o console do navegador (DevTools)</li>
 </ol>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-<div>
-<div class="flow-label">Fluxo atual</div>
-<div class="bug-flow">
-<div class="bug-flow-node">Usuário acessa página de perfil</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node bad">Campo de e-mail está editável</div>
-</div>
-</div>
-<div>
-<div class="flow-label">Fluxo esperado</div>
-<div class="bug-flow">
-<div class="bug-flow-node">Usuário acessa página de perfil</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node good">Campo de e-mail somente leitura</div>
-</div>
-</div>
-</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Usuario sobe arquivo .md</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Frontend faz fetch da URL pre-assinada no S3</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">S3 responde SEM Access-Control-Allow-Origin</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Navegador bloqueia por CORS - conteudo nao carrega</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Usuario sobe arquivo .md</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Frontend faz fetch da URL pre-assinada no S3</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">S3 responde com Access-Control-Allow-Origin</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Conteudo do markdown e renderizado</div></div></div></div>
 <div class="flow-label">Critérios de aceite</div>
 <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>O campo de e-mail na página de perfil deve ser somente leitura</li>
-<li>Nenhum input deve permitir edição direta do e-mail</li>
-<li>Se houver fluxo de alteração de e-mail no futuro, deve passar por verificação (confirmar no e-mail atual)</li>
+<li>Ao subir e visualizar um arquivo <code>.md</code>, o conteúdo carrega sem erro de CORS</li>
+<li>O bucket S3 <code>bombord</code> responde com <code>Access-Control-Allow-Origin</code> para a origem do frontend</li>
+<li>Requisições GET cross-origin ao S3 (preview de arquivos texto) funcionam para todos os tipos lidos via fetch</li>
 </ul>
-<div style="background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Consequência:</strong> Usuário pode alterar o campo de e-mail sem verificação, potencialmente causando inconsistências de autenticação ou perda de acesso à conta.
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> A URL pré-assinada é válida — falta configuração de CORS no bucket S3. O preview de arquivos markdown (e outros lidos via fetch) fica quebrado.
     </div>
 </div>
 </details>
-<details class="issue-row">
-<summary>
-<div class="issue-rank">4</div>
-<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-382/bug-editor-nao-consegue-criar-sala-erro-403-sem-permissao-create-room" onclick="event.stopPropagation()" target="_blank">NOD-382</a></div><div class="issue-row-type">BUG</div>
-<div class="issue-row-title">Editor não consegue criar sala — erro 403 "Sem permissão: create Room"</div>
-<div class="issue-row-author">Helmut</div>
-<span class="priority-tag priority-high">Alto</span>
-<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-</summary>
-<div class="issue-row-body">
-<p class="issue-summary">Como usuário com role Editor, ao tentar criar uma sala, o sistema retorna erro 403. A permissão <code>create Room</code> não está associada ao role Editor no backend.</p>
-<div class="flow-label">Erro reportado</div>
-<pre style="background: var(--stone-900); color: #e5e7eb; border-radius: 8px; padding: 14px 16px; font-size: 12px; line-height: 1.7; overflow-x: auto; margin-bottom: 20px; font-family: 'DM Mono', monospace;">Failed to load resource: the server responded with a status of 403 ()
-Uncaught (in promise) Error: Sem permissão: create Room
-    at page-e9b0781e9c740dfb.js:1:7137</pre>
-<div class="flow-label">Passos para reproduzir</div>
-<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Fazer login com um usuário que tenha role <strong>Editor</strong></li>
-<li>Tentar criar uma nova sala</li>
-</ol>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-<div>
-<div class="flow-label">Fluxo atual</div>
-<div class="bug-flow">
-<div class="bug-flow-node">Editor tenta criar sala</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node">API valida permissão</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node bad">403 — Sem permissão: create Room</div>
-</div>
-</div>
-<div>
-<div class="flow-label">Fluxo esperado</div>
-<div class="bug-flow">
-<div class="bug-flow-node">Editor tenta criar sala</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node">API valida permissão do Editor</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node good">Sala criada com sucesso</div>
-</div>
-</div>
-</div>
-<div class="flow-label">Critérios de aceite</div>
-<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Usuário com role Editor consegue criar salas sem erro</li>
-<li>A permissão <code>create Room</code> deve estar associada ao role Editor no backend</li>
-<li>Nenhum erro 403 deve ser retornado para Editors ao tentar criar sala</li>
-</ul>
-<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Consequência:</strong> Editors ficam bloqueados de criar salas, impedindo o fluxo básico de colaboração para esse role.
-    </div>
 </div>
 </details>
-<details class="issue-row">
+<details class="issue-section" open>
 <summary>
-<div class="issue-rank">5</div>
-<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-385/bug-botao-de-criar-sala-nao-aparece-para-roles-editor-e-contributor" onclick="event.stopPropagation()" target="_blank">NOD-385</a></div><div class="issue-row-type">BUG</div>
-<div class="issue-row-title">Botão de criar sala não aparece para roles Editor e Contributor</div>
-<span class="priority-tag priority-high">Alto</span>
-<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+<svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+Roles &amp; Permissions <span class="issue-section-count">5</span>
 </summary>
-<div class="issue-row-body">
-<p class="issue-summary">Usuários com role Editor ou Contributor não veem o botão de criar sala na interface, mesmo que esses roles devam ter essa permissão. Issue relacionada: <a href="https://linear.app/nodian-dev/issue/NOD-382" target="_blank">NOD-382</a> (erro 403 ao criar sala via API).</p>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-<div>
-<div class="flow-label">Fluxo atual</div>
-<div class="bug-flow">
-<div class="bug-flow-node">Editor/Contributor faz login</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node bad">Botão de criar sala não aparece</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node bad">Impossível iniciar criação de sala</div>
-</div>
-</div>
-<div>
-<div class="flow-label">Fluxo esperado</div>
-<div class="bug-flow">
-<div class="bug-flow-node">Editor/Contributor faz login</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node good">Botão de criar sala visível</div>
-<div class="bug-flow-arrow">↓</div>
-<div class="bug-flow-node good">Sala criada com sucesso</div>
-</div>
-</div>
-</div>
-<div class="flow-label">Critérios de aceite</div>
-<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Usuário com role Editor visualiza o botão de criar sala</li>
-<li>Usuário com role Contributor visualiza o botão de criar sala</li>
-<li>Ao clicar no botão, o fluxo de criação de sala é iniciado sem erros</li>
-</ul>
-<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Consequência:</strong> Editors e Contributors ficam impedidos de criar salas, bloqueando o fluxo básico de colaboração.
-</div>
-</div>
-</details>
+<div class="issues-table">
 <details class="issue-row">
 <summary>
-<div class="issue-rank">6</div>
-<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-378/usuario-convidado-nao-passa-pelas-telas-de-completar-perfil-nome-e" onclick="event.stopPropagation()" target="_blank">NOD-378</a></div><div class="issue-row-type">BUG</div>
-<div class="issue-row-title">Usuário convidado não passa pelas telas de completar perfil (nome e cargo) no primeiro acesso</div>
-<span class="priority-tag priority-high">Alto</span>
-<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-</summary>
-<div class="issue-row-body">
-<p class="issue-summary">Como usuário convidado para a plataforma em <code>bombord.nodian.dev</code>, ao fazer o primeiro cadastro/acesso, eu deveria passar pelas telas de "Complete seu perfil" para informar meu nome completo e cargo na empresa. No entanto, o fluxo de onboarding é ignorado e o usuário é levado direto para a plataforma, ficando sem nome e cargo cadastrados.</p>
-<div class="flow-label">Passos para reproduzir</div>
-<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Convidar um novo usuário para a plataforma</li>
-<li>Acessar <code>bombord.nodian.dev</code> com esse usuário pela primeira vez</li>
-<li>Concluir o primeiro cadastro/login</li>
-</ol>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Usuario convidado faz primeiro acesso</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Tela Complete seu perfil deveria abrir</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Tela de onboarding e ignorada</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Usuario entra na plataforma sem nome e cargo</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Usuario convidado faz primeiro acesso</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Sistema exibe Complete seu perfil</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Usuario informa nome completo e cargo</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Dados sao salvos e usuario entra na plataforma</div></div></div></div>
-<div class="flow-label">Critérios de aceite</div>
-<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Ao acessar a plataforma pela primeira vez como usuário convidado, a tela "Complete seu perfil" deve ser exibida antes do acesso</li>
-<li>O usuário deve informar nome completo e cargo antes de prosseguir</li>
-<li>Ao clicar em Continuar, os dados de nome e cargo devem ser persistidos no perfil</li>
-<li>Após completar o perfil, em acessos seguintes a tela de onboarding não deve mais ser exibida</li>
-</ul>
-<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Consequência:</strong> Usuários entram na plataforma sem nome e cargo cadastrados, prejudicando a identificação e a exibição correta dos dados do perfil.
-    </div>
-</div>
-</details>
-<details class="issue-row">
-<summary>
-<div class="issue-rank">7</div>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-388/room-editor-room-member-consegue-apagar-blocosarquivos-criados-por" onclick="event.stopPropagation()" target="_blank">NOD-388</a></div><div class="issue-row-type">BUG</div>
 <div class="issue-row-title">room_editor (room_member) consegue apagar blocos/arquivos criados por outras pessoas</div>
 <span class="priority-tag priority-high">Alto</span>
@@ -1372,7 +1258,6 @@ Uncaught (in promise) Error: Sem permissão: create Room
 </details>
 <details class="issue-row">
 <summary>
-<div class="issue-rank">8</div>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-389/room-member-editor-na-ui-consegue-convidar-usuarios-a-sala" onclick="event.stopPropagation()" target="_blank">NOD-389</a></div><div class="issue-row-type">BUG</div>
 <div class="issue-row-title">room_member (Editor na UI) consegue convidar usuários à sala</div>
 <span class="priority-tag priority-high">Alto</span>
@@ -1400,7 +1285,6 @@ Uncaught (in promise) Error: Sem permissão: create Room
 </details>
 <details class="issue-row">
 <summary>
-<div class="issue-rank">9</div>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-390/bloquear-atribuicao-de-guest-como-dono-room-owner-de-sala" onclick="event.stopPropagation()" target="_blank">NOD-390</a></div><div class="issue-row-type">MELHORIA</div>
 <div class="issue-row-title">Bloquear atribuição de guest como dono (room_owner) de sala</div>
 <span class="priority-tag priority-medium">Médio</span>
@@ -1429,7 +1313,6 @@ Uncaught (in promise) Error: Sem permissão: create Room
 </details>
 <details class="issue-row">
 <summary>
-<div class="issue-rank">10</div>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-393/guest-ve-arquivos-publicos-na-biblioteca" onclick="event.stopPropagation()" target="_blank">NOD-393</a></div><div class="issue-row-type">BUG</div>
 <div class="issue-row-title">Guest vê arquivos públicos na Biblioteca</div>
 <span class="priority-tag priority-high">Alto</span>
@@ -1456,12 +1339,43 @@ Uncaught (in promise) Error: Sem permissão: create Room
     </div>
 </div>
 </details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-367/falha-ao-atualizar-role-de-membros-em-salas-de-dados" onclick="event.stopPropagation()" target="_blank">NOD-367</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Falha ao atualizar role de membros em salas de dados</div>
+<div class="issue-row-author">Vitor Makiyama</div>
+<span class="priority-tag priority-high">Alto</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary"><em>"uma vez convidado alguém para uma sala, não é possível atualizar seu role dentro da sala"</em></p>
+<p class="issue-summary">Como administrador da sala, ao editar as permissões de um membro convidado, o sistema não salva a atualização do cargo.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Acessar uma sala existente como administrador</li>
+<li>Navegar até a aba de membros</li>
+<li>Selecionar um usuário convidado</li>
+<li>Tentar alterar o role (cargo) do usuário</li>
+<li>Clicar em salvar alterações</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Lista de Membros</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Edição de Role</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Erro de Persistência</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Lista de Membros</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Edição de Role</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Salvar Alterações</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Confirmação de Sucesso</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>O sistema deve permitir a alteração do role de membros convidados</li>
+<li>As novas permissões devem ser aplicadas imediatamente</li>
+<li>O status de sucesso deve ser exibido após a alteração</li>
+</ul>
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> Usuários convidados ficam retidos com permissões incorretas, impedindo a colaboração adequada ou gerando riscos de acesso indevido.
+    </div>
+</div>
+</details>
 </div>
 </details>
 <details class="issue-section">
 <summary>
 <svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-Backlog <span class="issue-section-count">15</span>
+Backlog <span class="issue-section-count">10</span>
 </summary>
 <div class="issues-table">
 <details class="issue-row">
@@ -1493,34 +1407,6 @@ Backlog <span class="issue-section-count">15</span>
 </details>
 <details class="issue-row">
 <summary>
-<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-391/erro-de-cors-ao-visualizar-arquivo-md-apos-upload-bucket-s3-sem-access" onclick="event.stopPropagation()" target="_blank">NOD-391</a></div><div class="issue-row-type">BUG</div>
-<div class="issue-row-title">Erro de CORS ao visualizar arquivo .md após upload (bucket S3 sem Access-Control-Allow-Origin)</div>
-<span class="priority-tag priority-high">Alto</span>
-<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-</summary>
-<div class="issue-row-body">
-<p class="issue-summary">Como usuário em <code>bombord.nodian.com.br</code>, ao subir um arquivo <code>.md</code> (ex: <code>TESTING-GUIDE.md</code>) e tentar visualizar seu conteúdo, o navegador bloqueia a requisição ao S3 por política de CORS — o conteúdo do markdown não carrega.</p>
-<div class="flow-label">Passos para reproduzir</div>
-<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Acessar <code>bombord.nodian.com.br</code> autenticado</li>
-<li>Subir um arquivo <code>.md</code> (ex: <code>TESTING-GUIDE.md</code>)</li>
-<li>Tentar visualizar/pré-visualizar o conteúdo do arquivo</li>
-<li>Abrir o console do navegador (DevTools)</li>
-</ol>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Usuario sobe arquivo .md</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Frontend faz fetch da URL pre-assinada no S3</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">S3 responde SEM Access-Control-Allow-Origin</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Navegador bloqueia por CORS - conteudo nao carrega</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Usuario sobe arquivo .md</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Frontend faz fetch da URL pre-assinada no S3</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">S3 responde com Access-Control-Allow-Origin</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Conteudo do markdown e renderizado</div></div></div></div>
-<div class="flow-label">Critérios de aceite</div>
-<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Ao subir e visualizar um arquivo <code>.md</code>, o conteúdo carrega sem erro de CORS</li>
-<li>O bucket S3 <code>bombord</code> responde com <code>Access-Control-Allow-Origin</code> para a origem do frontend</li>
-<li>Requisições GET cross-origin ao S3 (preview de arquivos texto) funcionam para todos os tipos lidos via fetch</li>
-</ul>
-<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Consequência:</strong> A URL pré-assinada é válida — falta configuração de CORS no bucket S3. O preview de arquivos markdown (e outros lidos via fetch) fica quebrado.
-    </div>
-</div>
-</details>
-<details class="issue-row">
-<summary>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-161/iframe-do-csv-fica-carregando-e-nao-aparece" onclick="event.stopPropagation()" target="_blank">NOD-161</a></div><div class="issue-row-type">BUG</div>
 <div class="issue-row-title">Iframe do CSV fica carregando e não aparece</div>
 <span class="priority-tag priority-medium">Médio/Alto</span>
@@ -1536,35 +1422,6 @@ Backlog <span class="issue-section-count">15</span>
 </ol>
 <div style="background: var(--amber-50); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
 <strong>Resultado:</strong> O iframe não carrega nunca. O arquivo CSV é identificado incorretamente como PowerBI, o que provavelmente causa a falha de renderização.
-    </div>
-</div>
-</details>
-<details class="issue-row">
-<summary>
-<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-363/usuario-removido-continua-na-lista-de-participantes-apos-atualizar-a" onclick="event.stopPropagation()" target="_blank">NOD-363</a></div><div class="issue-row-type">BUG</div>
-<div class="issue-row-title">Usuário removido continua na lista de participantes após atualizar a página</div>
-<span class="priority-tag priority-high">Alto</span>
-<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-</summary>
-<div class="issue-row-body">
-<p class="issue-summary">Como admin de uma sala, ao remover um participante a mensagem de sucesso é exibida, mas ao atualizar a página o usuário continua aparecendo na lista. Isso gera confusão sobre se a ação foi executada e pode levar o admin a tentar remover o mesmo usuário múltiplas vezes.</p>
-<div class="flow-label">Passos para reproduzir</div>
-<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Acessar uma sala em <code>bombord.nodian.dev</code> como admin</li>
-<li>Abrir a lista de participantes</li>
-<li>Clicar em excluir em um participante (ex: <code>membro-extra@nodian.com.br</code>)</li>
-<li>Confirmar a exclusão — mensagem de sucesso aparece</li>
-<li>Atualizar a página (F5)</li>
-</ol>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Admin clica em excluir participante</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Mensagem de sucesso exibida</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Admin atualiza a pagina</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Usuario ainda aparece na lista</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Admin clica em excluir participante</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Mensagem de sucesso exibida</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Admin atualiza a pagina</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Usuario nao aparece mais na lista</div></div></div></div>
-<div class="flow-label">Critérios de aceite</div>
-<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Ao remover um participante e atualizar a página, o usuário removido não deve mais aparecer na lista</li>
-<li>A mensagem de sucesso só deve ser exibida se a remoção foi de fato persistida no backend</li>
-<li>Ao tentar acessar a sala com o usuário removido, o acesso deve ser negado</li>
-</ul>
-<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Consequência:</strong> A remoção parece funcionar mas não persiste — o usuário continua com acesso à sala sem que o admin saiba.
     </div>
 </div>
 </details>
@@ -1628,79 +1485,6 @@ Backlog <span class="issue-section-count">15</span>
 </details>
 <details class="issue-row">
 <summary>
-<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-365/pagina-de-perfil-exibe-role-incorreto-sempre-mostra-admin-independente" onclick="event.stopPropagation()" target="_blank">NOD-365</a></div><div class="issue-row-type">BUG</div>
-<div class="issue-row-title">Página de perfil exibe role incorreto — sempre mostra Admin</div>
-<span class="priority-tag priority-high">Alto</span>
-<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-</summary>
-<div class="issue-row-body">
-<p class="issue-summary">Como usuário logado em <code>bombord.nodian.dev</code>, ao acessar minha página de perfil, meu role é exibido como "Admin" independentemente do tenant em que estou. Mesmo quando meu role no tenant atual é diferente (ex: membro comum), a página de perfil sempre mostra "Admin".</p>
-<div style="display: flex; gap: 16px; margin: 20px 0;">
-<div style="flex: 1; background: var(--stone-100); border-radius: 12px; padding: 20px; text-align: center;">
-<div style="width: 64px; height: 64px; background: var(--stone-900); border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; color: white; font-family: 'DM Sans', sans-serif; font-size: 24px; font-weight: 700;">VM</div>
-<div style="font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--stone-900); margin-bottom: 4px;">Vitor Makiyama</div>
-<div style="font-size: 14px; color: var(--stone-500);">Admin</div>
-<div style="margin-top: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border: 1px solid var(--stone-300); border-radius: 100px; font-size: 12px; color: var(--stone-600);">
-<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
-          Editar perfil
-        </div>
-</div>
-<div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-<div style="background: var(--red-100); border: 1px solid var(--red-500); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Problema:</strong> O usuário vitor@nodian.com.br tem role "membro" no tenant atual, mas a página de perfil exibe "Admin".
-        </div>
-</div>
-</div>
-<div class="flow-label">Passos para reproduzir</div>
-<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Fazer login em <code>bombord.nodian.dev</code> com um usuário que não seja Admin no tenant atual</li>
-<li>Acessar a página de perfil (clicar no avatar ou no menu de usuário)</li>
-<li>Observar que o role exibido é "Admin"</li>
-<li>Verificar no admin/backend que o role real do usuário no tenant é diferente</li>
-</ol>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Usuario logado em um tenant</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Acessa pagina de perfil</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Perfil exibe 'Admin' como role</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Role exibido nao corresponde ao role real no tenant</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Usuario logado em um tenant</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Acessa pagina de perfil</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Perfil exibe o role correto do usuario</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Role exibido corresponde ao role real no tenant</div></div></div></div>
-<div class="flow-label">Critérios de aceite</div>
-<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Ao acessar a página de perfil, o role exibido deve corresponder ao role do usuário no tenant atual</li>
-<li>Se o usuário tiver roles diferentes em diferentes tenants, a página de perfil deve mostrar o role do tenant ativo</li>
-<li>O role exibido deve ser consistente com o role verificado no backend/admin para o mesmo tenant</li>
-<li>Caso o usuário não tenha role definido no tenant, exibir estado apropriado (ex: "Sem role" ou não exibir)</li>
-</ul>
-<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Consequência:</strong> O usuário não consegue saber seu role real no tenant atual, o que gera confusão sobre permissões e pode levar a comportamentos inesperados na plataforma.
-    </div>
-</div>
-</details>
-<details class="issue-row">
-<summary>
-<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-366/usuarios-cadastrados-na-plataforma-nao-aparecem-na-lista-de" onclick="event.stopPropagation()" target="_blank">NOD-366</a></div><div class="issue-row-type">BUG</div>
-<div class="issue-row-title">Usuários cadastrados na plataforma não aparecem na lista de participantes</div>
-<span class="priority-tag priority-high">Alto</span>
-<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-</summary>
-<div class="issue-row-body">
-<p class="issue-summary">Como admin de uma sala, ao tentar adicionar um participante já cadastrado na plataforma, o usuário não aparece na lista de busca — tornando impossível adicioná-lo. Exemplos relatados: Guilherme, Tamires e Maurício (todos admins) não aparecem na lista.</p>
-<div class="flow-label">Passos para reproduzir</div>
-<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Acessar <code>bombord.nodian.dev</code> como admin</li>
-<li>Entrar em qualquer sala</li>
-<li>Abrir o painel de adicionar participantes</li>
-<li>Buscar por "Guilherme", "Tamires" ou "Maurício"</li>
-</ol>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Admin abre painel de participantes</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Busca usuario cadastrado</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Usuario nao aparece na lista</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Impossivel adicionar participante</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Admin abre painel de participantes</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Busca usuario cadastrado</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Usuario aparece na lista</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Admin adiciona participante com sucesso</div></div></div></div>
-<div class="flow-label">Critérios de aceite</div>
-<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Ao buscar um usuário já cadastrado na plataforma, ele deve aparecer na lista de participantes disponíveis</li>
-<li>Usuários com role de admin devem aparecer normalmente na busca</li>
-<li>Após adicionar o participante, ele deve aparecer na lista da sala</li>
-</ul>
-<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Consequência:</strong> Impossível montar equipes nas salas — o fluxo de colaboração fica bloqueado para usuários já cadastrados.
-    </div>
-</div>
-</details>
-<details class="issue-row">
-<summary>
 <div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-358/convite-pendente-nao-e-removido-ao-deletar-usuario-bloqueando-novo" onclick="event.stopPropagation()" target="_blank">NOD-358</a></div><div class="issue-row-type">BUG</div>
 <div class="issue-row-title">Convite pendente não é removido ao deletar usuário, bloqueando novo convite</div>
 <span class="priority-tag priority-high">Urgent</span>
@@ -1721,37 +1505,6 @@ Backlog <span class="issue-section-count">15</span>
 <div style="margin-top: 12px;">
 <span class="priority-tag" style="background: var(--stone-100); color: var(--stone-600); font-size: 11px;">In Review</span>
 </div>
-</div>
-</details>
-<details class="issue-row">
-<summary>
-<div class="issue-row-id"><a href="https://linear.app/nodian-dev/issue/NOD-367/falha-ao-atualizar-role-de-membros-em-salas-de-dados" onclick="event.stopPropagation()" target="_blank">NOD-367</a></div><div class="issue-row-type">BUG</div>
-<div class="issue-row-title">Falha ao atualizar role de membros em salas de dados</div>
-<div class="issue-row-author">Vitor Makiyama</div>
-<span class="priority-tag priority-high">Alto</span>
-<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-</summary>
-<div class="issue-row-body">
-<p class="issue-summary"><em>"uma vez convidado alguém para uma sala, não é possível atualizar seu role dentro da sala"</em></p>
-<p class="issue-summary">Como administrador da sala, ao editar as permissões de um membro convidado, o sistema não salva a atualização do cargo.</p>
-<div class="flow-label">Passos para reproduzir</div>
-<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>Acessar uma sala existente como administrador</li>
-<li>Navegar até a aba de membros</li>
-<li>Selecionar um usuário convidado</li>
-<li>Tentar alterar o role (cargo) do usuário</li>
-<li>Clicar em salvar alterações</li>
-</ol>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Lista de Membros</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Edição de Role</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Erro de Persistência</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Lista de Membros</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Edição de Role</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Salvar Alterações</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Confirmação de Sucesso</div></div></div></div>
-<div class="flow-label">Critérios de aceite</div>
-<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-<li>O sistema deve permitir a alteração do role de membros convidados</li>
-<li>As novas permissões devem ser aplicadas imediatamente</li>
-<li>O status de sucesso deve ser exibido após a alteração</li>
-</ul>
-<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-<strong>Consequência:</strong> Usuários convidados ficam retidos com permissões incorretas, impedindo a colaboração adequada ou gerando riscos de acesso indevido.
-    </div>
 </div>
 </details>
 <details class="issue-row">
@@ -2460,6 +2213,96 @@ no limite, a gente vai ter um limite de storage. o usuário só vai se dar conta
 <p class="issue-summary">A usuária aponta que novos dataapps são adicionados automaticamente ao final da lista, mesmo quando a edição ocorre em blocos intermediários. A ausência de uma função de reordenação torna a experiência confusa, dificultando a localização do item inserido.</p>
 </div>
 </div> <!-- close tab-feedback -->
+<!-- TAB: ALTERAÇÕES NA SALA E FULL SCREEN -->
+<div class="tab-panel" id="tab-alteracoes-sala">
+<div class="page-goal" style="margin-bottom: 8px;">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+    Alterações na sala e full screen no modal de detalhe
+  </div>
+<p class="section-desc" style="margin-bottom: 16px;">Simplificação da sala (header, card e configurações), ajustes em participantes e novo botão de fullscreen no modal de detalhe.</p>
+<span class="tag-backlog">Em backlog</span>
+<h2 class="section-title" style="margin-top: 40px;">Épicos</h2>
+<p class="section-desc">Cada épico agrupa um conjunto de mudanças com seu comportamento esperado.</p>
+<!-- ÉPICO 1 -->
+<div class="issue-card">
+<div class="issue-top">
+<div>
+<div class="issue-id">ÉPICO 1</div>
+<div class="issue-title">Header da Sala (Meta Bar)</div>
+</div>
+<span class="priority-tag" style="background: var(--stone-100); color: var(--stone-500);">Backlog</span>
+</div>
+<p class="issue-summary">Ao abrir o detalhe da sala, abaixo da descrição aparece uma barra (meta bar) com total de arquivos, data de última atualização e chips de tags. O antigo painel lateral "Detalhes do Projeto / Informações" não aparece mais.</p>
+<ul style="margin: 4px 0 0 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>A meta bar exibe: <strong>total de arquivos</strong>, <strong>data de última atualização</strong> e <strong>chips de tags</strong>.</li>
+<li>O painel lateral "Detalhes do Projeto / Informações" foi removido.</li>
+<li>Se a sala não tem tags, a seção de tags simplesmente some — sem buraco no layout.</li>
+</ul>
+</div>
+<!-- ÉPICO 2 -->
+<div class="issue-card">
+<div class="issue-top">
+<div>
+<div class="issue-id">ÉPICO 2</div>
+<div class="issue-title">Card de Sala (simplificação)</div>
+</div>
+<span class="priority-tag" style="background: var(--stone-100); color: var(--stone-500);">Backlog</span>
+</div>
+<p class="issue-summary">Na lista de salas, cada card mostra no rodapé apenas contagem de pessoas e de arquivos.</p>
+<ul style="margin: 4px 0 0 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Rodapé do card: apenas <strong>contagem de pessoas</strong> e <strong>contagem de arquivos</strong>.</li>
+<li>Removidos do card: tags, sponsor, tipo e área do projeto.</li>
+</ul>
+</div>
+<!-- ÉPICO 3 -->
+<div class="issue-card">
+<div class="issue-top">
+<div>
+<div class="issue-id">ÉPICO 3</div>
+<div class="issue-title">Modal de Configurações</div>
+</div>
+<span class="priority-tag" style="background: var(--stone-100); color: var(--stone-500);">Backlog</span>
+</div>
+<p class="issue-summary">Ao abrir Configurações, o formulário tem: Nome, Descrição, Tags (chips, entre Descrição e Cor), Cor e Ícone.</p>
+<ul style="margin: 4px 0 0 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Campos do formulário, em ordem: <strong>Nome</strong>, <strong>Descrição</strong>, <strong>Tags</strong> (chips, entre Descrição e Cor), <strong>Cor</strong> e <strong>Ícone</strong>.</li>
+<li>Sumiram: Sponsor, Tema, Tipo e Área.</li>
+<li>Ao salvar com o Nome vazio, aparece o erro inline "Nome da sala é obrigatório." e o submit é bloqueado.</li>
+</ul>
+</div>
+<!-- ÉPICO 4 -->
+<div class="issue-card">
+<div class="issue-top">
+<div>
+<div class="issue-id">ÉPICO 4</div>
+<div class="issue-title">Participantes</div>
+</div>
+<span class="priority-tag" style="background: var(--stone-100); color: var(--stone-500);">Backlog</span>
+</div>
+<p class="issue-summary">Ajustes na exibição do dono e dos demais participantes, no header e no modal.</p>
+<ul style="margin: 4px 0 0 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Na stack do header, o avatar do dono tem o mesmo tamanho dos demais (<strong>30px</strong>), sem coroa, separado por um <strong>divider vertical</strong>.</li>
+<li>No modal de participantes, nenhum membro exibe campo de sponsor.</li>
+</ul>
+</div>
+<!-- ÉPICO 5 -->
+<div class="issue-card">
+<div class="issue-top">
+<div>
+<div class="issue-id">ÉPICO 5</div>
+<div class="issue-title">Botão Fullscreen no Modal de Detalhe</div>
+</div>
+<span class="priority-tag" style="background: var(--stone-100); color: var(--stone-500);">Backlog</span>
+</div>
+<p class="issue-summary">Na topbar do modal de detalhe, entre o toggle de painel e o botão fechar, há o botão fullscreen.</p>
+<ul style="margin: 4px 0 0 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Botão fullscreen posicionado <strong>entre o toggle de painel e o botão fechar</strong>.</li>
+<li>Ao clicar, o modal ocupa <strong>100% da tela</strong> (sem padding/border-radius) e o ícone vira <strong>compress</strong>.</li>
+<li>Clicando de novo, volta ao tamanho padrão.</li>
+<li>Vale para todos os tipos, inclusive dashboards.</li>
+</ul>
+</div>
+</div> <!-- close tab-alteracoes-sala -->
 <!-- ===== PROTOTYPE MODAL ===== -->
 <div id="prototype-modal" onclick="closePrototypeModal(event)" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; padding:24px;">
 <div onclick="event.stopPropagation()" style="background:white; border-radius:16px; width:100%; max-width:1200px; height:90vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
