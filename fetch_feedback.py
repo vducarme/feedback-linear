@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 """
-Lê o canal 'Feedback Plataforma' do Teams, classifica as mensagens,
-adiciona cards no index.html, faz git commit e salva pending_review.json.
+Lê o canal 'Feedback Plataforma' do Teams (últimos N dias, incluindo respostas
+de thread), classifica as mensagens e prepara a revisão:
+ - feedbacks são inseridos no index.html (formato accordion), SEM commit automático
+ - bugs vão para pending_review.json para triagem no Linear (não inseridos)
+
+Uso: python3 fetch_feedback.py [dias]   (padrão: 7, ou env FETCH_SINCE_DAYS)
 """
 
 import json
 import os
 import re
-import subprocess
+import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -24,6 +28,7 @@ CLIENT_SECRET = os.environ["AZURE_CLIENT_SECRET"]
 CHANNEL_NAME = os.getenv("TEAMS_CHANNEL_NAME", "feedback plataforma")
 TEAM_ID = os.getenv("TEAMS_TEAM_ID", "")
 CHANNEL_ID = os.getenv("TEAMS_CHANNEL_ID", "")
+DEFAULT_SINCE_DAYS = int(os.getenv("FETCH_SINCE_DAYS", "7"))
 
 LLM_MODEL = os.getenv("LITELLM_MODEL", "gemini/gemini-3.1-flash-lite")
 llm = OpenAI(
@@ -36,6 +41,10 @@ PROCESSED_IDS_FILE = Path(__file__).parent / ".processed_message_ids.json"
 PENDING_REVIEW_FILE = Path(__file__).parent / "pending_review.json"
 
 GRAPH_BASE = "https://graph.microsoft.com/v1.0"
+
+# Marcador de fechamento da seção de feedback no index.html (formato accordion).
+# Cards novos são inseridos imediatamente antes deste bloco.
+FEEDBACK_CLOSE = "\n</div>\n</details>\n</div> <!-- close tab-feedback -->"
 
 
 def get_token():
@@ -57,6 +66,13 @@ def graph_get(token, path, params=None):
     return resp.json()
 
 
+def graph_get_url(token, url):
+    """GET numa URL absoluta (usado para paginação via @odata.nextLink)."""
+    resp = requests.get(url, headers={"Authorization": f"Bearer {token}"})
+    resp.raise_for_status()
+    return resp.json()
+
+
 def find_channel(token):
     if TEAM_ID and CHANNEL_ID:
         return TEAM_ID, CHANNEL_ID
@@ -69,24 +85,60 @@ def find_channel(token):
     raise RuntimeError(f"Canal '{CHANNEL_NAME}' não encontrado.")
 
 
-def get_new_messages(token, team_id, channel_id, processed_ids):
-    since = (datetime.now(timezone.utc) - timedelta(hours=24)).strftime("%Y-%m-%dT%H:%M:%SZ")
-    data = graph_get(token, f"/teams/{team_id}/channels/{channel_id}/messages", params={"$top": 50})
-    messages = data.get("value", [])
+def _created_at(msg):
+    try:
+        return datetime.fromisoformat(msg.get("createdDateTime", "").replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+def get_new_messages(token, team_id, channel_id, processed_ids, since_days):
+    """Coleta mensagens raiz E respostas de thread dos últimos `since_days` dias.
+
+    A API de canais só retorna as mensagens-raiz em /messages; as respostas
+    ficam em /messages/{id}/replies. Sem ler replies a maioria dos feedbacks
+    (que ficam em threads) passa despercebida.
+    """
+    cutoff = datetime.now(timezone.utc) - timedelta(days=since_days)
+    collected = []
+    url = f"{GRAPH_BASE}/teams/{team_id}/channels/{channel_id}/messages?$top=50"
+    pages = 0
+    while url and pages < 20:
+        data = graph_get_url(token, url)
+        stop = False
+        for m in data.get("value", []):
+            created = _created_at(m)
+            if created is not None and created < cutoff:
+                stop = True  # mensagens vêm da mais nova p/ mais antiga
+                continue
+            collected.append(m)
+            try:
+                replies = graph_get(
+                    token,
+                    f"/teams/{team_id}/channels/{channel_id}/messages/{m['id']}/replies",
+                    params={"$top": 50},
+                )
+                collected.extend(replies.get("value", []))
+            except requests.HTTPError:
+                pass  # sem replies acessíveis para esta mensagem
+        if stop:
+            break
+        url = data.get("@odata.nextLink")
+        pages += 1
+
     candidates = [
-        m for m in messages
+        m for m in collected
         if m["id"] not in processed_ids
         and m.get("messageType") == "message"
         and m.get("body", {}).get("content", "").strip()
         and m.get("from") is not None
-        and m.get("createdDateTime", "") >= since
     ]
-    # deduplicar por conteúdo (evita processar edições como mensagem nova)
+    # deduplicar por conteúdo (edições e replies que ecoam a raiz)
     seen_content = set()
     unique = []
     for m in candidates:
         content = re.sub(r"<[^>]+>", "", m["body"]["content"]).strip()
-        if content not in seen_content:
+        if content and content not in seen_content:
             seen_content.add(content)
             unique.append(m)
     return unique
@@ -148,107 +200,44 @@ Responda apenas com uma palavra:
     return result.lower()
 
 
-def build_mermaid_flow(nodes):
-    lines = ["flowchart TD"]
-    for i, edge in enumerate(nodes):
-        src = f'N{i}["{edge["from"]}"]'
-        dst = f'N{i+1}["{edge["to"]}"]'
-        lines.append(f"    {src} --> {dst}")
-    return "\n".join(lines)
-
-
-def bug_card(item):
-    priority_class = {"Alto": "priority-high", "Médio": "priority-medium", "Baixo": "priority-low"}.get(
-        item.get("priority", "Médio"), "priority-medium"
-    )
-    steps_html = "\n".join(f"      <li>{s}</li>" for s in item.get("steps", []))
-    criteria_html = "\n".join(f"      <li>{c}</li>" for c in item.get("acceptance_criteria", []))
-    current_flow = build_mermaid_flow(item.get("current_flow", []))
-    expected_flow = build_mermaid_flow(item.get("expected_flow", []))
-
-    return f"""
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">BUG · {item['date']} · {item['author']}</div>
-        <div class="issue-title">{item['title']}</div>
-      </div>
-      <span class="priority-tag {priority_class}">{item.get('priority', 'Médio')}</span>
-    </div>
-    <p class="issue-summary"><em>"{item['original']}"</em></p>
-    <p class="issue-summary">{item.get('user_story', '')}</p>
-
-    <div class="flow-label">Passos para reproduzir</div>
-    <ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-{steps_html}
-    </ol>
-
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-      <div>
-        <div class="flow-label">Fluxo atual</div>
-        <pre class="mermaid">{current_flow}</pre>
-      </div>
-      <div>
-        <div class="flow-label">Fluxo esperado</div>
-        <pre class="mermaid">{expected_flow}</pre>
-      </div>
-    </div>
-
-    <div class="flow-label">Critérios de aceite</div>
-    <ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
-{criteria_html}
-    </ul>
-
-    <div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
-      <strong>Consequência:</strong> {item.get('consequence', '')}
-    </div>
-  </div>"""
-
-
 def feedback_card(item):
-    return f"""
-  <div class="issue-card">
-    <div class="issue-top">
-      <div>
-        <div class="issue-id">FEEDBACK · {item['date']} · {item['author']}</div>
-        <div class="issue-title">{item['title']}</div>
-      </div>
-      <span class="priority-tag priority-medium">{item.get('category', '💬 Feedback')}</span>
-    </div>
-    <p class="issue-summary"><em>"{item['original']}"</em></p>
-    <p class="issue-summary">{item.get('summary', '')}</p>
-  </div>"""
+    """Card de feedback no formato accordion atual do dashboard."""
+    original = re.sub(r"\s+", " ", item["original"]).strip()
+    return f"""<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">{item['title']}</div>
+<span class="priority-tag priority-medium">{item.get('category', '💬 Feedback')}</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">{item['date']} · {item['author']}</div>
+<p class="issue-summary"><em>"{original}"</em></p>
+<p class="issue-summary">{item.get('summary', '')}</p>
+</div>
+</details>"""
 
 
-def update_html(bugs, feedbacks):
+def update_html(feedbacks):
+    """Insere os cards de feedback antes do fechamento da seção e ajusta o contador."""
+    if not feedbacks:
+        return
     html = INDEX_HTML.read_text(encoding="utf-8")
-
-    if bugs:
-        cards_html = "\n".join(bug_card(b) for b in bugs)
-        html = html.replace(
-            "  </div> <!-- close tab-bugs -->",
-            f"{cards_html}\n  </div> <!-- close tab-bugs -->",
+    if FEEDBACK_CLOSE not in html:
+        raise RuntimeError(
+            "Marcador de fechamento da seção de feedback não encontrado no index.html. "
+            "A estrutura mudou — insira os cards manualmente ou atualize FEEDBACK_CLOSE."
         )
+    cards = "\n".join(feedback_card(f) for f in feedbacks)
+    html = html.replace(FEEDBACK_CLOSE, f"\n{cards}{FEEDBACK_CLOSE}", 1)
 
-    if feedbacks:
-        cards_html = "\n".join(feedback_card(f) for f in feedbacks)
-        html = html.replace(
-            "  </div> <!-- close tab-feedback -->",
-            f"{cards_html}\n  </div> <!-- close tab-feedback -->",
-        )
+    def _bump(match):
+        return f'Feedbacks <span class="issue-section-count">{int(match.group(1)) + len(feedbacks)}</span>'
 
+    html, n = re.subn(r'Feedbacks <span class="issue-section-count">(\d+)</span>', _bump, html, count=1)
+    if n == 0:
+        print("Aviso: contador da seção de feedback não encontrado — ajuste manualmente.")
     INDEX_HTML.write_text(html, encoding="utf-8")
-
-
-def git_commit(n_bugs, n_feedbacks):
-    try:
-        subprocess.run(["git", "add", "index.html"], cwd=INDEX_HTML.parent, check=True)
-        date_str = datetime.now().strftime("%d/%m/%Y")
-        msg = f"feedback Teams {date_str}: {n_bugs} bug(s), {n_feedbacks} feedback(s)"
-        subprocess.run(["git", "commit", "-m", msg], cwd=INDEX_HTML.parent, check=True)
-        print(f"✓ Commit feito: {msg}")
-    except subprocess.CalledProcessError as e:
-        print(f"Aviso: git commit falhou — {e}")
 
 
 def save_pending_review(bugs, feedbacks):
@@ -273,6 +262,12 @@ def save_processed(ids):
 
 
 def main():
+    try:
+        since_days = int(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_SINCE_DAYS
+    except ValueError:
+        print(f"Argumento inválido '{sys.argv[1]}' — informe o número de dias. Ex: python3 fetch_feedback.py 14")
+        return
+
     processed = load_processed()
 
     print("Autenticando com Microsoft Graph...")
@@ -281,8 +276,8 @@ def main():
     print(f"Localizando canal '{CHANNEL_NAME}'...")
     team_id, channel_id = find_channel(token)
 
-    print("Buscando mensagens das últimas 24h...")
-    messages = get_new_messages(token, team_id, channel_id, processed)
+    print(f"Buscando mensagens dos últimos {since_days} dia(s), incluindo respostas de thread...")
+    messages = get_new_messages(token, team_id, channel_id, processed, since_days)
 
     if not messages:
         print("Nenhuma mensagem nova.")
@@ -315,16 +310,23 @@ def main():
         except Exception as e:
             print(f"  Aviso: erro ao processar mensagem de {author}: {e}")
 
-    if bugs or feedbacks:
-        print("Atualizando index.html...")
-        update_html(bugs, feedbacks)
-        git_commit(len(bugs), len(feedbacks))
-        save_pending_review(bugs, feedbacks)
-        print(f"\n✓ {len(bugs)} bug(s) e {len(feedbacks)} feedback(s) adicionados.")
-        print("  Abra o Claude Code e rode: python3 review.py")
-        print("  Para revisar e publicar no Vercel.")
+    if feedbacks:
+        print(f"Inserindo {len(feedbacks)} feedback(s) no index.html...")
+        update_html(feedbacks)
 
+    if bugs or feedbacks:
+        save_pending_review(bugs, feedbacks)
+
+    # Marca TODAS as mensagens vistas como processadas (evita reprocessar em runs futuros).
     save_processed(processed | {m["id"] for m in messages})
+
+    print(f"\n✓ {len(feedbacks)} feedback(s) inseridos no index.html (NÃO commitados).")
+    if bugs:
+        print(f"⚠ {len(bugs)} bug(s) precisam de triagem no Linear (issue NOD-xxx) — NÃO inseridos.")
+        print("   Detalhes em pending_review.json.")
+    print("\nPróximos passos:")
+    print("  1. Revise:  python3 review.py")
+    print("  2. No Claude Code: peça para revisar/ajustar os cards, criar issues dos bugs e então commitar + push.")
 
 
 if __name__ == "__main__":
