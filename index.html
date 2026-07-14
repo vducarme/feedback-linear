@@ -676,6 +676,15 @@
   .issue-row-body .issue-summary { margin-bottom: 16px; }
   .issue-row-body .flow-label { margin-top: 16px; }
 
+  .feedback-meta {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--stone-500);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--stone-200);
+  }
+
   /* ---- BUG FLOW ---- */
   .bug-flow {
     display: flex;
@@ -1846,37 +1855,45 @@ Roles &amp; Permissions <span class="issue-section-count">8</span>
     Feedbacks recebidos de usuários da plataforma
   </div>
 <p class="section-desc" style="text-align:center; margin-bottom: 48px;">Registros de feedback coletados com usuários reais. Cada item pode virar uma discussao no backlog ou uma issue no Linear.</p>
-<h2 class="section-title">Feedbacks</h2>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK</div>
-<div class="issue-title">Não é possível referenciar um arquivo específico — só o link da sala inteira</div>
-</div>
+<details class="issue-section" open>
+<summary>
+<svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+Feedbacks <span class="issue-section-count">17</span>
+</summary>
+<div class="issues-table">
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Não é possível referenciar um arquivo específico — só o link da sala inteira</div>
 <span class="priority-tag priority-medium">🕳️ Lacuna de funcionalidade</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
 <p class="issue-summary"><em>"Eu gostaria muito de poder ter um hyperlink no bloco para poder referenciar um arquivo específico ao invés de só mandar o link da sala."</em></p>
 <p class="issue-summary">Quando o usuário quer chamar atenção de alguém para um arquivo em particular, a única opção hoje é compartilhar o link da sala — que abre tudo, sem contexto. Não há como apontar diretamente para um arquivo dentro de um bloco, o que faz a referência perder precisão e força o receptor a procurar o que foi mencionado.</p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK</div>
-<div class="issue-title">O editor de texto não suporta operações básicas de formatação e conteúdo estruturado</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">O editor de texto não suporta operações básicas de formatação e conteúdo estruturado</div>
 <span class="priority-tag priority-medium">🧩 Usabilidade</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
 <p class="issue-summary"><em>"No bloco de texto, não consigo copiar e colar ou construir uma tabela, pois ele não fica renderizado corretamente."</em></p>
 <p class="issue-summary">O bloco de texto falha nas operações mais esperadas de um editor: conteúdo colado não mantém sua estrutura, e tabelas não são renderizadas. Isso faz com que o usuário não consiga registrar informações no formato que já tem — criando retrabalho ou abandono do recurso.</p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK · 2026-06-18 · Viviane Ducarme</div>
-<div class="issue-title">Fluxo de exclusão de assets órfãos ao remover blocos</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Fluxo de exclusão de assets órfãos ao remover blocos</div>
 <span class="priority-tag priority-medium">💡 Sugestão</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-18 · Viviane Ducarme</div>
 <p class="issue-summary"><em>"um mesmo asset pode existir em mais de uma sala. e pode existir sem estar em nenhuma sala. mas ao apagar do bloco e aquela é a única sala que existe o asset, eu poderia mostrar um pop-up se o usuário quer apagar o asset da ferramenta.
  
 nesse meu caso, essa ação vai me obrigar a navegar pra outro lugar pra fazer isso. eu imagino que ninguém vai fazer isso, e o armazenamento só vai crescer, já que apagar coisas exige um esforço adicional (e ninguém tem muito incentivo pra apagar coisas).
@@ -1884,14 +1901,16 @@ nesse meu caso, essa ação vai me obrigar a navegar pra outro lugar pra fazer i
 no limite, a gente vai ter um limite de storage. o usuário só vai se dar conta que precisa apagar coisas quando vier um lembrete. e ai vai entrar na biblioteca e vai ter tanta coisa lá que vai ser difícil definir o que pode ou não ser apagado com segurança"</em></p>
 <p class="issue-summary">O usuário aponta a dificuldade de gerenciar o armazenamento ao deletar blocos que contêm assets exclusivos, exigindo navegação extra para a exclusão definitiva. A proposta visa implementar um pop-up de confirmação durante a deleção do bloco para oferecer a opção de remover o asset da biblioteca, evitando o acúmulo desnecessário de dados.</p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK · 2026-06-18 · Viviane Ducarme</div>
-<div class="issue-title">Adição de pop-up para deleção de assets órfãos</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Adição de pop-up para deleção de assets órfãos</div>
 <span class="priority-tag priority-medium">💡 Sugestão</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-18 · Viviane Ducarme</div>
 <p class="issue-summary"><em>"um mesmo asset pode existir em mais de uma sala. e pode existir sem estar em nenhuma sala. mas ao apagar do bloco e aquela é a única sala que existe o asset, eu poderia mostrar um pop-up se o usuário quer apagar o asset da ferramenta.
  
 nesse meu caso, essa ação vai me obrigar a navegar pra outro lugar pra fazer isso. eu imagino que ninguém vai fazer isso, e o armazenamento só vai crescer, já que apagar coisas exige um esforço adicional (e ninguém tem muito incentivo pra apagar coisas).
@@ -1900,128 +1919,179 @@ no limite, a gente vai ter um limite de storage. o usuário só vai se dar conta
  "</em></p>
 <p class="issue-summary">A usuária sugere a implementação de um pop-up de confirmação para deletar assets durante a remoção de blocos, evitando que arquivos fiquem órfãos no sistema. Essa melhoria visa otimizar a gestão de armazenamento e prevenir o acúmulo desnecessário de dados, simplificando o fluxo de trabalho do usuário.</p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK · 2026-06-19 · Vitor Makiyama</div>
-<div class="issue-title">Dificuldade de descoberta na gestão de participantes</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Dificuldade de descoberta na gestão de participantes</div>
 <span class="priority-tag priority-medium">🧩 Usabilidade</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-19 · Vitor Makiyama</div>
 <p class="issue-summary"><em>"(opinião) o modal de gestão de participantes aparece quando se clica na bolinha de algum usuário. isso não é claro o suficiente num primeiro contato que a gestão de participantes é ali e não no botão muito maior 'configurações'"</em></p>
 <p class="issue-summary">O usuário relata que a localização da gestão de participantes, vinculada a ícones de usuários, não é intuitiva para novos acessos. A proximidade visual com o botão de 'configurações' gera confusão, sugerindo uma falha na hierarquia de elementos da interface.</p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK · 2026-06-23 · Viviane Ducarme</div>
-<div class="issue-title">Inclusão de Termos e Condições de Uso na plataforma</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Inclusão de Termos e Condições de Uso na plataforma</div>
 <span class="priority-tag priority-high">🧩 Usabilidade</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-23 · Viviane Ducarme</div>
 <p class="issue-summary"><em>"Precisamos adicionar na plataforma os termos e condições de uso. "</em></p>
 <p class="issue-summary">A usuária solicita a implementação de uma seção contendo os termos e condições de uso da plataforma. A medida visa garantir a conformidade legal e a transparência nas políticas de utilização do sistema.</p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK · 2026-06-23 · Viviane Ducarme</div>
-<div class="issue-title">Integração de suporte humano na plataforma</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Integração de suporte humano na plataforma</div>
 <span class="priority-tag priority-medium">💡 Sugestão</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-23 · Viviane Ducarme</div>
 <p class="issue-summary"><em>"Precisamos, em algum nível, ter um contato humano na plataforma? Se sim, ela vai estar embedada no chat, vai ser o Tidio separado, vai ser um link para o whats do Gui? "</em></p>
 <p class="issue-summary">A usuária questiona como será realizada a implementação de um canal de atendimento humano dentro da interface. Ela busca esclarecimentos sobre o formato dessa integração, avaliando se será nativa, via chat externo ou redirecionamento para aplicativos de mensageria.</p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK · 2026-06-22 · Viviane Ducarme</div>
-<div class="issue-title">Dificuldade em referenciar arquivos da biblioteca no MS Teams</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Dificuldade em referenciar arquivos da biblioteca no MS Teams</div>
 <span class="priority-tag priority-medium">🕳️ Lacuna de funcionalidade</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-22 · Viviane Ducarme</div>
 <p class="issue-summary"><em>"Dado um arquivo, gostaria de poder referenciá-lo diretamente ao compartilhar no Teams. Em paralelo, uma observação é que eu quis subir um arquivo agora que eu achei que não fazia sentido criar uma sala pra ele, mas ao subir para a biblioteca, eu não consigo apontar para ele. "</em></p>
 <p class="issue-summary">A usuária deseja maior flexibilidade ao compartilhar arquivos da plataforma diretamente no Microsoft Teams. Ela relata que, ao carregar arquivos para a biblioteca fora de uma sala específica, não consegue gerar links diretos para referência ou compartilhamento externo.</p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK · 2026-06-24 · Amanda (teste de usabilidade)</div>
-<div class="issue-title">Descrições dos papéis de participante ficam escondidas ao adicionar membro</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Descrições dos papéis de participante ficam escondidas ao adicionar membro</div>
 <span class="priority-tag priority-medium">🧩 Usabilidade</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-24 · Amanda (teste de usabilidade)</div>
 <p class="issue-summary"><em>"ela ficou na dúvida de qual papel adicioná-lo e ela não viu que tinha a descrição dos papéis embaixo. Ela só percebeu na segunda vez que ela foi utilizar."</em></p>
 <p class="issue-summary">Amanda não percebeu as descrições dos papéis durante o primeiro uso — só as encontrou no segundo acesso. A informação existe, mas não tem visibilidade suficiente no momento em que o usuário mais precisa dela: ao escolher o papel antes de confirmar o convite.</p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK · 2026-06-24 · Amanda + Viviane + Victor (recorrente)</div>
-<div class="issue-title">Thumbnails de participantes não são claramente clicáveis — usuários vão para "Editar" por engano</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Thumbnails de participantes não são claramente clicáveis — usuários vão para "Editar" por engano</div>
 <span class="priority-tag priority-medium">🧩 Usabilidade</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-24 · Amanda + Viviane + Victor (recorrente)</div>
 <p class="issue-summary"><em>"ela clicou no toggle de editar para ver os participantes enquanto ela não precisava fazer isso [...] isso é algo que eu mesma já passei de clicar no editar e acho que o Victor também comentou sobre não estar muito claro que os participantes é clicável."</em></p>
 <p class="issue-summary">Três pessoas independentemente clicaram no botão "Editar/Configurações" na tentativa de gerenciar participantes, sem perceber que o acesso correto é pelos thumbnails dos avatares. Esse padrão recorrente indica que o ponto de entrada da gestão de participantes está visualmente subestimado. Confirma o feedback anterior de Victor (NOD).
     </p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK · 2026-06-24 · Amanda (teste de usabilidade)</div>
-<div class="issue-title">Termo "tenant" no papel de Gesh não é compreensível para usuários finais</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Termo "tenant" no papel de Gesh não é compreensível para usuários finais</div>
 <span class="priority-tag priority-low">✏️ Copy</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-24 · Amanda (teste de usabilidade)</div>
 <p class="issue-summary"><em>"no papel de Gesh, a gente faz uma menção de tenant e tenant não é um texto que a pessoa entende, então talvez trocar para empresa."</em></p>
 <p class="issue-summary">O termo técnico "tenant" aparece na descrição do papel de Gesh mas não faz parte do vocabulário dos usuários finais da plataforma. Substituir por "empresa" alinharia o texto à linguagem usada em outros pontos da interface e reduziria a fricção cognitiva ao escolher papéis.</p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK · 2026-06-24 · Amanda (teste de usabilidade)</div>
-<div class="issue-title">Etapa "filtros disponíveis" no cadastro de data app não tem contexto explicativo</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Etapa "filtros disponíveis" no cadastro de data app não tem contexto explicativo</div>
 <span class="priority-tag priority-low">🕳️ Lacuna de funcionalidade</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-24 · Amanda (teste de usabilidade)</div>
 <p class="issue-summary"><em>"na parte do cadastro de data apps, aparece a etapa de filtros disponíveis e ela não sabe ainda o que significa isso. Disse que provavelmente para dados e ela pulou."</em></p>
 <p class="issue-summary">Amanda encontrou a etapa "filtros disponíveis" no fluxo de cadastro de data app sem compreender seu propósito. Sem tooltip, texto auxiliar ou exemplo, ela assumiu que era algo relacionado a dados e avançou sem interagir. Usuários podem estar pulando configurações importantes por falta de orientação.</p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK · 2026-06-24 · Amanda (teste de usabilidade)</div>
-<div class="issue-title">Sugestão: arrastar datatype diretamente para o bloco correspondente</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Sugestão: arrastar datatype diretamente para o bloco correspondente</div>
 <span class="priority-tag priority-low">💡 Sugestão</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-24 · Amanda (teste de usabilidade)</div>
 <p class="issue-summary"><em>"ela perguntou também quando o datatype foi adicionado, se não daria pra arrastar o datatype para o bloco respectivo que ela gostaria."</em></p>
 <p class="issue-summary">Amanda sugeriu a possibilidade de arrastar um datatype recém-adicionado diretamente para o bloco de destino. A interação via drag-and-drop tornaria o fluxo de associação mais direto e intuitivo, reduzindo o número de cliques necessários para vincular um datatype a um bloco específico.</p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK · 2026-06-24 · Amanda (teste de usabilidade)</div>
-<div class="issue-title">Participante não aparece disponível para adicionar enquanto convite está pendente</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Participante não aparece disponível para adicionar enquanto convite está pendente</div>
 <span class="priority-tag priority-medium">🕳️ Lacuna de funcionalidade</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-24 · Amanda (teste de usabilidade)</div>
 <p class="issue-summary"><em>"primeiro que ele não estava disponível, porque ele ainda não tinha aceito o convite."</em></p>
 <p class="issue-summary">Amanda tentou adicionar o Helmet como participante de uma sala, mas ele não aparecia na lista porque o convite ainda estava pendente de aceite. A plataforma não oferece nenhum feedback indicando o motivo da ausência — o usuário fica sem saber se a pessoa não existe, ainda não aceitou, ou se há outro problema.</p>
 </div>
-<div class="issue-card">
-<div class="issue-top">
-<div>
-<div class="issue-id">FEEDBACK · 2026-06-25 · Amanda Moraes</div>
-<div class="issue-title">Correção no comportamento de inserção de dataapps em blocos</div>
-</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Correção no comportamento de inserção de dataapps em blocos</div>
 <span class="priority-tag priority-medium">🧩 Usabilidade</span>
-</div>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-25 · Amanda Moraes</div>
 <p class="issue-summary"><em>"Sempre que adicionamos um novo dataapp "por dentro da Sala", ele adiciona no último bloco, porém o bloco em edição, neste exemplo, era um do meio da lista. Como não tem como arrastar dataapps entre os blocos da sala, fica meio confuso (no meu caso eu nem vi o dataapp sendo adicionado, só vi quando salvei e achei ele adicionado lá embaixo)"</em></p>
 <p class="issue-summary">A usuária aponta que novos dataapps são adicionados automaticamente ao final da lista, mesmo quando a edição ocorre em blocos intermediários. A ausência de uma função de reordenação torna a experiência confusa, dificultando a localização do item inserido.</p>
 </div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Dúvida sobre sistema de notificações em compartilhamento de salas</div>
+<span class="priority-tag priority-medium">💡 Sugestão</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-07-14 · Amanda Moraes</div>
+<p class="issue-summary"><em>"Aqui é mais uma dúvida do que um feedback: hoje quando eu compartilho uma sala com alguém, ele recebe uma notificação avisando? (Compartilhei hoje uma sala com vocês, com umas ferramentas meio "genéricas" que criei, dai não sei se vocês vão enxergá-la)"</em></p>
+<p class="issue-summary">A usuária questiona se o sistema emite notificações automáticas ao compartilhar salas com outros membros. Ela manifesta incerteza sobre a visibilidade de ferramentas customizadas compartilhadas recentemente e sugere maior clareza no feedback de notificação do sistema.</p>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Convidar usuário novo para o tenant a partir do modal de convidados da sala</div>
+<span class="priority-tag priority-medium">💡 Sugestão</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-06-25 · Vitor Makiyama</div>
+<p class="issue-summary"><em>"Eu deveria poder convidar alguém novo para o tenant a partir do modal de convidados da sala"</em></p>
+<p class="issue-summary">O usuário aponta que, ao gerenciar os convidados de uma sala, só consegue adicionar pessoas que já pertencem ao tenant. Sugere permitir convidar um usuário totalmente novo para o tenant diretamente pelo modal de convidados da sala, sem precisar sair do fluxo.</p>
+</div>
+</details>
+</div>
+</details>
 </div> <!-- close tab-feedback -->
 <!-- TAB: ALTERAÇÕES NA SALA E FULL SCREEN -->
 <div class="tab-panel" id="tab-alteracoes-sala">
@@ -2172,40 +2242,8 @@ no limite, a gente vai ter um limite de storage. o usuário só vai se dar conta
     setTimeout(function() { renderMermaids(panel); }, 50);
   }
 
-  function initCollapsibleCards() {
-    var CHEVRON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
-    var selectors = '#tab-bugs .issue-card, #tab-feedback .issue-card';
-    document.querySelectorAll(selectors).forEach(function(card) {
-      var top = card.querySelector('.issue-top');
-      if (!top) return;
-
-      var toWrap = Array.from(card.children).filter(function(el) { return el !== top; });
-      if (!toWrap.length) return;
-
-      var body = document.createElement('div');
-      body.className = 'card-body';
-      toWrap.forEach(function(el) { body.appendChild(el); });
-      card.appendChild(body);
-
-      var titleEl = top.querySelector('.issue-title');
-      if (titleEl) {
-        var chevron = document.createElement('span');
-        chevron.className = 'card-chevron';
-        chevron.innerHTML = CHEVRON;
-        titleEl.insertBefore(chevron, titleEl.firstChild);
-      }
-
-      card.classList.add('collapsible', 'collapsed');
-
-      top.addEventListener('click', function() {
-        card.classList.toggle('collapsed');
-      });
-    });
-  }
-
   // Render mermaids in the initially active tab
   document.addEventListener('DOMContentLoaded', function() {
-    initCollapsibleCards();
     var activePanel = document.querySelector('.tab-panel.active');
     if (activePanel) renderMermaids(activePanel);
   });
