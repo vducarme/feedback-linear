@@ -924,7 +924,7 @@
 <div class="tabs-nav">
 <button class="tab-btn active" onclick="switchTab('novartis')" style="display:none">Missao Aguia Novartis</button>
 <button class="tab-btn" onclick="switchTab('cadastro')">Redesign Cadastro de Data App</button>
-<button class="tab-btn active" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">12</span></button>
+<button class="tab-btn active" onclick="switchTab('bugs')">Bugs / Melhorias <span class="tab-count">16</span></button>
 <button class="tab-btn" onclick="switchTab('feedback')">Feedback de Usuários</button>
 <button class="tab-btn" onclick="switchTab('backlog')">Backlog de Discussoes <span class="tab-count">9</span></button>
 <button class="tab-btn" onclick="switchTab('alteracoes-sala')">Alterações na sala e full screen</button>
@@ -1109,7 +1109,7 @@
 <details class="issue-section" open>
 <summary>
 <svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-Prioridade <span class="issue-section-count">4</span>
+Prioridade <span class="issue-section-count">8</span>
 </summary>
 <div class="issues-table">
 <details class="issue-row">
@@ -1235,6 +1235,130 @@ console do google chrome mostra uma série de erros
 </ul>
 <div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
 <strong>Consequência:</strong> Usuários perdem agilidade na localização de ativos de dados e relatórios ao dependerem exclusivamente do nome do DataApp.
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">5</div>
+<div class="issue-row-id"><a href="https://github.com/analytix-git/bombord/issues/79" onclick="event.stopPropagation()" target="_blank">#79</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Erro de autenticação e campos instáveis no login</div>
+<div class="issue-row-author">Amanda Moraes</div>
+<span class="priority-tag priority-high">Alto</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary"><em>"Não estou conseguindo logar, dá código errado e quando eu retento ele fica meio caótico na hora de preenchr os campos"</em></p>
+<p class="issue-summary">Como usuário, ao tentar fazer login na plataforma, o sistema rejeita as credenciais com erro de "código errado" e, ao repetir a tentativa, os campos de entrada ficam instáveis. Isso bloqueia completamente o acesso à plataforma.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Acessar a página de login</li>
+<li>Inserir as credenciais e enviar</li>
+<li>Observar o erro de "código errado"</li>
+<li>Tentar preencher os campos novamente</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Página de login</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Validação das credenciais</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Erro "código errado"</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Campos ficam instáveis</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Página de login</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Validação das credenciais</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Login bem-sucedido</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Credenciais válidas devem autenticar o usuário com sucesso</li>
+<li>Os campos devem permanecer estáveis e editáveis após um erro de login</li>
+<li>A mensagem de erro deve ser clara e não quebrar a interface do formulário</li>
+</ul>
+<div style="background: var(--red-100); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> O usuário fica totalmente impossibilitado de acessar a plataforma e os dados necessários para o trabalho.
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">6</div>
+<div class="issue-row-id"><a href="https://github.com/analytix-git/bombord/issues/80" onclick="event.stopPropagation()" target="_blank">#80</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Edição do título da sala inline não é salva</div>
+<div class="issue-row-author">Amanda Moraes</div>
+<span class="priority-tag priority-medium">Médio</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary"><em>"No modo edição, ao clicar no título da sala ele até me permite editá-lo, mas ele não salva. PRa editar o nome tem que ser via configurações"</em></p>
+<p class="issue-summary">Como usuário, no modo de edição, ao clicar no título da sala consigo editá-lo, mas a alteração não é salva — a única forma de renomear é pelas configurações.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Entrar no modo de edição da sala</li>
+<li>Clicar no título da sala</li>
+<li>Alterar o texto do título</li>
+<li>Pressionar Enter ou clicar fora para salvar</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Modo de edição da sala</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Edita o título inline</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Alteração não é salva</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Modo de edição da sala</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Edita o título inline</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Alteração salva</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">UI reflete o novo título</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>O título deve ser salvo ao pressionar Enter ou perder o foco</li>
+<li>A alteração deve persistir após recarregar a sala</li>
+<li>A interface deve refletir o novo nome imediatamente</li>
+</ul>
+<div style="background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> O usuário é forçado a um fluxo extra nas configurações para concluir uma edição simples, reduzindo a eficiência.
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">7</div>
+<div class="issue-row-id"><a href="https://github.com/analytix-git/bombord/issues/81" onclick="event.stopPropagation()" target="_blank">#81</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Geração de descrição da sala via IA só replica o texto digitado</div>
+<div class="issue-row-author">Amanda Moraes</div>
+<span class="priority-tag priority-medium">Médio</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary"><em>"Na criação da sala, fala que a partir da descrição que colocarmos ele vai gerar comia uma descrição nova, mas só replica a mesma que criamos"</em></p>
+<p class="issue-summary">Como usuário, ao criar uma sala com auxílio de IA, espero que a descrição seja aprimorada, mas a IA apenas replica o mesmo texto que digitei, sem alteração.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Acessar a tela de criação de sala</li>
+<li>Inserir um texto no campo de descrição</li>
+<li>Clicar na opção de gerar descrição com IA</li>
+<li>Observar o conteúdo do campo de descrição</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Usuário digita a descrição</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Clica em gerar com IA</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Texto original é replicado</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Usuário digita a descrição</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Clica em gerar com IA</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Descrição otimizada pela IA</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>O sistema deve gerar uma nova descrição baseada no texto do usuário</li>
+<li>A descrição gerada não deve ser idêntica ao texto fornecido</li>
+<li>O campo de descrição deve ser atualizado após a execução da IA</li>
+</ul>
+<div style="background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> A automação não entrega o valor prometido — o usuário ainda precisa reescrever a descrição manualmente.
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">8</div>
+<div class="issue-row-id"><a href="https://github.com/analytix-git/bombord/issues/82" onclick="event.stopPropagation()" target="_blank">#82</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Campo de input insere emoji automático que não pode ser editado</div>
+<div class="issue-row-author">Amanda Moraes</div>
+<span class="priority-tag priority-medium">Médio</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary"><em>"ele está entrando um emoji automático e nao me deixa mudar"</em></p>
+<p class="issue-summary">Como usuário, ao preencher um campo de texto, um emoji é inserido automaticamente e não consigo editá-lo ou removê-lo. O relato não especifica em qual campo/tela ocorre — a ser confirmado na reprodução.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Acessar a tela que contém o campo afetado</li>
+<li>Clicar no campo de texto</li>
+<li>Observar o emoji inserido automaticamente</li>
+<li>Tentar apagar ou editar o caractere</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Foca o campo de texto</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Emoji inserido automaticamente</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Edição bloqueada</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Foca o campo de texto</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Usuário digita livremente</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Conteúdo totalmente editável</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Nenhum emoji deve ser inserido sem uma ação do usuário</li>
+<li>O usuário deve conseguir apagar ou editar qualquer caractere do campo</li>
+<li>O campo deve aceitar caracteres alfanuméricos padrão</li>
+</ul>
+<div style="background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> O usuário é impedido de preencher corretamente o campo, comprometendo a integridade dos dados inseridos.
     </div>
 </div>
 </details>
