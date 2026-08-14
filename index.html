@@ -1109,7 +1109,7 @@
 <details class="issue-section" open>
 <summary>
 <svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-Prioridade <span class="issue-section-count">8</span>
+Prioridade <span class="issue-section-count">11</span>
 </summary>
 <div class="issues-table">
 <details class="issue-row">
@@ -1359,6 +1359,99 @@ console do google chrome mostra uma série de erros
 </ul>
 <div style="background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
 <strong>Consequência:</strong> O usuário é impedido de preencher corretamente o campo, comprometendo a integridade dos dados inseridos.
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">9</div>
+<div class="issue-row-id"><a href="https://github.com/analytix-git/bombord/issues/106" onclick="event.stopPropagation()" target="_blank">#106</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Card da sala mostra contagem de assets errada (mostra 4, sala tem 2)</div>
+<div class="issue-row-author">Guilherme Cordeiro</div>
+<span class="priority-tag priority-medium">Médio</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary"><em>"aqui tbm mostra 4 assets mas só tem 2 na sala"</em></p>
+<p class="issue-summary">Como usuário navegando pelas salas, o card da sala "Insuficiência Cardíaca e Doença de Chagas" mostra 4 documentos, mas ao abrir a sala há apenas 2 assets. A contagem no card está inflada e não reflete o conteúdo real da sala.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Abrir a lista de salas</li>
+<li>Localizar o card da sala "Insuficiência Cardíaca e Doença de Chagas"</li>
+<li>Observar o contador de documentos no card (mostra 4)</li>
+<li>Abrir a sala e contar os assets (apenas 2)</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Sala tem 2 assets</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Card renderiza o contador</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Card mostra 4</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Sala tem 2 assets</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Card renderiza o contador</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Card mostra 2</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>O contador de documentos/assets do card deve ser igual ao número de assets dentro da sala</li>
+<li>A contagem deve permanecer correta após adicionar ou remover assets</li>
+<li>Assets deletados ou órfãos não devem ser contados</li>
+</ul>
+<div style="background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> O contador engana sobre o conteúdo da sala, reduzindo a confiança nos cards e tornando-os pouco confiáveis para localizar salas.
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">10</div>
+<div class="issue-row-id"><a href="https://github.com/analytix-git/bombord/issues/107" onclick="event.stopPropagation()" target="_blank">#107</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">Título da sala corta; "ver descrição completa" repete o título em vez de expandi-lo</div>
+<div class="issue-row-author">Guilherme Cordeiro</div>
+<span class="priority-tag priority-medium">Médio</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary"><em>"dentro da sala, o titulo corta.. qdo clica em ver descrição completa, ele repete o titulo na parte inferior ao inves de aumentar a area do titulo"</em></p>
+<p class="issue-summary">Como usuário dentro de uma sala, o título é cortado no cabeçalho. Ao clicar em "ver descrição completa", o título é repetido na parte inferior do painel em vez de a área do título expandir para mostrá-lo por completo.</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Abrir uma sala com título longo (ex: "Insuficiência Cardíaca e Doença de Chagas")</li>
+<li>Notar que o título aparece cortado no cabeçalho</li>
+<li>Clicar em "ver descrição completa"</li>
+<li>Observar onde e como o título aparece</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Abrir sala com título longo</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Título cortado no cabeçalho</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Clica em ver descrição completa</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Título é duplicado abaixo</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Abrir sala com título longo</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Título cortado no cabeçalho</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Clica em ver descrição completa</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Área do título expande e mostra completo</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Expandir a descrição deve mostrar o título completo sem cortes</li>
+<li>O título não deve ser duplicado em nenhum lugar do painel expandido</li>
+<li>Recolher deve voltar ao cabeçalho cortado de forma limpa</li>
+</ul>
+<div style="background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> O título completo nunca é lido de forma limpa e o título duplicado parece quebrado, prejudicando a clareza do cabeçalho da sala.
+    </div>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-rank">11</div>
+<div class="issue-row-id"><a href="https://github.com/analytix-git/bombord/issues/108" onclick="event.stopPropagation()" target="_blank">#108</a></div><div class="issue-row-type">BUG</div>
+<div class="issue-row-title">E-mail de convite aceito: enviado 2x, botão "Ir para plataforma" quebra e horário no fuso errado</div>
+<div class="issue-row-author">Guilherme Cordeiro</div>
+<span class="priority-tag priority-medium">Médio</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<p class="issue-summary"><em>"o email de confirmação chegou duas vezes, com o botao ir para plataforma quebrando para fora do espaço. o horario está errado tbm. não pegou o gmt correto. deveria ser 19h:17 e não 22h17"</em></p>
+<p class="issue-summary">Como usuário que convidou uma pessoa externa, ao ter o convite aceito recebo o e-mail "Convite aceito!" — mas ele chega duas vezes, o botão "Ir para plataforma" aparece quebrado para fora do espaço, e o horário do primeiro acesso está no fuso errado (mostra 22h17 UTC quando deveria ser 19h17 GMT-3).</p>
+<div class="flow-label">Passos para reproduzir</div>
+<ol style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>Convidar um usuário externo pela plataforma</li>
+<li>O convidado aceita o convite e faz o primeiro acesso</li>
+<li>Verificar a caixa de entrada de quem convidou pelo e-mail "Convite aceito!"</li>
+<li>Observar quantos e-mails chegam, o layout do botão e o horário exibido</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;"><div><div class="flow-label">Fluxo atual</div><div class="bug-flow"><div class="bug-flow-node">Convite aceito</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Sistema envia o e-mail</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">E-mail entregue 2 vezes</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node bad">Botão quebra e horário em UTC 22h17</div></div></div><div><div class="flow-label">Fluxo esperado</div><div class="bug-flow"><div class="bug-flow-node">Convite aceito</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Sistema envia o e-mail 1 vez</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node">Botão dentro do espaço</div><div class="bug-flow-arrow">↓</div><div class="bug-flow-node good">Horário local 19h17</div></div></div></div>
+<div class="flow-label">Critérios de aceite</div>
+<ul style="margin: 8px 0 20px 20px; font-size: 14px; color: var(--stone-600); line-height: 1.9;">
+<li>O e-mail de convite aceito deve ser entregue exatamente uma vez por aceitação</li>
+<li>O botão "Ir para plataforma" deve caber dentro do container nos clientes de e-mail comuns</li>
+<li>O horário do primeiro acesso deve ser exibido no fuso correto (GMT-3), ex: 19h17 em vez de 22h17</li>
+</ul>
+<div style="background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--stone-700); line-height: 1.6;">
+<strong>Consequência:</strong> O e-mail transacional parece quebrado (envio duplicado + botão fora do lugar) e informa o horário errado, prejudicando a confiança no fluxo de convite e onboarding.
     </div>
 </div>
 </details>
@@ -1982,7 +2075,7 @@ Roles &amp; Permissions <span class="issue-section-count">8</span>
 <details class="issue-section" open>
 <summary>
 <svg class="issue-section-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-Feedbacks <span class="issue-section-count">19</span>
+Feedbacks <span class="issue-section-count">22</span>
 </summary>
 <div class="issues-table">
 <details class="issue-row">
@@ -2255,6 +2348,46 @@ no limite, a gente vai ter um limite de storage. o usuário só vai se dar conta
 
 <p class="issue-summary"><em>"E também mudar os datapps entre blocos"</em></p>
 <p class="issue-summary">A usuária sugere a implementação de uma funcionalidade que permita reorganizar ou mover os DataApps entre diferentes blocos na plataforma. Essa melhoria visa oferecer maior flexibilidade na estruturação e organização do espaço de trabalho do usuário.</p>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Limitação de tamanho para upload de arquivos</div>
+<span class="priority-tag priority-medium">🕳️ Lacuna de funcionalidade</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-08-12 · Vitor Makiyama</div>
+<p class="issue-summary"><em>"Mands, sinto lhe informar, mas na real nem oprimeiro upload parece que funcionou. o limite atual está em 50Mb só. alguma chance de um zip desse csv de 1Gb ficar abaixo disso? ehehe &nbsp; a próxima versão vai aumentar pra 250Mb. arbitrário, mas é só pra gente ganhar mais conhecimento sobre como uploads maiores podem funcionar. &nbsp; vou adicionar um item aqui pra gente estudar arquivos ainda maiores"</em></p>
+<p class="issue-summary">O usuário relata que o limite atual de 50Mb é insuficiente para o envio de datasets de 1Gb, mesmo utilizando compressão. A equipe planeja aumentar o limite para 250Mb na próxima versão e iniciará um estudo técnico para viabilizar o processamento de arquivos maiores.</p>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-id">FEEDBACK</div>
+<div class="issue-row-title">Implementação de notificação por e-mail para inclusão em salas</div>
+<span class="priority-tag priority-medium">💡 Sugestão</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta">2026-08-12 · Vitor Makiyama</div>
+<p class="issue-summary"><em>"se um usuario for adicionado a uma nova sala, ele precisa ser notificado por email"</em></p>
+<p class="issue-summary">O usuário Vitor Makiyama solicita que o sistema envie notificações automáticas por e-mail sempre que um colaborador for adicionado a uma nova sala. Essa funcionalidade visa melhorar a comunicação interna e garantir que os usuários estejam cientes de novos acessos concedidos.</p>
+</div>
+</details>
+<details class="issue-row">
+<summary>
+<div class="issue-row-title">Sala não mostra o status do convite (enviado / aceito)</div>
+<span class="priority-tag priority-medium">🕳️ Lacuna de funcionalidade</span>
+<svg class="issue-row-chevron" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</summary>
+<div class="issue-row-body">
+<div class="feedback-meta" style="margin-bottom:10px;"><a href="https://github.com/analytix-git/bombord/issues/105" onclick="event.stopPropagation()" target="_blank" rel="noopener" style="font-weight:600;color:#0969da;text-decoration:none;">Issue #105 no GitHub &#8599;</a></div>
+
+<div class="feedback-meta">2026-08-12 · Guilherme Cordeiro</div>
+<p class="issue-summary"><em>"eu mandei o convite agora para uma pessoa externa e não tem nenhum lugar na sala que mostre se o convite foi enviado e se foi aceito.. não sei se esta no backlog isso"</em></p>
+<p class="issue-summary">Ao enviar um convite para uma pessoa externa a partir de uma sala, o usuário não tem onde acompanhar o status do convite — se foi enviado e se foi aceito. Hoje não existe nenhuma indicação de status de convite dentro da sala. Relacionado às issues #26 e #29.</p>
 </div>
 </details>
 </div>
